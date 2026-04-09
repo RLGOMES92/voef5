@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Version: 3.6 - Corrigir formatação de datas e função setTipo -->
+<!-- Version: 3.8 - Código Completo com Autocomplete e Ajustes Mobile -->
 <html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus_Jakarta_Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -34,26 +34,50 @@
         @layer components {
             .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-md text-sm box-border; }
             .premium-card { @apply bg-white rounded-[24px] border border-slate-100 shadow-lg p-6 transition-all hover:-translate-y-2 flex flex-col; }
-            .btn-counter { @apply w-8 h-8 rounded-full border border-white/30 flex items-center justify-center font-bold text-white hover:bg-white/20; }
+            
+            .btn-counter { @apply w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center font-bold text-safira-dark hover:bg-slate-100 active:scale-90 transition-all bg-white flex-shrink-0; }
+            
             .trip-btn { @apply px-4 py-1.5 rounded-full border-2 font-bold text-xs transition-all; }
             .trip-active { @apply bg-brand-green border-brand-green text-white; }
             .trip-inactive { @apply bg-transparent border-white/30 text-white hover:bg-white/10; }
             .step-card { @apply bg-white rounded-2xl p-5 shadow-md border border-slate-50 flex flex-col items-center text-center transition-all hover:shadow-lg; }
             .testimonial-card { @apply bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col items-center text-center shadow-sm; }
             .btn-submit { @apply w-full max-w-full bg-brand-green hover:bg-emerald-600 text-white font-black rounded-xl uppercase italic transition-all shadow-xl box-border; }
+            
+            .dropdown-menu {
+                @apply absolute z-[120] bottom-full left-0 w-full max-w-full bg-white border border-slate-200 shadow-2xl rounded-2xl p-4 mb-2 space-y-4 box-border;
+                min-width: 0;
+            }
+            .dropdown-menu .flex { min-width: 0; flex-wrap: wrap; gap: 0.5rem; }
+            .dropdown-menu button { min-width: 2.25rem; }
+            .dropdown-menu span { min-width: 1.5rem; }
+            .dropdown-menu .flex.items-center.justify-between { justify-content: space-between; }
         }
 
         .hero-slider { height: 70vh; width: 100%; position: relative; overflow: hidden; background: #000; }
         @media (min-width: 1024px) { .hero-slider { height: 85vh; } }
         
-        .slide-item { 
-            position: absolute; width: 100%; height: 100%; 
+        .slide-item {
+            position: absolute; width: 100%; height: 100%;
             opacity: 0; transition: opacity 1.5s ease-in-out;
-            background-size: cover; 
+            background-size: cover;
             background-repeat: no-repeat;
-            background-position: center top;
+            background-position: center 20%;
         }
         .slide-item.active { opacity: 1; }
+
+        @media (max-width: 640px) {
+            .slide-item { background-position: center center; }
+        }
+
+        @media (min-width: 1280px) { .slide-item { background-position: center top; } }
+
+        .hero-slider .absolute.inset-0 {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .dropdown-menu .flex > div { min-width: 0; }
+        .dropdown-menu .flex > div span { white-space: nowrap; }
 
         #navbar.scrolled { background-color: rgba(255, 255, 255, 0.98) !important; @apply py-2 shadow-lg border-b border-slate-100; }
         
@@ -64,38 +88,55 @@
             box-sizing: border-box;
         }
 
-        /* Responsividade do Formulário */
-        @media (max-width: 640px) {
-            .glass-form {
-                min-height: auto;
-            }
-            .glass-form button[type="submit"] {
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
-            }
-        }
+        /* Ajuste para o Autocomplete não mostrar a seta padrão estranha */
+        input::-webkit-calendar-picker-indicator { display: none !important; }
 
-        @media (min-width: 641px) {
-            .glass-form button[type="submit"] {
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-            }
+        @media (max-width: 640px) {
+            .glass-form { min-height: auto; }
+            .glass-form button[type="submit"] { padding-top: 0.75rem; padding-bottom: 0.75rem; }
         }
     </style>
 </head>
 <body class="font-['Plus_Jakarta_Sans'] text-safira-dark bg-slate-50">
 
+    <!-- Lista de Aeroportos para Autocomplete -->
+    <datalist id="aeroportos">
+        <option value="São Paulo (Todos - SAO)"></option>
+        <option value="Guarulhos (GRU)"></option>
+        <option value="Congonhas (CGH)"></option>
+        <option value="Viracopos (VCP)"></option>
+        <option value="Rio de Janeiro (GIG)"></option>
+        <option value="Santos Dumont (SDU)"></option>
+        <option value="Brasília (BSB)"></option>
+        <option value="Belo Horizonte (CNF)"></option>
+        <option value="Lisboa (LIS)"></option>
+        <option value="Paris (CDG)"></option>
+        <option value="Orlando (MCO)"></option>
+        <option value="Miami (MIA)"></option>
+        <option value="Nova York (JFK)"></option>
+        <option value="Londres (LHR)"></option>
+        <option value="Madrid (MAD)"></option>
+        <option value="Roma (FCO)"></option>
+        <option value="Buenos Aires (EZE)"></option>
+        <option value="Cancun (CUN)"></option>
+        <option value="Fortaleza (FOR)"></option>
+        <option value="Salvador (SSA)"></option>
+        <option value="Recife (REC)"></option>
+        <option value="Curitiba (CWB)"></option>
+        <option value="Porto Alegre (POA)"></option>
+    </datalist>
+
     <header id="navbar" class="fixed w-full z-[100] py-4 px-4 lg:px-12 transition-all duration-500">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 lg:gap-4">
                 <img src="img/logo.jpeg" alt="Logo" class="h-10 lg:h-16 rounded-xl shadow-xl">
-                <span id="nav-title" class="font-black text-[11px] xs:text-sm lg:text-2xl italic tracking-tighter text-white drop-shadow-lg uppercase leading-none">
+                <span id="nav-title" class="font-black text-[10px] xs:text-sm lg:text-2xl italic tracking-tighter text-white drop-shadow-lg uppercase leading-none">
                     Atualize sua forma de viajar
                 </span>
             </div>
             
             <div class="flex items-center gap-2">
-                <span id="fale-especialista" class="text-white font-bold italic text-[9px] lg:text-sm drop-shadow-md hidden xs:block">Fale com um especialista agora</span>
+                <span id="fale-especialista" class="text-white font-bold italic text-[8px] sm:text-[9px] lg:text-sm drop-shadow-md block">Fale com um especialista agora</span>
                 <a href="https://wa.me/5511988908306" target="_blank" class="hover:scale-110 transition-transform">
                     <img src="img/zap.png" alt="WhatsApp" class="w-8 h-8 lg:w-12 lg:h-12">
                 </a>
@@ -104,20 +145,20 @@
     </header>
 
     <section class="hero-slider">
-        <div class="slide-item active" style="background-image: url('img/japao.jpg?v=3'); background-position: 75% top;"></div>
-        <div class="slide-item" style="background-image: url('img/torre.jpg?v=3'); background-position: center top;"></div>
-        <div class="slide-item" style="background-image: url('img/rio.jpg?v=3');"></div>
+        <div class="slide-item active" style="background-image: url('img/japao.jpg?v=5');"></div>
+        <div class="slide-item" style="background-image: url('img/torre.jpg?v=5');"></div>
+        <div class="slide-item" style="background-image: url('img/rio.jpg?v=5');"></div>
         
         <div class="absolute inset-0 flex items-center px-6 lg:px-24 bg-black/30">
-            <div class="max-w-3xl">
-                <h1 class="text-2xl lg:text-6xl font-black text-white italic uppercase leading-tight mb-3">
+            <div class="max-w-3xl pt-10 sm:pt-0">
+                <h1 class="text-lg sm:text-2xl lg:text-6xl font-black text-white italic uppercase leading-tight mb-3">
                     Economize em voos <br><span class="text-brand-green">com inteligência —</span><br> sem complicação.
                 </h1>
-                <p class="text-white/90 text-[11px] lg:text-lg font-medium mb-8 italic max-w-lg">
+                <p class="text-white/90 text-[9px] sm:text-[10px] lg:text-lg font-medium mb-6 italic max-w-lg">
                     Encontramos as melhores opções para sua viagem: voos, rotas e experiências.
                 </p>
-                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-4 px-8 rounded-xl text-xs lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-xl">
-                    Simular viagem agora <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-3 lg:py-4 px-6 lg:px-8 rounded-xl text-[10px] lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-xl">
+                    Simular viagem agora <i data-lucide="chevron-right" class="w-4 h-4 lg:w-5 lg:h-5"></i>
                 </a>
             </div>
         </div>
@@ -213,7 +254,7 @@
         </div>
     </section>
 
-    <!-- COTAÇÃO TRANSPARENTE (COM CAMPOS DE BAGAGEM) -->
+    <!-- COTAÇÃO -->
     <section id="cotacao" class="py-20 px-6 bg-safira-dark relative overflow-hidden min-h-[600px] flex items-center justify-center">
         <div class="absolute inset-0 opacity-40 bg-[url('img/rio.jpg')] bg-cover bg-center"></div>
         
@@ -227,73 +268,88 @@
 
             <form onsubmit="enviarWhatsApp(event)" class="glass-form p-4 sm:p-6 lg:p-10 rounded-[32px] space-y-4 text-left shadow-2xl box-border w-full">
                 <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" id="origem" placeholder="✈ Origem" class="input-field" required>
-                    <input type="text" id="destino" placeholder="📍 Destino" class="input-field" required>
+                    <!-- ADICIONADO LIST="AEROPORTOS" -->
+                    <input type="text" id="origem" list="aeroportos" placeholder="✈ Origem" class="input-field" required>
+                    <input type="text" id="destino" list="aeroportos" placeholder="📍 Destino" class="input-field" required>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <input type="text" id="dataIda" onfocus="(this.type='date')" placeholder="📅 Ida" class="input-field" required>
                     <input type="text" id="dataVolta" onfocus="(this.type='date')" placeholder="📅 Volta" class="input-field">
                     
-                    <!-- Passageiros -->
+                    <!-- Passageiros Dropdown Estilo GOL -->
                     <div class="relative">
-                        <button type="button" onclick="toggleDrop('drop-pass')" class="input-field flex justify-between items-center text-xs">
+                        <button type="button" onclick="toggleDrop('drop-pass')" class="input-field flex justify-between items-center text-[10px] xs:text-xs">
                             <span id="label-pass">👥 1 Passag.</span>
                             <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
                         </button>
-                        <div id="drop-pass" class="hidden absolute z-[110] bottom-full left-0 w-full bg-safira-dark border border-white/20 shadow-2xl rounded-2xl p-4 mb-2 space-y-4">
-                            <div class="flex justify-between items-center text-white">
-                                <span class="text-[10px] font-bold uppercase">Adultos</span>
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="count('adt', -1)" class="btn-counter">-</button>
+                        <div id="drop-pass" class="hidden dropdown-menu text-safira-dark">
+                            <!-- Adultos -->
+                            <div class="flex justify-between items-center">
+                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Adultos</span><span class="text-[9px] text-slate-400">+18 anos</span></div>
+                                <div class="flex items-center gap-4">
+                                    <button type="button" onclick="count('adt', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
                                     <span id="q-adt" class="font-bold w-4 text-center">1</span>
-                                    <button type="button" onclick="count('adt', 1)" class="btn-counter">+</button>
+                                    <button type="button" onclick="count('adt', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Crianças</span><span class="text-[8px] text-white/50">2 a 11 anos</span></div>
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="count('chd', -1)" class="btn-counter">-</button>
+                            <!-- Adolescentes -->
+                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
+                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Adolescentes</span><span class="text-[9px] text-slate-400">12 a 17 anos</span></div>
+                                <div class="flex items-center gap-4">
+                                    <button type="button" onclick="count('adl', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
+                                    <span id="q-adl" class="font-bold w-4 text-center">0</span>
+                                    <button type="button" onclick="count('adl', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                                </div>
+                            </div>
+                            <!-- Crianças -->
+                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
+                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Crianças</span><span class="text-[9px] text-slate-400">2 a 11 anos</span></div>
+                                <div class="flex items-center gap-4">
+                                    <button type="button" onclick="count('chd', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
                                     <span id="q-chd" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="count('chd', 1)" class="btn-counter">+</button>
+                                    <button type="button" onclick="count('chd', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Bebês</span><span class="text-[8px] text-white/50">Até 24 meses</span></div>
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="count('inf', -1)" class="btn-counter">-</button>
+                            <!-- Bebês -->
+                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
+                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Bebês</span><span class="text-[9px] text-slate-400">Até 24 meses</span></div>
+                                <div class="flex items-center gap-4">
+                                    <button type="button" onclick="count('inf', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
                                     <span id="q-inf" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="count('inf', 1)" class="btn-counter">+</button>
+                                    <button type="button" onclick="count('inf', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
                                 </div>
                             </div>
-                            <button type="button" onclick="toggleDrop('drop-pass')" class="w-full bg-brand-green text-white py-2 rounded-lg text-[10px] font-bold">PRONTO</button>
+                            <button type="button" onclick="toggleDrop('drop-pass')" class="w-full bg-safira-dark text-white py-2.5 rounded-xl text-[10px] font-bold uppercase mt-2">Pronto</button>
                         </div>
                     </div>
 
-                    <!-- Bagagens -->
+                    <!-- Bagagens Dropdown Estilo GOL -->
                     <div class="relative">
-                        <button type="button" onclick="toggleDrop('drop-bag')" class="input-field flex justify-between items-center text-xs">
+                        <button type="button" onclick="toggleDrop('drop-bag')" class="input-field flex justify-between items-center text-[10px] xs:text-xs">
                             <span id="label-bag">💼 Bagagem</span>
                             <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
                         </button>
-                        <div id="drop-bag" class="hidden absolute z-[110] bottom-full left-0 w-full bg-safira-dark border border-white/20 shadow-2xl rounded-2xl p-4 mb-2 space-y-4">
-                            <div class="flex justify-between items-center text-white">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Mão (10kg)</span></div>
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="countBag('mao', -1)" class="btn-counter">-</button>
+                        <div id="drop-bag" class="hidden dropdown-menu text-safira-dark">
+                            <!-- Mão -->
+                            <div class="flex justify-between items-center">
+                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Mão</span><span class="text-[9px] text-slate-400">Até 10kg</span></div>
+                                <div class="flex items-center gap-4">
+                                    <button type="button" onclick="countBag('mao', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
                                     <span id="q-mao" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="countBag('mao', 1)" class="btn-counter">+</button>
+                                    <button type="button" onclick="countBag('mao', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Despachada (23kg)</span></div>
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="countBag('desp', -1)" class="btn-counter">-</button>
+                            <!-- Despachada -->
+                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
+                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Despachada</span><span class="text-[9px] text-slate-400">Até 23kg</span></div>
+                                <div class="flex items-center gap-4">
+                                    <button type="button" onclick="countBag('desp', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
                                     <span id="q-desp" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="countBag('desp', 1)" class="btn-counter">+</button>
+                                    <button type="button" onclick="countBag('desp', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
                                 </div>
                             </div>
-                            <button type="button" onclick="toggleDrop('drop-bag')" class="w-full bg-brand-green text-white py-2 rounded-lg text-[10px] font-bold">PRONTO</button>
+                            <button type="button" onclick="toggleDrop('drop-bag')" class="w-full bg-safira-dark text-white py-2.5 rounded-xl text-[10px] font-bold uppercase mt-2">Pronto</button>
                         </div>
                     </div>
                 </div>
@@ -310,14 +366,6 @@
     </footer>
 
     <script>
-        // Cache Busting - Força recarregamento da página
-        const pageVersion = '3.6';
-        const lastVersion = localStorage.getItem('pageVersion');
-        if (lastVersion !== pageVersion) {
-            localStorage.setItem('pageVersion', pageVersion);
-            location.reload(true);
-        }
-
         lucide.createIcons();
 
         // Banner Slider
@@ -355,26 +403,26 @@
                 dv.disabled = false; dv.style.opacity = '1';
             } else {
                 bsi.className = 'trip-btn trip-active'; biv.className = 'trip-btn trip-inactive';
-                dv.disabled = false; dv.style.opacity = '1'; dv.value = "";
+                dv.disabled = true; dv.style.opacity = '0.3'; dv.value = "";
             }
         }
 
         // Toggle de Dropdowns
         function toggleDrop(id) {
-            document.querySelectorAll('[id^="drop-"]').forEach(d => {
+            document.querySelectorAll('.dropdown-menu').forEach(d => {
                 if(d.id !== id) d.classList.add('hidden');
             });
             document.getElementById(id).classList.toggle('hidden');
         }
 
         // Contador de Passageiros
-        let passageiros = { adt: 1, chd: 0, inf: 0 };
+        let passageiros = { adt: 1, adl: 0, chd: 0, inf: 0 };
         function count(t, v) {
             if(t === 'adt' && passageiros.adt + v < 1) return;
             if(passageiros[t] + v < 0) return;
             passageiros[t] += v;
             document.getElementById('q-' + t).innerText = passageiros[t];
-            let total = passageiros.adt + passageiros.chd + passageiros.inf;
+            let total = passageiros.adt + passageiros.adl + passageiros.chd + passageiros.inf;
             document.getElementById('label-pass').innerText = `👥 ${total} Passag.`;
         }
 
@@ -395,7 +443,7 @@
             const des = document.getElementById('destino').value;
             const ida = formatarData(document.getElementById('dataIda').value);
             const volta = formatarData(document.getElementById('dataVolta').value);
-            const msg = `Olá! Gostaria de uma cotação:\n\n✈ *Origem:* ${ori}\n📍 *Destino:* ${des}\n📅 *Ida:* ${ida}${volta ? '\n📅 *Volta:* '+volta : ''}\n👥 *Passageiros:* ${passageiros.adt} Adulto(s), ${passageiros.chd} Criança(s), ${passageiros.inf} Bebê(s)\n💼 *Bagagens:* ${bagagens.mao} de mão (10kg) e ${bagagens.desp} despachada(s) (23kg)`;
+            const msg = `Olá! Gostaria de uma cotação:\n\n✈ *Origem:* ${ori}\n📍 *Destino:* ${des}\n📅 *Ida:* ${ida}${volta ? '\n📅 *Volta:* '+volta : ''}\n👥 *Passageiros:* ${passageiros.adt} Adulto(s), ${passageiros.adl} Adolescente(s), ${passageiros.chd} Criança(s), ${passageiros.inf} Bebê(s)\n💼 *Bagagens:* ${bagagens.mao} de mão (10kg) e ${bagagens.desp} despachada(s) (23kg)`;
             window.open(`https://wa.me/5511988908306?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -405,6 +453,13 @@
             if (partes.length !== 3) return '';
             return `${partes[2]}/${partes[1]}/${partes[0]}`;
         }
+
+        // Fechar dropdown ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.relative')) {
+                document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden'));
+            }
+        });
     </script>
 </body>
 </html>
