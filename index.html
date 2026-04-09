@@ -28,7 +28,7 @@
 
     <style type="text/tailwindcss">
         @layer components {
-            .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-md text-sm; }
+            .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-md text-sm box-border; }
             .premium-card { @apply bg-white rounded-[24px] border border-slate-100 shadow-lg p-6 transition-all hover:-translate-y-2 flex flex-col; }
             .btn-counter { @apply w-8 h-8 rounded-full border border-white/30 flex items-center justify-center font-bold text-white hover:bg-white/20; }
             .trip-btn { @apply px-4 py-1.5 rounded-full border-2 font-bold text-xs transition-all; }
@@ -36,6 +36,7 @@
             .trip-inactive { @apply bg-transparent border-white/30 text-white hover:bg-white/10; }
             .step-card { @apply bg-white rounded-2xl p-5 shadow-md border border-slate-50 flex flex-col items-center text-center transition-all hover:shadow-lg; }
             .testimonial-card { @apply bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col items-center text-center shadow-sm; }
+            .btn-submit { @apply w-full max-w-full bg-brand-green hover:bg-emerald-600 text-white font-black rounded-xl uppercase italic transition-all shadow-xl box-border; }
         }
 
         .hero-slider { height: 70vh; width: 100%; position: relative; overflow: hidden; background: #000; }
@@ -56,6 +57,25 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+        }
+
+        /* Responsividade do Formulário */
+        @media (max-width: 640px) {
+            .glass-form {
+                min-height: auto;
+            }
+            .glass-form button[type="submit"] {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+        }
+
+        @media (min-width: 641px) {
+            .glass-form button[type="submit"] {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
         }
     </style>
 </head>
@@ -201,7 +221,7 @@
                 <button type="button" onclick="setTipo('somente-ida')" id="btn-si" class="trip-btn trip-inactive">Somente ida</button>
             </div>
 
-            <form onsubmit="enviarWhatsApp(event)" class="glass-form p-6 lg:p-10 rounded-[32px] space-y-4 text-left shadow-2xl">
+            <form onsubmit="enviarWhatsApp(event)" class="glass-form p-4 sm:p-6 lg:p-10 rounded-[32px] space-y-4 text-left shadow-2xl box-border w-full">
                 <div class="grid md:grid-cols-2 gap-4">
                     <input type="text" id="origem" placeholder="✈ Origem" class="input-field" required>
                     <input type="text" id="destino" placeholder="📍 Destino" class="input-field" required>
@@ -274,7 +294,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-600 text-white font-black py-4 rounded-xl text-lg lg:text-xl uppercase italic transition-all shadow-xl">
+                <button type="submit" class="btn-submit py-3 sm:py-4 text-sm sm:text-lg lg:text-xl">
                     Analisar Melhores Tarifas
                 </button>
             </form>
