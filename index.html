@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Version: 3.5 - Cache busting for responsive layout fix -->
+<!-- Version: 3.6 - Corrigir formatação de datas e função setTipo -->
 <html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -311,7 +311,7 @@
 
     <script>
         // Cache Busting - Força recarregamento da página
-        const pageVersion = '3.5';
+        const pageVersion = '3.6';
         const lastVersion = localStorage.getItem('pageVersion');
         if (lastVersion !== pageVersion) {
             localStorage.setItem('pageVersion', pageVersion);
@@ -355,7 +355,7 @@
                 dv.disabled = false; dv.style.opacity = '1';
             } else {
                 bsi.className = 'trip-btn trip-active'; biv.className = 'trip-btn trip-inactive';
-                dv.disabled = true; dv.style.opacity = '0.3'; dv.value = "";
+                dv.disabled = false; dv.style.opacity = '1'; dv.value = "";
             }
         }
 
@@ -393,10 +393,17 @@
             e.preventDefault();
             const ori = document.getElementById('origem').value;
             const des = document.getElementById('destino').value;
-            const ida = document.getElementById('dataIda').value;
-            const volta = document.getElementById('dataVolta').value;
+            const ida = formatarData(document.getElementById('dataIda').value);
+            const volta = formatarData(document.getElementById('dataVolta').value);
             const msg = `Olá! Gostaria de uma cotação:\n\n✈ *Origem:* ${ori}\n📍 *Destino:* ${des}\n📅 *Ida:* ${ida}${volta ? '\n📅 *Volta:* '+volta : ''}\n👥 *Passageiros:* ${passageiros.adt} Adulto(s), ${passageiros.chd} Criança(s), ${passageiros.inf} Bebê(s)\n💼 *Bagagens:* ${bagagens.mao} de mão (10kg) e ${bagagens.desp} despachada(s) (23kg)`;
             window.open(`https://wa.me/5511988908306?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function formatarData(data) {
+            if (!data) return '';
+            const partes = data.split('-');
+            if (partes.length !== 3) return '';
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
         }
     </script>
 </body>
