@@ -87,7 +87,7 @@
           <div class="text-container">
             <div class="max-w-3xl pointer-events-auto">
                 <h1 class="text-xl lg:text-5xl font-black text-white italic uppercase leading-tight mb-2 drop-shadow-2xl">
-                    Economize em voos <br><span class="text-brand-green">com inteligência</span>
+                    Economize em voos <br><span class="text-brand-yellow">com inteligência</span>
                 </h1>
                 <p class="text-white/90 text-[10px] lg:text-lg font-medium mb-6 italic max-w-[250px] lg:max-w-xl drop-shadow-md">
                     Encontramos as melhores opções para sua viagem: voos, rotas e estratégias exclusivas.
@@ -272,12 +272,12 @@
             const zapText = document.getElementById('nav-whatsapp-text');
             if (window.scrollY > 50) {
                 nav.classList.add('scrolled');
-                title.classList.replace('text-white', 'text-safira-dark');
-                zapText.classList.replace('text-white', 'text-safira-dark');
+                if(title) title.classList.replace('text-white', 'text-safira-dark');
+                if(zapText) zapText.classList.replace('text-white', 'text-safira-dark');
             } else {
                 nav.classList.remove('scrolled');
-                title.classList.replace('text-safira-dark', 'text-white');
-                zapText.classList.replace('text-safira-dark', 'text-white');
+                if(title) title.classList.replace('text-safira-dark', 'text-white');
+                if(zapText) zapText.classList.replace('text-safira-dark', 'text-white');
             }
         };
 
@@ -312,28 +312,25 @@
         function enviarWhatsApp(e) {
             e.preventDefault();
 
-            // Captura valores
             const origem = document.getElementById('origem').value;
             const destino = document.getElementById('destino').value;
             const dataIdaRaw = document.getElementById('dataIda').value;
             const dataVoltaRaw = document.getElementById('dataVolta').value;
             
-            // Função para formatar data de AAAA-MM-DD para DD/MM/AAAA
             const formatarData = (dataStr) => {
                 if (!dataStr) return "";
                 const partes = dataStr.split('-');
+                if(partes.length !== 3) return dataStr;
                 return `${partes[2]}/${partes[1]}/${partes[0]}`;
             };
 
             const dataIda = formatarData(dataIdaRaw);
             const dataVolta = dataVoltaRaw ? formatarData(dataVoltaRaw) : "Somente ida";
 
-            // Detalhes de passageiros e malas
             const totalPass = pass.adt + pass.chd + pass.inf;
             const txtPass = `${pass.adt} Adulto(s), ${pass.chd} Criança(s), ${pass.inf} Bebê(s)`;
             const txtBags = `${bags.mao} de Mão, ${bags.desp} Despachada(s)`;
 
-            // Montagem da mensagem
             let mensagem = `*Solicitação de Cotação - Voe F5 Tour* ✈️\n\n`;
             mensagem += `📍 *Origem:* ${origem}\n`;
             mensagem += `🏁 *Destino:* ${destino}\n`;
