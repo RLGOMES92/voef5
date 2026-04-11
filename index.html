@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<!-- Version: 3.8 - Código Completo com Autocomplete e Ajustes Mobile -->
 <html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>Voe F5 Tour | Atualize sua forma de viajar</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,9 +18,7 @@
                         'brand-green': '#009C3B',
                         'brand-yellow': '#FFCC00',
                     },
-                    screens: {
-                        'xs': '400px',
-                    }
+                    screens: { 'xs': '360px' }
                 }
             }
         }
@@ -32,139 +26,88 @@
 
     <style type="text/tailwindcss">
         @layer components {
-            .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-md text-sm box-border; }
-            .premium-card { @apply bg-white rounded-[24px] border border-slate-100 shadow-lg p-6 transition-all hover:-translate-y-2 flex flex-col; }
+            .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-md text-sm; }
             
-            .btn-counter { @apply w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center font-bold text-safira-dark hover:bg-slate-100 active:scale-90 transition-all bg-white flex-shrink-0; }
+            /* EFEITO DE SOMBRA E ELEVAÇÃO NOS CARDS */
+            .premium-card { @apply bg-white rounded-[24px] border border-slate-100 p-6 flex flex-col mb-4 transition-all duration-300 shadow-lg hover:-translate-y-2 hover:shadow-2xl; }
             
+            /* SOMBRA NO 'COMO FUNCIONA' */
+            .step-card { @apply bg-white rounded-2xl p-6 border border-slate-100 flex flex-col items-center text-center mb-4 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-1; }
+            
+            /* SOMBRA NOS 'DEPOIMENTOS' */
+            .testimonial-card { @apply bg-white rounded-2xl p-8 border border-slate-50 flex flex-col mb-4 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] hover:-translate-y-2; }
+            
+            .btn-counter { @apply w-8 h-8 rounded-full border border-white/30 flex items-center justify-center font-bold text-white active:scale-90 transition-all flex-shrink-0; }
             .trip-btn { @apply px-4 py-1.5 rounded-full border-2 font-bold text-xs transition-all; }
             .trip-active { @apply bg-brand-green border-brand-green text-white; }
             .trip-inactive { @apply bg-transparent border-white/30 text-white hover:bg-white/10; }
-            .step-card { @apply bg-white rounded-2xl p-5 shadow-md border border-slate-50 flex flex-col items-center text-center transition-all hover:shadow-lg; }
-            .testimonial-card { @apply bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col items-center text-center shadow-sm; }
-            .btn-submit { @apply w-full max-w-full bg-brand-green hover:bg-emerald-600 text-white font-black rounded-xl uppercase italic transition-all shadow-xl box-border; }
             
-            .dropdown-menu {
-                @apply absolute z-[120] bottom-full left-0 w-full max-w-full bg-white border border-slate-200 shadow-2xl rounded-2xl p-4 mb-2 space-y-4 box-border;
-                min-width: 0;
-            }
-            .dropdown-menu .flex { min-width: 0; flex-wrap: wrap; gap: 0.5rem; }
-            .dropdown-menu button { min-width: 2.25rem; }
-            .dropdown-menu span { min-width: 1.5rem; }
-            .dropdown-menu .flex.items-center.justify-between { justify-content: space-between; }
+            .dropdown-menu { @apply absolute z-[120] bottom-full right-0 w-full bg-safira-dark border border-white/20 shadow-2xl rounded-2xl p-4 mb-2 space-y-3; min-width: 260px; }
         }
 
-        .hero-slider { height: 70vh; width: 100%; position: relative; overflow: hidden; background: #000; }
+        .hero-slider { height: 75vh; width: 100%; position: relative; overflow: hidden; background: #000; }
         @media (min-width: 1024px) { .hero-slider { height: 85vh; } }
         
-        .slide-item {
-            position: absolute; width: 100%; height: 100%;
-            opacity: 0; transition: opacity 1.5s ease-in-out;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center 20%;
+        .slide-wrapper { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease-in-out; z-index: 1; }
+        .slide-wrapper.active { opacity: 1; z-index: 10; }
+
+        .slide-bg-mirror { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(30px) brightness(0.3); transform: scale(1.1); z-index: 1; }
+        .slide-item { position: absolute; width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; background-position: center; z-index: 5; }
+
+        .text-container {
+            @apply absolute bottom-0 left-0 w-full px-6 pb-10 lg:pb-20 lg:px-24 z-30 pointer-events-none;
+            background: linear-gradient(to top, rgba(0,26,79,0.9) 0%, transparent 100%);
         }
-        .slide-item.active { opacity: 1; }
-
-        @media (max-width: 640px) {
-            .slide-item { background-position: center center; }
-        }
-
-        @media (min-width: 1280px) { .slide-item { background-position: center top; } }
-
-        .hero-slider .absolute.inset-0 {
-            background: rgba(0,0,0,0.3);
-        }
-
-        .dropdown-menu .flex > div { min-width: 0; }
-        .dropdown-menu .flex > div span { white-space: nowrap; }
 
         #navbar.scrolled { background-color: rgba(255, 255, 255, 0.98) !important; @apply py-2 shadow-lg border-b border-slate-100; }
-        
-        .glass-form {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-sizing: border-box;
-        }
+        .glass-form { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
 
-        /* Ajuste para o Autocomplete não mostrar a seta padrão estranha */
-        input::-webkit-calendar-picker-indicator { display: none !important; }
-
-        @media (max-width: 640px) {
-            .glass-form { min-height: auto; }
-            .glass-form button[type="submit"] { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-        }
+        .baggage-btn-container { @apply flex items-center justify-between gap-1 overflow-hidden whitespace-nowrap px-2; font-size: clamp(9px, 2.5vw, 13px); }
     </style>
 </head>
 <body class="font-['Plus_Jakarta_Sans'] text-safira-dark bg-slate-50">
 
-    <!-- Lista de Aeroportos para Autocomplete -->
-    <datalist id="aeroportos">
-        <option value="São Paulo (Todos - SAO)"></option>
-        <option value="Guarulhos (GRU)"></option>
-        <option value="Congonhas (CGH)"></option>
-        <option value="Viracopos (VCP)"></option>
-        <option value="Rio de Janeiro (GIG)"></option>
-        <option value="Santos Dumont (SDU)"></option>
-        <option value="Brasília (BSB)"></option>
-        <option value="Belo Horizonte (CNF)"></option>
-        <option value="Lisboa (LIS)"></option>
-        <option value="Paris (CDG)"></option>
-        <option value="Orlando (MCO)"></option>
-        <option value="Miami (MIA)"></option>
-        <option value="Nova York (JFK)"></option>
-        <option value="Londres (LHR)"></option>
-        <option value="Madrid (MAD)"></option>
-        <option value="Roma (FCO)"></option>
-        <option value="Buenos Aires (EZE)"></option>
-        <option value="Cancun (CUN)"></option>
-        <option value="Fortaleza (FOR)"></option>
-        <option value="Salvador (SSA)"></option>
-        <option value="Recife (REC)"></option>
-        <option value="Curitiba (CWB)"></option>
-        <option value="Porto Alegre (POA)"></option>
-    </datalist>
-
-    <header id="navbar" class="fixed w-full z-[100] py-4 px-4 lg:px-12 transition-all duration-500">
+    <header id="navbar" class="fixed w-full z-[100] py-3 px-4 lg:px-12 transition-all duration-500">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2 lg:gap-4">
-                <img src="img/logo.jpeg" alt="Logo" class="h-10 lg:h-16 rounded-xl shadow-xl">
-                <span id="nav-title" class="font-black text-[10px] xs:text-sm lg:text-2xl italic tracking-tighter text-white drop-shadow-lg uppercase leading-none">
+            <div class="flex items-center gap-2">
+                <img src="img/logo.jpeg" alt="Logo" class="h-9 lg:h-16 rounded-xl shadow-xl flex-shrink-0">
+                <span id="nav-title" class="font-black text-[9px] xs:text-[10px] lg:text-xl italic tracking-tighter text-white uppercase leading-none transition-colors duration-500">
                     Atualize sua forma de viajar
                 </span>
             </div>
             
-            <div class="flex items-center gap-2">
-                <span id="fale-especialista" class="text-white font-bold italic text-[8px] sm:text-[9px] lg:text-sm drop-shadow-md block">Fale com um especialista agora</span>
-                <a href="https://wa.me/5511988908306" target="_blank" class="hover:scale-110 transition-transform">
-                    <img src="img/zap.png" alt="WhatsApp" class="w-8 h-8 lg:w-12 lg:h-12">
-                </a>
-            </div>
+            <a href="https://wa.me/5511988908306" target="_blank" class="flex items-center gap-2 group">
+                <span id="nav-whatsapp-text" class="hidden xs:block text-[8px] lg:text-[11px] font-bold text-white uppercase tracking-tighter transition-colors duration-500 leading-none text-right">
+                    Fale com um<br>especialista
+                </span>
+                <img src="img/zap.png" alt="WhatsApp" class="w-8 h-8 lg:w-12 lg:h-12 hover:scale-110 transition-transform">
+            </a>
         </div>
     </header>
 
     <section class="hero-slider">
-        <div class="slide-item active" style="background-image: url('img/japao.jpg?v=5');"></div>
-        <div class="slide-item" style="background-image: url('img/torre.jpg?v=5');"></div>
-        <div class="slide-item" style="background-image: url('img/rio.jpg?v=5');"></div>
-        
-        <div class="absolute inset-0 flex items-center px-6 lg:px-24 bg-black/30">
-            <div class="max-w-3xl pt-10 sm:pt-0">
-                <h1 class="text-lg sm:text-2xl lg:text-6xl font-black text-white italic uppercase leading-tight mb-3">
-                    Economize em voos <br><span class="text-brand-green">com inteligência —</span><br> sem complicação.
+        <div class="slide-wrapper active"><div class="slide-bg-mirror" style="background-image: url('img/japao.jpg');"></div><div class="slide-item" style="background-image: url('img/japao.jpg');"></div></div>
+        <div class="slide-wrapper"><div class="slide-bg-mirror" style="background-image: url('img/torre.jpg');"></div><div class="slide-item" style="background-image: url('img/torre.jpg');"></div></div>
+        <div class="slide-wrapper"><div class="slide-bg-mirror" style="background-image: url('img/rio.jpg');"></div><div class="slide-item" style="background-image: url('img/rio.jpg');"></div></div>
+        <div class="slide-wrapper"><div class="slide-bg-mirror" style="background-image: url('img/avi.jpeg');"></div><div class="slide-item" style="background-image: url('img/avi.jpeg');"></div></div>
+        <div class="slide-wrapper"><div class="slide-bg-mirror" style="background-image: url('img/todas.jpeg');"></div><div class="slide-item" style="background-image: url('img/todas.jpeg');"></div></div>
+        <div class="slide-wrapper"><div class="slide-bg-mirror" style="background-image: url('img/eua.jpeg');"></div><div class="slide-item" style="background-image: url('img/eua.jpeg');"></div></div>
+        <div class="slide-wrapper"><div class="slide-bg-mirror" style="background-image: url('img/rec.jpeg');"></div><div class="slide-item" style="background-image: url('img/rec.jpeg');"></div></div>
+          <div class="text-container">
+            <div class="max-w-3xl pointer-events-auto">
+                <h1 class="text-xl lg:text-5xl font-black text-white italic uppercase leading-tight mb-2 drop-shadow-2xl">
+                    Economize em voos <br><span class="text-brand-green">com inteligência</span>
                 </h1>
-                <p class="text-white/90 text-[9px] sm:text-[10px] lg:text-lg font-medium mb-6 italic max-w-lg">
-                    Encontramos as melhores opções para sua viagem: voos, rotas e experiências.
+                <p class="text-white/90 text-[10px] lg:text-lg font-medium mb-6 italic max-w-[250px] lg:max-w-xl drop-shadow-md">
+                    Encontramos as melhores opções para sua viagem: voos, rotas e estratégias exclusivas.
                 </p>
-                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-3 lg:py-4 px-6 lg:px-8 rounded-xl text-[10px] lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-xl">
-                    Simular viagem agora <i data-lucide="chevron-right" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-3 px-6 lg:py-4 lg:px-10 rounded-xl text-[10px] lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-2xl">
+                    Simular viagem agora <i data-lucide="chevron-right" class="w-4 h-4 lg:w-6 lg:h-6"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- TARIFAS -->
     <section class="py-12 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-center text-xl lg:text-3xl font-black mb-10 italic uppercase text-safira-dark">Tarifas <span class="text-brand-green">Descobertas</span></h2>
@@ -172,7 +115,7 @@
                 <div class="premium-card border-b-4 border-brand-green">
                     <h3 class="text-safira-dark font-bold text-sm mb-3 italic uppercase">✈ São Paulo → Orlando</h3>
                     <p class="text-[13px] font-bold">💰 R$ 2.419,00</p>
-                    <p class="text-[10px] text-slate-400 mb-4">🏷 Mercado: R$ 3.620,00</p>
+                    <p class="text-[10px] text-slate-400 mb-4">🏷 Mercado: R$ 3.360,00</p>
                     <div class="bg-emerald-100 text-brand-green text-[10px] font-black py-2 rounded-lg text-center uppercase">🔥 Economia: 28%</div>
                 </div>
                 <div class="premium-card border-b-4 border-purple-600">
@@ -191,25 +134,24 @@
         </div>
     </section>
 
-    <!-- COMO FUNCIONA -->
     <section class="py-12 px-6 bg-slate-50 border-t border-slate-100">
         <div class="max-w-5xl mx-auto">
             <h2 class="text-center text-lg lg:text-xl font-black mb-10 uppercase tracking-widest text-safira-dark">COMO FUNCIONA</h2>
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="step-card">
-                    <div class="w-8 h-8 bg-safira-dark text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm">1</div>
+                    <div class="w-8 h-8 bg-safira-dark text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm shadow-md">1</div>
                     <h3 class="font-bold text-sm mb-2 text-safira-dark">Você envia sua viagem</h3>
-                    <i data-lucide="laptop" class="w-10 h-10 text-slate-200 mb-2"></i>
+                    <i data-lucide="laptop" class="w-10 h-10 text-slate-300 mb-2"></i>
                     <p class="text-slate-500 text-[10px]">Origem, destino e datas em menos de 1 minuto.</p>
                 </div>
                 <div class="step-card">
-                    <div class="w-8 h-8 bg-brand-green text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm">2</div>
+                    <div class="w-8 h-8 bg-brand-green text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm shadow-md">2</div>
                     <h3 class="font-bold text-sm mb-2 text-safira-dark">Análise estratégica</h3>
-                    <i data-lucide="globe-2" class="w-10 h-10 text-brand-green opacity-80 mb-2"></i>
+                    <i data-lucide="globe-2" class="w-10 h-10 text-brand-green opacity-60 mb-2"></i>
                     <p class="text-slate-500 text-[10px]">Buscamos as melhores opções com inteligência.</p>
                 </div>
                 <div class="step-card">
-                    <div class="w-8 h-8 bg-safira-dark text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm">3</div>
+                    <div class="w-8 h-8 bg-safira-dark text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm shadow-md">3</div>
                     <h3 class="font-bold text-sm mb-2 text-safira-dark">Receba a melhor opção</h3>
                     <i data-lucide="check-circle" class="w-10 h-10 text-brand-green mb-2"></i>
                     <p class="text-slate-500 text-[10px]">Com economia real e suporte completo.</p>
@@ -218,46 +160,40 @@
         </div>
     </section>
 
-    <!-- POR QUE ESCOLHER -->
-    <section class="py-12 px-6 bg-white border-b">
-        <div class="max-w-xl mx-auto">
-            <h2 class="text-center text-lg lg:text-xl font-black mb-8 uppercase tracking-widest text-safira-dark">POR QUE ESCOLHER A VOE F5</h2>
-            <div class="space-y-4">
-                <div class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-brand-green"></i><p class="text-sm font-semibold text-safira-dark">Não somos uma agência tradicional</p></div>
-                <div class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-brand-green"></i><p class="text-sm font-semibold text-safira-dark text-left">Trabalhamos com estratégia para encontrar melhores opções</p></div>
-                <div class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-brand-green"></i><p class="text-sm font-semibold text-safira-dark">Atendimento rápido, direto e personalizado</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEPOIMENTOS -->
-    <section class="py-16 px-6 bg-slate-50 border-t">
+    <section class="py-16 px-6 bg-white border-t">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-center text-xl lg:text-3xl font-black mb-12 italic uppercase text-safira-dark">O que nossos <span class="text-brand-green">Viajantes</span> dizem</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="testimonial-card">
-                    <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Economizei mais de R$ 1.200,00 na minha viagem para Orlando. O atendimento é rápido e a estratégia deles realmente funciona!"</p>
-                    <p class="font-bold text-safira-dark text-sm">Ana Silva</p>
+                    <i data-lucide="quote" class="w-8 h-8 text-brand-green mb-4 opacity-50"></i>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 italic">"Economizei mais de R$ 1.200,00 na minha viagem para Orlando. O atendimento é rápido e a estratégia funciona!"</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100 mt-auto">
+                        <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-safira-dark text-xs shadow-inner">AS</div>
+                        <div><p class="font-bold text-safira-dark text-sm">Ana Silva</p><p class="text-[10px] text-slate-400">Orlando</p></div>
+                    </div>
                 </div>
                 <div class="testimonial-card">
-                    <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Recebi minha cotação em minutos. A clareza nos preços e a facilidade de fechar pelo WhatsApp me surpreenderam."</p>
-                    <p class="font-bold text-safira-dark text-sm">Roberto Costa</p>
+                    <i data-lucide="quote" class="w-8 h-8 text-brand-green mb-4 opacity-50"></i>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 italic">"Recebi minha cotação em minutos. A clareza nos preços e facilidade me surpreenderam."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100 mt-auto">
+                        <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-safira-dark text-xs shadow-inner">RC</div>
+                        <div><p class="font-bold text-safira-dark text-sm">Roberto Costa</p><p class="text-[10px] text-slate-400">Lisboa</p></div>
+                    </div>
                 </div>
                 <div class="testimonial-card">
-                    <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Excelente suporte. Viajei em família e a economia real foi absurda. Recomendo para todos que buscam viajar melhor."</p>
-                    <p class="font-bold text-safira-dark text-sm">Carlos Pereira</p>
+                    <i data-lucide="quote" class="w-8 h-8 text-brand-green mb-4 opacity-50"></i>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 italic">"Excelente suporte. Viajei em família e a economia real foi absurda. Recomendo para todos."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100 mt-auto">
+                        <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-safira-dark text-xs shadow-inner">CP</div>
+                        <div><p class="font-bold text-safira-dark text-sm">Carlos Pereira</p><p class="text-[10px] text-slate-400">Família</p></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- COTAÇÃO -->
-    <section id="cotacao" class="py-20 px-6 bg-safira-dark relative overflow-hidden min-h-[600px] flex items-center justify-center">
+    <section id="cotacao" class="py-20 px-4 lg:px-6 bg-safira-dark relative overflow-hidden flex items-center justify-center">
         <div class="absolute inset-0 opacity-40 bg-[url('img/rio.jpg')] bg-cover bg-center"></div>
-        
         <div class="max-w-4xl w-full mx-auto text-center relative z-10">
             <h2 class="text-2xl lg:text-4xl font-black text-white italic uppercase mb-8">Solicitar Cotação</h2>
             
@@ -266,200 +202,129 @@
                 <button type="button" onclick="setTipo('somente-ida')" id="btn-si" class="trip-btn trip-inactive">Somente ida</button>
             </div>
 
-            <form onsubmit="enviarWhatsApp(event)" class="glass-form p-4 sm:p-6 lg:p-10 rounded-[32px] space-y-4 text-left shadow-2xl box-border w-full">
+            <form onsubmit="enviarWhatsApp(event)" class="glass-form p-6 lg:p-10 rounded-[32px] space-y-4 text-left shadow-2xl">
                 <div class="grid md:grid-cols-2 gap-4">
-                    <!-- ADICIONADO LIST="AEROPORTOS" -->
-                    <input type="text" id="origem" list="aeroportos" placeholder="✈ Origem" class="input-field" required>
-                    <input type="text" id="destino" list="aeroportos" placeholder="📍 Destino" class="input-field" required>
+                    <input type="text" id="origem" placeholder="✈ Origem" class="input-field" required>
+                    <input type="text" id="destino" placeholder="📍 Destino" class="input-field" required>
                 </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4">
                     <input type="text" id="dataIda" onfocus="(this.type='date')" placeholder="📅 Ida" class="input-field" required>
                     <input type="text" id="dataVolta" onfocus="(this.type='date')" placeholder="📅 Volta" class="input-field">
                     
-                    <!-- Passageiros Dropdown Estilo GOL -->
                     <div class="relative">
-                        <button type="button" onclick="toggleDrop('drop-pass')" class="input-field flex justify-between items-center text-[10px] xs:text-xs">
+                        <button type="button" onclick="toggleDrop('drop-pass')" class="input-field flex justify-between items-center px-2 text-[11px] lg:text-sm">
                             <span id="label-pass">👥 1 Passag.</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
+                            <i data-lucide="chevron-down" class="w-3 h-3 text-white"></i>
                         </button>
-                        <div id="drop-pass" class="hidden dropdown-menu text-safira-dark">
-                            <!-- Adultos -->
-                            <div class="flex justify-between items-center">
-                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Adultos</span><span class="text-[9px] text-slate-400">+18 anos</span></div>
-                                <div class="flex items-center gap-4">
-                                    <button type="button" onclick="count('adt', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                                    <span id="q-adt" class="font-bold w-4 text-center">1</span>
-                                    <button type="button" onclick="count('adt', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                                </div>
+                        <div id="drop-pass" class="hidden dropdown-menu !left-0 !right-auto">
+                            <div class="flex justify-between items-center text-white pb-1">
+                                <div class="flex flex-col"><span class="text-[11px] font-bold uppercase">Adultos</span><span class="text-[9px] opacity-60">+12 anos</span></div>
+                                <div class="flex items-center gap-3"><button type="button" onclick="count('adt', -1)" class="btn-counter">-</button><span id="q-adt" class="font-bold w-4 text-center text-xs">1</span><button type="button" onclick="count('adt', 1)" class="btn-counter">+</button></div>
                             </div>
-                            <!-- Adolescentes -->
-                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
-                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Adolescentes</span><span class="text-[9px] text-slate-400">12 a 17 anos</span></div>
-                                <div class="flex items-center gap-4">
-                                    <button type="button" onclick="count('adl', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                                    <span id="q-adl" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="count('adl', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                                </div>
+                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
+                                <div class="flex flex-col"><span class="text-[11px] font-bold uppercase">Crianças</span><span class="text-[9px] opacity-60">2-11 anos</span></div>
+                                <div class="flex items-center gap-3"><button type="button" onclick="count('chd', -1)" class="btn-counter">-</button><span id="q-chd" class="font-bold w-4 text-center text-xs">0</span><button type="button" onclick="count('chd', 1)" class="btn-counter">+</button></div>
                             </div>
-                            <!-- Crianças -->
-                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
-                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Crianças</span><span class="text-[9px] text-slate-400">2 a 11 anos</span></div>
-                                <div class="flex items-center gap-4">
-                                    <button type="button" onclick="count('chd', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                                    <span id="q-chd" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="count('chd', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                                </div>
+                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
+                                <div class="flex flex-col"><span class="text-[11px] font-bold uppercase">Bebês</span><span class="text-[9px] opacity-60">0-23 meses</span></div>
+                                <div class="flex items-center gap-3"><button type="button" onclick="count('inf', -1)" class="btn-counter">-</button><span id="q-inf" class="font-bold w-4 text-center text-xs">0</span><button type="button" onclick="count('inf', 1)" class="btn-counter">+</button></div>
                             </div>
-                            <!-- Bebês -->
-                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
-                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Bebês</span><span class="text-[9px] text-slate-400">Até 24 meses</span></div>
-                                <div class="flex items-center gap-4">
-                                    <button type="button" onclick="count('inf', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                                    <span id="q-inf" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="count('inf', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                                </div>
-                            </div>
-                            <button type="button" onclick="toggleDrop('drop-pass')" class="w-full bg-safira-dark text-white py-2.5 rounded-xl text-[10px] font-bold uppercase mt-2">Pronto</button>
+                            <button type="button" onclick="toggleDrop('drop-pass')" class="w-full bg-brand-green text-white py-2 rounded-lg text-[10px] font-bold uppercase mt-2">Pronto</button>
                         </div>
                     </div>
 
-                    <!-- Bagagens Dropdown Estilo GOL -->
                     <div class="relative">
-                        <button type="button" onclick="toggleDrop('drop-bag')" class="input-field flex justify-between items-center text-[10px] xs:text-xs">
-                            <span id="label-bag">💼 Bagagem</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
+                        <button type="button" onclick="toggleDrop('drop-bag')" class="input-field baggage-btn-container">
+                            <span id="label-bag" class="truncate">💼 Bagagem</span>
+                            <i data-lucide="chevron-down" class="w-3 h-3 text-white flex-shrink-0"></i>
                         </button>
-                        <div id="drop-bag" class="hidden dropdown-menu text-safira-dark">
-                            <!-- Mão -->
-                            <div class="flex justify-between items-center">
-                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Mão</span><span class="text-[9px] text-slate-400">Até 10kg</span></div>
-                                <div class="flex items-center gap-4">
-                                    <button type="button" onclick="countBag('mao', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                                    <span id="q-mao" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="countBag('mao', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                                </div>
+                        <div id="drop-bag" class="hidden dropdown-menu !right-0 !left-auto">
+                            <div class="flex justify-between items-center text-white pb-1">
+                                <div class="flex flex-col"><span class="text-[11px] font-bold uppercase">Mão</span><span class="text-[9px] opacity-60">Até 10kg</span></div>
+                                <div class="flex items-center gap-3"><button type="button" onclick="countBag('mao', -1)" class="btn-counter">-</button><span id="q-mao" class="font-bold w-4 text-center text-xs">0</span><button type="button" onclick="countBag('mao', 1)" class="btn-counter">+</button></div>
                             </div>
-                            <!-- Despachada -->
-                            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
-                                <div class="flex flex-col"><span class="text-xs font-bold uppercase">Despachada</span><span class="text-[9px] text-slate-400">Até 23kg</span></div>
-                                <div class="flex items-center gap-4">
-                                    <button type="button" onclick="countBag('desp', -1)" class="btn-counter"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                                    <span id="q-desp" class="font-bold w-4 text-center">0</span>
-                                    <button type="button" onclick="countBag('desp', 1)" class="btn-counter"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                                </div>
+                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
+                                <div class="flex flex-col"><span class="text-[11px] font-bold uppercase">Despachada</span><span class="text-[9px] opacity-60">Até 23kg</span></div>
+                                <div class="flex items-center gap-3"><button type="button" onclick="countBag('desp', -1)" class="btn-counter">-</button><span id="q-desp" class="font-bold w-4 text-center text-xs">0</span><button type="button" onclick="countBag('desp', 1)" class="btn-counter">+</button></div>
                             </div>
-                            <button type="button" onclick="toggleDrop('drop-bag')" class="w-full bg-safira-dark text-white py-2.5 rounded-xl text-[10px] font-bold uppercase mt-2">Pronto</button>
+                            <button type="button" onclick="toggleDrop('drop-bag')" class="w-full bg-brand-green text-white py-2 rounded-lg text-[10px] font-bold uppercase mt-2">Pronto</button>
                         </div>
                     </div>
                 </div>
-
-                <button type="submit" class="btn-submit py-3 sm:py-4 text-sm sm:text-lg lg:text-xl">
-                    Analisar Melhores Tarifas
-                </button>
+                
+                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-600 text-white font-black py-4 rounded-xl text-lg uppercase italic shadow-xl transition-all">Analisar Tarifas Agora</button>
             </form>
         </div>
     </section>
 
-    <footer class="py-8 bg-safira-dark text-center text-white/20 text-[9px] font-bold uppercase italic border-t border-white/5 tracking-widest relative z-0">
+    <footer class="py-8 bg-safira-dark text-center text-white/20 text-[9px] font-bold uppercase italic border-t border-white/5 tracking-widest">
         &copy; Voe F5 tour | Atualize a forma de viajar
     </footer>
 
     <script>
         lucide.createIcons();
-
-        // Banner Slider
+        
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide-item');
+        const slides = document.querySelectorAll('.slide-wrapper');
         setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+            if(slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
         }, 5000);
 
-        // Navbar Scroll
         window.onscroll = function() {
             const nav = document.getElementById('navbar');
             const title = document.getElementById('nav-title');
-            const fale = document.getElementById('fale-especialista');
+            const zapText = document.getElementById('nav-whatsapp-text');
             if (window.scrollY > 50) {
                 nav.classList.add('scrolled');
                 title.classList.replace('text-white', 'text-safira-dark');
-                if(fale) fale.classList.replace('text-white', 'text-safira-dark');
+                zapText.classList.replace('text-white', 'text-safira-dark');
             } else {
                 nav.classList.remove('scrolled');
                 title.classList.replace('text-safira-dark', 'text-white');
-                if(fale) fale.classList.replace('text-safira-dark', 'text-white');
+                zapText.classList.replace('text-safira-dark', 'text-white');
             }
         };
 
-        // Lógica de Tipo de Voo
-        function setTipo(tipo) {
-            const biv = document.getElementById('btn-iv');
-            const bsi = document.getElementById('btn-si');
-            const dv = document.getElementById('dataVolta');
-            if(tipo === 'ida-volta') {
-                biv.className = 'trip-btn trip-active'; bsi.className = 'trip-btn trip-inactive';
-                dv.disabled = false; dv.style.opacity = '1';
-            } else {
-                bsi.className = 'trip-btn trip-active'; biv.className = 'trip-btn trip-inactive';
-                dv.disabled = true; dv.style.opacity = '0.3'; dv.value = "";
-            }
+        function setTipo(t) {
+            const biv = document.getElementById('btn-iv'); const bsi = document.getElementById('btn-si'); const dv = document.getElementById('dataVolta');
+            if(t === 'ida-volta') { biv.className = 'trip-btn trip-active'; bsi.className = 'trip-btn trip-inactive'; dv.disabled = false; dv.style.opacity = '1'; }
+            else { bsi.className = 'trip-btn trip-active'; biv.className = 'trip-btn trip-inactive'; dv.disabled = true; dv.style.opacity = '0.3'; dv.value = ""; }
         }
 
-        // Toggle de Dropdowns
-        function toggleDrop(id) {
-            document.querySelectorAll('.dropdown-menu').forEach(d => {
-                if(d.id !== id) d.classList.add('hidden');
-            });
-            document.getElementById(id).classList.toggle('hidden');
+        function toggleDrop(id) { 
+            const el = document.getElementById(id); 
+            const isHidden = el.classList.contains('hidden'); 
+            document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden')); 
+            if(isHidden) el.classList.remove('hidden'); 
         }
 
-        // Contador de Passageiros
-        let passageiros = { adt: 1, adl: 0, chd: 0, inf: 0 };
-        function count(t, v) {
-            if(t === 'adt' && passageiros.adt + v < 1) return;
-            if(passageiros[t] + v < 0) return;
-            passageiros[t] += v;
-            document.getElementById('q-' + t).innerText = passageiros[t];
-            let total = passageiros.adt + passageiros.adl + passageiros.chd + passageiros.inf;
-            document.getElementById('label-pass').innerText = `👥 ${total} Passag.`;
+        let pass = { adt: 1, chd: 0, inf: 0 };
+        function count(t, v) { 
+            if(t === 'adt' && pass.adt + v < 1) return; if(pass[t] + v < 0) return; 
+            pass[t] += v; document.getElementById('q-'+t).innerText = pass[t];
+            document.getElementById('label-pass').innerText = `👥 ${pass.adt + pass.chd + pass.inf} Passag.`;
         }
 
-        // Contador de Bagagens
-        let bagagens = { mao: 0, desp: 0 };
-        function countBag(t, v) {
-            if(bagagens[t] + v < 0) return;
-            bagagens[t] += v;
-            document.getElementById('q-' + t).innerText = bagagens[t];
-            let totalB = bagagens.mao + bagagens.desp;
-            document.getElementById('label-bag').innerText = totalB > 0 ? `💼 ${totalB} Mala(s)` : '💼 Bagagem';
+        let bags = { mao: 0, desp: 0 };
+        function countBag(t, v) { 
+            if(bags[t] + v < 0) return; 
+            bags[t] += v; document.getElementById('q-'+t).innerText = bags[t];
+            let total = bags.mao + bags.desp;
+            document.getElementById('label-bag').innerText = total > 0 ? `💼 ${total} Mala(s)` : '💼 Bagagem';
         }
 
-        // Envio para WhatsApp
         function enviarWhatsApp(e) {
             e.preventDefault();
-            const ori = document.getElementById('origem').value;
-            const des = document.getElementById('destino').value;
-            const ida = formatarData(document.getElementById('dataIda').value);
-            const volta = formatarData(document.getElementById('dataVolta').value);
-            const msg = `Olá! Gostaria de uma cotação:\n\n✈ *Origem:* ${ori}\n📍 *Destino:* ${des}\n📅 *Ida:* ${ida}${volta ? '\n📅 *Volta:* '+volta : ''}\n👥 *Passageiros:* ${passageiros.adt} Adulto(s), ${passageiros.adl} Adolescente(s), ${passageiros.chd} Criança(s), ${passageiros.inf} Bebê(s)\n💼 *Bagagens:* ${bagagens.mao} de mão (10kg) e ${bagagens.desp} despachada(s) (23kg)`;
+            const msg = `Olá! Quero uma cotação de ${document.getElementById('origem').value} para ${document.getElementById('destino').value}.`;
             window.open(`https://wa.me/5511988908306?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function formatarData(data) {
-            if (!data) return '';
-            const partes = data.split('-');
-            if (partes.length !== 3) return '';
-            return `${partes[2]}/${partes[1]}/${partes[0]}`;
-        }
-
-        // Fechar dropdown ao clicar fora
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.relative')) {
-                document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden'));
-            }
-        });
+        document.addEventListener('click', (e) => { if (!e.target.closest('.relative')) document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden')); });
     </script>
 </body>
 </html>
