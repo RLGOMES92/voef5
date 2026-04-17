@@ -72,9 +72,9 @@
 
     <header id="navbar" class="fixed w-full z-[100] py-4 px-4 lg:px-12 transition-all duration-500">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2 lg:gap-4">
-                <img src="img/logo.jpeg" alt="Logo" class="h-10 lg:h-16 rounded-xl shadow-xl">
-                <span id="nav-title" class="font-black text-[11px] xs:text-sm lg:text-2xl italic tracking-tighter text-white drop-shadow-lg uppercase leading-none">
+            <div class="flex items-center gap-4 lg:gap-8">
+                <img src="img/logo.jpeg" alt="Logo" class="h-12 lg:h-24 rounded-xl shadow-2xl transition-all border-2 border-white/20">
+                <span id="nav-title" class="font-black text-[10px] xs:text-sm lg:text-3xl italic tracking-tighter text-white drop-shadow-lg uppercase leading-none">
                     Atualize sua forma de viajar
                 </span>
             </div>
@@ -82,7 +82,7 @@
             <div class="flex items-center gap-2">
                 <span id="fale-especialista" class="text-white font-bold italic text-[9px] lg:text-sm drop-shadow-md hidden xs:block">Fale com um especialista agora</span>
                 <a href="https://wa.me/5511988908306" target="_blank" class="hover:scale-110 transition-transform">
-                    <img src="img/zap.png" alt="WhatsApp" class="w-8 h-8 lg:w-12 lg:h-12">
+                    <img src="img/zap.png" alt="WhatsApp" class="w-8 h-8 lg:w-14 lg:h-14">
                 </a>
             </div>
         </div>
@@ -93,64 +93,85 @@
             <div class="absolute inset-0 hidden md:block" style="background: url('img/japao.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/jap.png') center center / cover no-repeat;"></div>
         </div>
-
         <div class="slide-item">
-            <div class="absolute inset-0" style="background: url('img/tor.png') center top / cover no-repeat;"></div>
+            <div class="absolute inset-0 hidden md:block" style="background: url('img/tor.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/torre.jpg') center center / cover no-repeat;"></div>
         </div>
-
         <div class="slide-item">
             <div class="absolute inset-0 hidden md:block" style="background: url('img/rio.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/rj.png') center center / cover no-repeat;"></div>
         </div>
-
         <div class="slide-item">
             <div class="absolute inset-0 hidden md:block" style="background: url('img/rec.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/recife.png') center center / cover no-repeat;"></div>
         </div>
-
         <div class="slide-item">
             <div class="absolute inset-0 hidden md:block" style="background: url('img/eua.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/ame.png') center center / cover no-repeat;"></div>
         </div>
         
-        <div class="absolute inset-0 flex items-end pb-16 lg:pb-0 lg:items-center px-6 lg:px-24 bg-black/10 lg:bg-black/10 z-10">
-            <div class="w-full max-w-sm lg:max-w-xl text-left">
-                <h1 class="text-xl lg:text-5xl font-black text-white italic uppercase leading-tight lg:leading-[1.1] mb-2 drop-shadow-lg">
+        <div class="absolute inset-0 flex items-end pb-16 lg:pb-0 lg:items-center px-6 lg:px-24 bg-black/20 z-10">
+            <div class="w-full max-w-sm lg:max-w-2xl text-left">
+                <h1 class="text-2xl lg:text-6xl font-black text-white italic uppercase leading-tight lg:leading-[1.1] mb-2 drop-shadow-2xl">
                     Economize em voos <br>
                     <span class="text-brand-yellow">com inteligência.</span><br>
                 </h1>
-                <p class="text-white/90 text-[10px] lg:text-base font-medium mb-6 italic max-w-sm lg:max-w-md drop-shadow-md">
+                <p class="text-white/90 text-[11px] lg:text-xl font-medium mb-8 italic max-w-sm lg:max-w-lg drop-shadow-md">
                     Encontramos as melhores opções para sua viagem:<br class="hidden lg:block"> voos, rotas e experiências exclusivas.
                 </p>
-                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-3 px-6 rounded-xl text-xs lg:text-base uppercase italic transition-all flex items-center gap-2 w-fit shadow-xl">
-                    Simular viagem agora <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-4 px-8 rounded-xl text-xs lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-xl hover:-translate-y-1">
+                    Simular viagem agora <i data-lucide="chevron-right" class="w-5 h-5"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <section class="py-12 px-6 bg-white">
+    <section class="py-16 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-center text-xl lg:text-3xl font-black mb-10 italic uppercase text-safira-dark">Tarifas <span class="text-brand-green">Descobertas</span></h2>
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center mb-12">
+                <p class="text-blue-700 font-bold text-xs lg:text-sm uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
+                <h2 class="text-xl lg:text-4xl font-black italic uppercase text-safira-dark leading-tight">Transformando eficiência em <span class="text-brand-green">economia real</span></h2>
+                <p class="text-slate-400 text-[10px] lg:text-base mt-3 max-w-2xl mx-auto italic">Veja a diferença real entre os preços de mercado e o que nossos consultores conseguem entregar.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
                 <div class="premium-card border-b-4 border-brand-green">
-                    <h3 class="text-safira-dark font-bold text-sm mb-3 italic uppercase">✈ São Paulo → Orlando</h3>
-                    <p class="text-[13px] font-bold">💰 R$ 2.419,00</p>
-                    <p class="text-[10px] text-slate-400 mb-4">🏷 Mercado: R$ 3.360,00</p>
-                    <div class="bg-emerald-100 text-brand-green text-[10px] font-black py-2 rounded-lg text-center uppercase">🔥 Economia: 28%</div>
+                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter">Economia de 28%</div>
+                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → ORLANDO</h3>
+                    <p class="text-sm text-slate-400 font-medium">Preço de Mercado: R$ 3.620,00</p>
+                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
+                            <span class="text-safira-dark font-black text-2xl lg:text-3xl">R$ 2.419,00</span>
+                        </div>
+                        <i data-lucide="trending-down" class="text-brand-green w-8 h-8 mb-1"></i>
+                    </div>
                 </div>
-                <div class="premium-card border-b-4 border-purple-600">
-                    <h3 class="text-safira-dark font-bold text-sm mb-3 italic uppercase">✈ São Paulo → Lisboa</h3>
-                    <p class="text-[13px] font-bold">💰 R$ 3.760,19</p>
-                    <p class="text-[10px] text-slate-400 mb-4">🏷 Mercado: R$ 4.642,00</p>
-                    <div class="bg-emerald-100 text-brand-green text-[10px] font-black py-2 rounded-lg text-center uppercase">🔥 Economia: 19%</div>
-                </div>
+
                 <div class="premium-card border-b-4 border-brand-green">
-                    <h3 class="text-safira-dark font-bold text-sm mb-3 italic uppercase">✈ Roma → Lisboa</h3>
-                    <p class="text-[13px] font-bold">💰 R$ 564,00</p>
-                    <p class="text-[10px] text-slate-400 mb-4">🏷 Mercado: R$ 679,50</p>
-                    <div class="bg-emerald-100 text-brand-green text-[10px] font-black py-2 rounded-lg text-center uppercase">🔥 Economia: 17%</div>
+                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter">Economia de 18%</div>
+                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → LISBOA</h3>
+                    <p class="text-sm text-slate-400 font-medium">Preço de Mercado: R$ 4.642,00</p>
+                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
+                            <span class="text-safira-dark font-black text-2xl lg:text-3xl">R$ 3.760,19</span>
+                        </div>
+                        <i data-lucide="trending-down" class="text-brand-green w-8 h-8 mb-1"></i>
+                    </div>
+                </div>
+
+                <div class="premium-card border-b-4 border-brand-green">
+                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter">Economia de 17%</div>
+                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">ROMA → LISBOA</h3>
+                    <p class="text-sm text-slate-400 font-medium">Preço de Mercado: R$ 679,50</p>
+                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
+                            <span class="text-safira-dark font-black text-2xl lg:text-3xl">R$ 564,00</span>
+                        </div>
+                        <i data-lucide="trending-down" class="text-brand-green w-8 h-8 mb-1"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,19 +183,19 @@
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="step-card">
                     <div class="w-8 h-8 bg-safira-dark text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm">1</div>
-                    <h3 class="font-bold text-sm mb-2 text-safira-dark">Você envia sua viagem</h3>
+                    <h3 class="font-bold text-sm mb-2 text-safira-dark uppercase">Você envia sua viagem</h3>
                     <i data-lucide="laptop" class="w-10 h-10 text-slate-200 mb-2"></i>
                     <p class="text-slate-500 text-[10px]">Origem, destino e datas em menos de 1 minuto.</p>
                 </div>
                 <div class="step-card">
                     <div class="w-8 h-8 bg-brand-green text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm">2</div>
-                    <h3 class="font-bold text-sm mb-2 text-safira-dark">Análise estratégica</h3>
+                    <h3 class="font-bold text-sm mb-2 text-safira-dark uppercase">Análise estratégica</h3>
                     <i data-lucide="globe-2" class="w-10 h-10 text-brand-green opacity-80 mb-2"></i>
                     <p class="text-slate-500 text-[10px]">Buscamos as melhores opções com inteligência.</p>
                 </div>
                 <div class="step-card">
                     <div class="w-8 h-8 bg-safira-dark text-white rounded-full flex items-center justify-center font-bold mb-3 text-sm">3</div>
-                    <h3 class="font-bold text-sm mb-2 text-safira-dark">Receba a melhor opção</h3>
+                    <h3 class="font-bold text-sm mb-2 text-safira-dark uppercase">Receba a melhor opção</h3>
                     <i data-lucide="check-circle" class="w-10 h-10 text-brand-green mb-2"></i>
                     <p class="text-slate-500 text-[10px]">Com economia real e suporte completo.</p>
                 </div>
@@ -198,19 +219,19 @@
                 </div>
                 <div class="testimonial-card">
                     <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">“Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e resolve tudo com rapidez e eficiência. Hoje temos muito mais tranquilidade na emissão das nossas passagens.”</p>
+                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">“Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e resolve tudo com rapidez e eficiência.”</p>
                     <p class="font-bold text-safira-dark text-sm">Daniela S., Gerente Administrativa</p>
                 </div>
             </div>
         </div>
+    </section>
+
     <section id="cotacao" class="py-20 px-6 bg-safira-dark relative overflow-hidden min-h-[600px] flex items-center justify-center">
-        
         <div class="absolute inset-0 opacity-40 hidden md:block" style="background: url('img/rio.png') center center / cover no-repeat;"></div>
-        
         <div class="absolute inset-0 opacity-50 block md:hidden" style="background: url('img/rj.png') center center / cover no-repeat;"></div>
         
         <div class="max-w-4xl w-full mx-auto text-center relative z-10">
-            <h2 class="text-2xl lg:text-4xl font-black text-white italic uppercase mb-8">Solicitar Cotação</h2>
+            <h2 class="text-2xl lg:text-4xl font-black text-white italic uppercase mb-8 drop-shadow-lg">Solicitar Cotação Personalizada</h2>
             
             <div class="flex gap-2 justify-center mb-6">
                 <button type="button" onclick="setTipo('ida-volta')" id="btn-iv" class="trip-btn trip-active">Ida e volta</button>
@@ -233,7 +254,7 @@
                             <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
                         </button>
                         <div id="drop-pass" class="hidden dropdown-menu">
-                            <div class="flex justify-between items-center text-white">
+                            <div class="flex justify-between items-center text-white p-1">
                                 <span class="text-[10px] font-bold uppercase">Adultos</span>
                                 <div class="flex items-center gap-3">
                                     <button type="button" onclick="count('adt', -1)" class="btn-counter">-</button>
@@ -241,7 +262,7 @@
                                     <button type="button" onclick="count('adt', 1)" class="btn-counter">+</button>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
+                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2 p-1">
                                 <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Crianças</span><span class="text-[8px] text-white/50">2-11 anos</span></div>
                                 <div class="flex items-center gap-3">
                                     <button type="button" onclick="count('chd', -1)" class="btn-counter">-</button>
@@ -249,7 +270,7 @@
                                     <button type="button" onclick="count('chd', 1)" class="btn-counter">+</button>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
+                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2 p-1">
                                 <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Bebês</span><span class="text-[8px] text-white/50">Até 2 anos</span></div>
                                 <div class="flex items-center gap-3">
                                     <button type="button" onclick="count('inf', -1)" class="btn-counter">-</button>
@@ -267,7 +288,7 @@
                             <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
                         </button>
                         <div id="drop-bag" class="hidden dropdown-menu">
-                            <div class="flex justify-between items-center text-white">
+                            <div class="flex justify-between items-center text-white p-1">
                                 <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Mão</span><span class="text-[8px] text-white/50">Até 10kg</span></div>
                                 <div class="flex items-center gap-3">
                                     <button type="button" onclick="countBag('mao', -1)" class="btn-counter">-</button>
@@ -275,7 +296,7 @@
                                     <button type="button" onclick="countBag('mao', 1)" class="btn-counter">+</button>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2">
+                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2 p-1">
                                 <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Despachada</span><span class="text-[8px] text-white/50">Até 23kg</span></div>
                                 <div class="flex items-center gap-3">
                                     <button type="button" onclick="countBag('desp', -1)" class="btn-counter">-</button>
@@ -288,14 +309,14 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-600 text-white font-black py-4 rounded-xl text-lg lg:text-xl uppercase italic transition-all shadow-xl">
+                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-600 text-white font-black py-5 rounded-xl text-lg lg:text-2xl uppercase italic transition-all shadow-xl hover:scale-[1.01] active:scale-[0.99]">
                     Analisar Melhores Tarifas
                 </button>
             </form>
         </div>
     </section>
 
-    <footer class="py-8 bg-safira-dark text-center text-white/20 text-[9px] font-bold uppercase italic border-t border-white/5 tracking-widest relative z-0">
+    <footer class="py-12 bg-safira-dark text-center text-white/40 text-[10px] font-bold uppercase italic border-t border-white/5 tracking-[0.2em] relative z-0">
         &copy; Voe F5 tour | Atualize a forma de viajar
     </footer>
 
