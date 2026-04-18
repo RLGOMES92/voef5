@@ -69,16 +69,16 @@
 
         /* AJUSTE 1: Frase do logo menor no mobile */
         #nav-title {
-            font-size: 8px !important;
+            font-size: 11px !important;
         }
         @media (min-width: 400px) {
             #nav-title {
-                font-size: 9px !important;
+                font-size: 12px !important;
             }
         }
         @media (min-width: 768px) {
             #nav-title {
-                font-size: 12px !important;
+                font-size: 16px !important;
             }
         }
 
@@ -132,14 +132,14 @@
     <header id="navbar" class="fixed w-full z-[100] py-4 px-4 lg:px-12 transition-all duration-500">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 lg:gap-8">
-                <img src="img/log.png" alt="Logo" class="h-14 lg:h-12 rounded-xl shadow-2xl transition-all border-2 border-white/20">
-                <span id="nav-title" class="font-black text-[10px] xs:text-sm lg:text-x1 italic tracking-tighter text-white drop-shadow-lg uppercase leading-none">
-                    Atualize a sua forma de viajar
+                <img src="img/logo.jpeg" alt="Logo" class="h-32 lg:h-20 rounded-xl shadow-2xl transition-all border-2 border-white/20">
+                <span id="nav-title" class="font-black text-[10px] xs:text-sm lg:text-x1 italic tracking-tighter text-white drop-shadow-lg leading-none">
+                    Atualize sua forma de viajar
                 </span>
             </div>
             
             <div class="flex items-center gap-2">
-                <span id="fale-especialista" class="text-white font-bold italic text-[9px] lg:text-sm drop-shadow-md hidden xs:block">Fale com um especialista agora</span>
+                <span id="fale-especialista" class="text-white font-bold italic text-[8px] lg:text-sm drop-shadow-md hidden xs:block whitespace-nowrap">Fale com um especialista agora</span>
                 <a href="https://wa.me/5511988908306" target="_blank" class="hover:scale-110 transition-transform">
                     <img src="img/zap.png" alt="WhatsApp" class="w-8 h-8 lg:w-14 lg:h-14">
                 </a>
@@ -147,10 +147,26 @@
         </div>
     </header>
 
-    <section class="hero-slider">
+     <section class="hero-slider">
         <div class="slide-item active">
             <div class="absolute inset-0 hidden md:block" style="background: url('img/japao.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/jap.png') center center / cover no-repeat;"></div>
+        </div>
+        <div class="slide-item">
+            <div class="absolute inset-0 hidden md:block" style="background: url('img/tor.png') center top / cover no-repeat;"></div>
+            <div class="absolute inset-0 block md:hidden" style="background: url('img/torre.jpg') center center / cover no-repeat;"></div>
+        </div>
+        <div class="slide-item">
+            <div class="absolute inset-0 hidden md:block" style="background: url('img/rio.png') center top / cover no-repeat;"></div>
+            <div class="absolute inset-0 block md:hidden" style="background: url('img/rj.png') center center / cover no-repeat;"></div>
+        </div>
+        <div class="slide-item">
+            <div class="absolute inset-0 hidden md:block" style="background: url('img/rec.png') center top / cover no-repeat;"></div>
+            <div class="absolute inset-0 block md:hidden" style="background: url('img/recife.png') center center / cover no-repeat;"></div>
+        </div>
+        <div class="slide-item">
+            <div class="absolute inset-0 hidden md:block" style="background: url('img/eua.png') center top / cover no-repeat;"></div>
+            <div class="absolute inset-0 block md:hidden" style="background: url('img/ame.png') center center / cover no-repeat;"></div>
         </div>
         <!-- resto dos slides igual -->
         <div class="absolute inset-0 flex items-end pb-16 lg:pb-0 lg:items-center px-6 lg:px-24 bg-black/20 z-10">
@@ -521,21 +537,23 @@
             }
             else if (agentStep === 3) {
                 chatData.passageiros = msg;
-                addMsg("Qual classe você prefere?<br>1️⃣ <b>Econômica</b><br>2️⃣ <b>Executiva</b>");
+                addMsg("Qual classe você prefere?");
+                setTimeout(() => {
+                    const botoesClasse = `
+                        <div class="flex flex-col gap-2 mt-2">
+                            <button onclick="setOption('classe', 'Econômica')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-600 active:scale-95 transition-all">1️⃣ Econômica</button>
+                            <button onclick="setOption('classe', 'Executiva')" class="w-full bg-blue-600 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-blue-700 active:scale-95 transition-all">2️⃣ Executiva</button>
+                        </div>
+                    `;
+                    addMsg(botoesClasse);
+                }, 800);
                 agentStep = 4;
             }
             else if (agentStep === 4) {
-                chatData.classe = msg;
-                addMsg("<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).<br><br>Deseja adicionar <b>mala despachada de 23kg</b>? (Possui custo adicional).");
-                agentStep = 5;
+                // Esta etapa é controlada pelo botão clicável
             }
             else if (agentStep === 5) {
-                chatData.bagagem = msg;
-                addMsg("Gerando sua cotação exclusiva com milhas...");
-                setTimeout(() => {
-                    const textoWhats = `Olá Voe F5! Quero uma cotação:%0A📍 Destino: ${chatData.destino}%0A✈️ Tipo: ${chatData.tipo}%0A📅 Datas: ${chatData.datas}%0A👥 Passageiros: ${chatData.passageiros}%0A💺 Classe: ${chatData.classe}%0A🧳 Bagagem: ${chatData.bagagem}`;
-                    addMsg(`<a href="https://wa.me/5511988908306?text=${textoWhats}" target="_blank" class="block w-full bg-[#009c3b] text-white text-center py-4 rounded-xl font-black mt-2 uppercase italic text-[12px] shadow-lg">Receber Valores no WhatsApp</a>`);
-                }, 1000);
+                // Esta etapa é controlada pelo botão clicável
             }
         }, 800);
     }
@@ -549,6 +567,37 @@
         div.innerHTML = text;
         container.appendChild(div);
         container.scrollTop = container.scrollHeight;
+    }
+
+    function setOption(tipo, valor) {
+        if (tipo === 'classe') {
+            chatData.classe = valor;
+            addMsg(`${valor} ✅`, true);
+            addMsg("<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).");
+            setTimeout(() => {
+                const botoesBagagem = `
+                    <div class="flex flex-col gap-2 mt-2">
+                        <p class="text-[10px] text-slate-600 font-semibold">Deseja adicionar mala despachada de 23kg?</p>
+                        <button onclick="setOption('bagagem', 'Sim - Mala despachada de 23kg')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-600 active:scale-95 transition-all">✅ Sim - Adicionar mala</button>
+                        <button onclick="setOption('bagagem', 'Não - Apenas mala de mão')" class="w-full bg-slate-400 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-slate-500 active:scale-95 transition-all">❌ Não - Apenas mala de mão</button>
+                    </div>
+                `;
+                addMsg(botoesBagagem);
+            }, 800);
+            agentStep = 5;
+        } else if (tipo === 'bagagem') {
+            chatData.bagagem = valor;
+            addMsg(`${valor} ✅`, true);
+            finalizarCotacao();
+        }
+    }
+
+    function finalizarCotacao() {
+        addMsg("Gerando sua cotação exclusiva com milhas...");
+        setTimeout(() => {
+            const textoWhats = `Olá Voe F5! Quero uma cotação:%0A📍 Destino: ${chatData.destino}%0A✈️ Tipo: ${chatData.tipo}%0A📅 Datas: ${chatData.datas}%0A👥 Passageiros: ${chatData.passageiros}%0A💺 Classe: ${chatData.classe}%0A🧳 Bagagem: ${chatData.bagagem}`;
+            addMsg(`<a href="https://wa.me/5511988908306?text=${textoWhats}" target="_blank" class="block w-full bg-[#009c3b] text-white text-center py-4 rounded-xl font-black mt-2 uppercase italic text-[12px] shadow-lg">Receber Valores no WhatsApp</a>`);
+        }, 1000);
     }
 
     document.getElementById('agent-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAgentSend(); });
