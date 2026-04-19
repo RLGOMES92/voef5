@@ -28,7 +28,7 @@
 
     <style type="text/tailwindcss">
         @layer components {
-            .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-md text-sm; }
+            .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-sm; }
             .premium-card { @apply bg-white rounded-[24px] border border-slate-100 shadow-lg p-6 transition-all hover:-translate-y-2 flex flex-col; }
             .btn-counter { @apply w-7 h-7 rounded-full border border-white/30 flex items-center justify-center font-bold text-white hover:bg-white/20 active:scale-90 transition-all; }
             .trip-btn { @apply px-4 py-1.5 rounded-full border-2 font-bold text-xs transition-all; }
@@ -67,7 +67,6 @@
             min-width: 200px;
         }
 
-        /* AJUSTE 1: Frase do logo menor no mobile */
         #nav-title {
             font-size: 11px !important;
         }
@@ -82,7 +81,6 @@
             }
         }
 
-        /* AJUSTE 2: WhatsApp - frase alinhada na ponta do ícone */
         @media (max-width: 639px) {
             #navbar .flex.items-center.gap-2 {
                 gap: 1.25rem;
@@ -103,7 +101,6 @@
             }
         }
 
-        /* NOVO AJUSTE 3: EFEITO INCHADO na frase HERO */
         .hero-title {
             animation: swell 3s ease-in-out infinite;
             text-shadow: 
@@ -132,7 +129,7 @@
     <header id="navbar" class="fixed w-full z-[100] py-4 px-4 lg:px-12 transition-all duration-500">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 lg:gap-8">
-                <img src="img/logo.jpeg" alt="Logo" class="h-32 lg:h-20 rounded-xl shadow-2xl transition-all border-2 border-white/20">
+                <img src="img/logo.jpeg" alt="Logo" class="h-14 lg:h-20 rounded-xl shadow-2xl transition-all border-2 border-white/20">
                 <span id="nav-title" class="font-black text-[10px] xs:text-sm lg:text-x1 italic tracking-tighter text-white drop-shadow-lg leading-none">
                     Atualize sua forma de viajar
                 </span>
@@ -147,7 +144,7 @@
         </div>
     </header>
 
-     <section class="hero-slider">
+    <section class="hero-slider">
         <div class="slide-item active">
             <div class="absolute inset-0 hidden md:block" style="background: url('img/japao.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/jap.png') center center / cover no-repeat;"></div>
@@ -168,10 +165,9 @@
             <div class="absolute inset-0 hidden md:block" style="background: url('img/eua.png') center top / cover no-repeat;"></div>
             <div class="absolute inset-0 block md:hidden" style="background: url('img/ame.png') center center / cover no-repeat;"></div>
         </div>
-        <!-- resto dos slides igual -->
+
         <div class="absolute inset-0 flex items-end pb-16 lg:pb-0 lg:items-center px-6 lg:px-24 bg-black/20 z-10">
             <div class="w-full max-w-sm lg:max-w-2xl text-left">
-                <!-- AJUSTE: Classe hero-title adicionada -->
                 <h1 class="hero-title text-2xl lg:text-6xl font-black text-white italic uppercase leading-tight lg:leading-[1.1] mb-2 drop-shadow-2xl">
                     Economize em voos <br>
                     <span class="text-brand-yellow">com inteligência.</span><br>
@@ -179,127 +175,115 @@
                 <p class="text-white/90 text-[11px] lg:text-xl font-medium mb-8 italic max-w-sm lg:max-w-lg drop-shadow-md">
                     Encontramos as melhores opções para sua viagem:<br class="hidden lg:block"> voos, rotas e experiências exclusivas.
                 </p>
-                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-4 px-8 rounded-xl text-xs lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-xl hover:-translate-y-1">
+                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-4 px-8 rounded-xl text-xs lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-lg">
                     Simular viagem agora <i data-lucide="chevron-right" class="w-5 h-5"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- resto do código permanece EXATAMENTE igual -->
-
     <section class="py-16 px-6 bg-white">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <p class="text-blue-700 font-bold text-xs lg:text-sm uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
-            <h2 class="text-xl lg:text-4xl font-black italic uppercase text-safira-dark leading-tight">Transformando eficiência em <span class="text-brand-green">economia real</span></h2>
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-blue-700 font-bold text-xs lg:text-sm uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
+                <h2 class="text-xl lg:text-4xl font-black italic uppercase text-safira-dark leading-tight">Transformando eficiência em <span class="text-brand-green">economia real</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="premium-card border-b-4 border-brand-green">
+                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 18%</div>
+                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → LISBOA</h3>
+                    <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
+                        Preço de Mercado: 
+                        <span class="relative inline-block px-1">
+                            R$ 4.642,00
+                            <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
+                        </span>
+                    </p>
+                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
+                            <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 3.760,19</span>
+                        </div>
+                        <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
+                            <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="premium-card border-b-4 border-brand-green">
+                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 28%</div>
+                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → ORLANDO</h3>
+                    <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
+                        Preço de Mercado: 
+                        <span class="relative inline-block px-1">
+                            R$ 3.620,00
+                            <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
+                        </span>
+                    </p>
+                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
+                            <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 2.419,00</span>
+                        </div>
+                        <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
+                            <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="premium-card border-b-4 border-brand-green">
+                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 17%</div>
+                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">ROMA → LISBOA</h3>
+                    <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
+                        Preço de Mercado: 
+                        <span class="relative inline-block px-1">
+                            R$ 679,50
+                            <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
+                        </span>
+                    </p>
+                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
+                            <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 564,00</span>
+                        </div>
+                        <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
+                            <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div class="premium-card border-b-4 border-brand-green">
-                <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 18%</div>
-                <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → LISBOA</h3>
-                <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
-                    Preço de Mercado: 
-                    <span class="relative inline-block px-1">
-                        R$ 4.642,00
-                        <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
-                    </span>
-                </p>
-                <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-                    <div class="flex flex-col">
-                        <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
-                        <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 3.760,19</span>
-                    </div>
-                    <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
-                        <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="premium-card border-b-4 border-brand-green">
-                <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 28%</div>
-                <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → ORLANDO</h3>
-                <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
-                    Preço de Mercado: 
-                    <span class="relative inline-block px-1">
-                        R$ 3.620,00
-                        <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
-                    </span>
-                </p>
-                <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-                    <div class="flex flex-col">
-                        <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
-                        <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 2.419,00</span>
-                    </div>
-                    <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
-                        <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="premium-card border-b-4 border-brand-green">
-                <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 17%</div>
-                <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">ROMA → LISBOA</h3>
-                <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
-                    Preço de Mercado: 
-                    <span class="relative inline-block px-1">
-                        R$ 679,50
-                        <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
-                    </span>
-                </p>
-                <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-                    <div class="flex flex-col">
-                        <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
-                        <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 564,00</span>
-                    </div>
-                    <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
-                        <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
-                    </div>
-                </div>
-            </div>
-
-        </div> </div>
-</section>
+    </section>
 
     <section class="py-12 px-6 bg-slate-50 border-t border-slate-100">
-    <div class="max-w-5xl mx-auto">
-        <h2 class="text-center text-lg lg:text-xl font-black mb-10 uppercase tracking-widest text-safira-dark">COMO FUNCIONA</h2>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
-                <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">1</div>
-                
-                <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Você envia sua viagem</h3>
-                
-                <i data-lucide="laptop" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
-                
-                <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Origem, destino, datas e quantidade de passageiros.</p>
-            </div>
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-center text-lg lg:text-xl font-black mb-10 uppercase tracking-widest text-safira-dark">COMO FUNCIONA</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
+                    <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">1</div>
+                    <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Você envia sua viagem</h3>
+                    <i data-lucide="laptop" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
+                    <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Origem, destino, datas e quantidade de passageiros.</p>
+                </div>
 
-            <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
-                <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">2</div>
-                
-                <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Análise estratégica</h3>
-                
-                <i data-lucide="globe-2" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
-                
-                <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Buscamos as melhores opções com inteligência de milhas.</p>
-            </div>
+                <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
+                    <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">2</div>
+                    <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Análise estratégica</h3>
+                    <i data-lucide="globe-2" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
+                    <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Buscamos as melhores opções com inteligência de milhas.</p>
+                </div>
 
-            <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
-                <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">3</div>
-                
-                <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Receba a melhor opção</h3>
-                
-                <i data-lucide="check-circle" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
-                
-                <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Com economia real e suporte completo na emissão.</p>
+                <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
+                    <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">3</div>
+                    <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Receba a melhor opção</h3>
+                    <i data-lucide="check-circle" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
+                    <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Com economia real e suporte completo na emissão.</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="py-16 px-6 bg-slate-50 border-t">
         <div class="max-w-7xl mx-auto">
@@ -307,17 +291,17 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="testimonial-card">
                     <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">“Conseguimos reduzir significativamente os custos das nossas viagens. A plataforma encontra oportunidades que realmente fazem diferença no orçamento.”</p>
+                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Conseguimos reduzir significativamente os custos das nossas viagens. A plataforma encontra oportunidades que nunca teríamos descoberto sozinhos."</p>
                     <p class="font-bold text-safira-dark text-sm">Marcelo R.</p>
                 </div>
                 <div class="testimonial-card">
                     <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">“Já comparei com buscadores tradicionais e os valores encontrados aqui foram surpreendentes. Hoje sempre consulto antes de emitir qualquer passagem.”</p>
+                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Já comparei com buscadores tradicionais e os valores encontrados aqui foram surpreendentes. Hoje sempre consulto a Voe F5."</p>
                     <p class="font-bold text-safira-dark text-sm">Fernanda L.</p>
                 </div>
                 <div class="testimonial-card">
                     <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">“Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e resolve tudo com rapidez e eficiência.”</p>
+                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e dedicada."</p>
                     <p class="font-bold text-safira-dark text-sm">Daniela S.</p>
                 </div>
             </div>
@@ -407,7 +391,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-600 text-white font-black py-5 rounded-xl text-lg lg:text-2xl uppercase italic transition-all shadow-xl hover:scale-[1.01] active:scale-[0.99]">
+                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-600 text-white font-black py-5 rounded-xl text-lg lg:text-2xl uppercase italic transition-all shadow-xl hover:shadow-2xl">
                     Analisar Melhores Tarifas
                 </button>
             </form>
@@ -417,191 +401,192 @@
     <footer class="py-12 bg-safira-dark text-center text-white/40 text-[10px] font-bold uppercase italic border-t border-white/5 tracking-[0.2em] relative z-0">
         &copy; Voe F5 tour | Atualize a sua forma de viajar
     </footer>
-<script src="https://unpkg.com/lucide@latest"></script>
 
-<style>
-    .agent-pulse { animation: pulse-green 2s infinite; }
-    @keyframes pulse-green {
-        0% { box-shadow: 0 0 0 0 rgba(0, 156, 59, 0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(0, 156, 59, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(0, 156, 59, 0); }
-    }
-    #agent-messages b { color: #009c3b; font-weight: 800; }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    
-    /* Garante que a janela caiba na tela */
-    #agent-chat-window {
-        max-height: 85vh; /* Máximo de 85% da altura da tela */
-        display: flex;
-        flex-direction: column;
-    }
-</style>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-<div id="agent-widget" class="fixed bottom-6 right-6 z-[99999] flex flex-col items-end font-['Plus_Jakarta_Sans']">
-    
-    <div id="agent-chat-window" class="hidden w-[310px] md:w-[380px] bg-white rounded-[24px] md:rounded-[32px] shadow-[0_25px_60px_rgba(0,0,0,0.4)] border border-slate-200 overflow-hidden mb-4 transition-all duration-300 scale-95 opacity-0 origin-bottom-right">
+    <style>
+        .agent-pulse { animation: pulse-green 2s infinite; }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(0, 156, 59, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 156, 59, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 156, 59, 0); }
+        }
+        #agent-messages b { color: #009c3b; font-weight: 800; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
         
-        <div class="bg-[#001f3f] p-4 md:p-5 flex items-center gap-3 shrink-0">
-            <div class="w-10 h-10 bg-[#009c3b] rounded-xl flex items-center justify-center text-white font-black italic shadow-md text-sm">F5</div>
-            <div class="flex-1">
-                <h4 class="text-white font-black text-xs md:text-sm uppercase italic">Agente Voe F5</h4>
-                <p class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Online</p>
-            </div>
-            <button onclick="toggleAgentChat()" class="text-white/70 hover:text-white p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-        </div>
+        #agent-chat-window {
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 
-        <div id="agent-messages" class="flex-1 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 scrollbar-hide min-h-[300px]">
-            <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 max-w-[90%] text-[12px] font-semibold text-slate-700">
-                Olá! Como posso te ajudar hoje? 👋
-            </div>
-        </div>
-
-        <div class="p-4 bg-white border-t border-slate-100 shrink-0">
-            <div class="flex gap-2">
-                <input type="text" id="agent-input" placeholder="Digite aqui..." class="flex-1 bg-slate-100 rounded-xl px-4 py-3 text-[12px] font-bold outline-none border-2 border-transparent focus:border-[#009c3b] transition-all">
-                <button onclick="handleAgentSend()" class="bg-[#009c3b] text-white p-3 rounded-xl shadow-lg active:scale-90 transition-transform">
-                    <i data-lucide="send" class="w-5 h-5"></i>
+    <div id="agent-widget" class="fixed bottom-6 right-6 z-[99999] flex flex-col items-end font-['Plus_Jakarta_Sans']">
+        
+        <div id="agent-chat-window" class="hidden w-[310px] md:w-[380px] bg-white rounded-[24px] md:rounded-[32px] shadow-[0_25px_60px_rgba(0,0,0,0.4)] border border-slate-200 overflow-hidden mb-4 transition-all duration-300 scale-95 opacity-0">
+            
+            <div class="bg-[#001f3f] p-4 md:p-5 flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-[#009c3b] rounded-xl flex items-center justify-center text-white font-black italic shadow-md text-sm">F5</div>
+                <div class="flex-1">
+                    <h4 class="text-white font-black text-xs md:text-sm uppercase italic">Agente Voe F5</h4>
+                    <p class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Online</p>
+                </div>
+                <button onclick="toggleAgentChat()" class="text-white/70 hover:text-white p-1">
+                    <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
+
+            <div id="agent-messages" class="flex-1 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 scrollbar-hide min-h-[300px]">
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 max-w-[90%] text-[12px] font-semibold text-slate-700">
+                    Olá! Como posso te ajudar hoje? 👋
+                </div>
+            </div>
+
+            <div class="p-4 bg-white border-t border-slate-100 shrink-0">
+                <div class="flex gap-2">
+                    <input type="text" id="agent-input" placeholder="Digite aqui..." class="flex-1 bg-slate-100 rounded-xl px-4 py-3 text-[12px] font-bold outline-none border-2 border-transparent focus:border-brand-green transition-all">
+                    <button onclick="handleAgentSend()" class="bg-[#009c3b] text-white p-3 rounded-xl shadow-lg active:scale-90 transition-transform">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
         </div>
+
+        <button onclick="toggleAgentChat()" class="agent-pulse bg-[#009c3b] p-4 md:p-5 rounded-[20px] md:rounded-[24px] shadow-2xl transition-all hover:scale-110 active:scale-95 border-b-4 border-emerald-600">
+            <i data-lucide="bot" class="text-white w-7 h-7 md:w-8 h-8"></i>
+        </button>
     </div>
 
-    <button onclick="toggleAgentChat()" class="agent-pulse bg-[#009c3b] p-4 md:p-5 rounded-[20px] md:rounded-[24px] shadow-2xl transition-all hover:scale-110 active:scale-95 border-b-4 border-emerald-900">
-        <i data-lucide="bot" class="text-white w-7 h-7 md:w-8 h-8"></i>
-    </button>
-</div>
+    <script>
+        lucide.createIcons();
 
-<script>
-    lucide.createIcons();
+        let agentStep = -1;
+        let chatData = { destino: "", tipo: "", datas: "", passageiros: "", classe: "", bagagem: "" };
 
-    let agentStep = -1;
-    let chatData = { destino: "", tipo: "", datas: "", passageiros: "", classe: "", bagagem: "" };
-
-    function toggleAgentChat() {
-        const win = document.getElementById('agent-chat-window');
-        if (win.classList.contains('hidden')) {
-            win.classList.remove('hidden');
-            setTimeout(() => { 
-                win.classList.remove('scale-95', 'opacity-0');
-                lucide.createIcons(); 
-            }, 10);
-        } else {
-            win.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => { win.classList.add('hidden'); }, 300);
+        function toggleAgentChat() {
+            const win = document.getElementById('agent-chat-window');
+            if (win.classList.contains('hidden')) {
+                win.classList.remove('hidden');
+                setTimeout(() => { 
+                    win.classList.remove('scale-95', 'opacity-0');
+                    lucide.createIcons(); 
+                }, 10);
+            } else {
+                win.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => { win.classList.add('hidden'); }, 300);
+            }
         }
-    }
 
-    function handleAgentSend() {
-        const input = document.getElementById('agent-input');
-        const msg = input.value.trim();
-        if (!msg) return;
+        function handleAgentSend() {
+            const input = document.getElementById('agent-input');
+            const msg = input.value.trim();
+            if (!msg) return;
 
-        addMsg(msg, true);
-        input.value = '';
+            addMsg(msg, true);
+            input.value = '';
 
-        setTimeout(() => {
-            const lowerMsg = msg.toLowerCase();
+            setTimeout(() => {
+                const lowerMsg = msg.toLowerCase();
 
-            if (agentStep === -1) {
-                const saudar = ["ola", "olá", "oi", "bom dia", "boa tarde", "boa noite", "blz", "tudo bem"];
-                if (saudar.some(s => lowerMsg.includes(s))) {
-                    addMsg("Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?");
-                    agentStep = 0;
-                } else {
+                if (agentStep === -1) {
+                    const saudar = ["ola", "olá", "oi", "bom dia", "boa tarde", "boa noite", "blz", "tudo bem"];
+                    if (saudar.some(s => lowerMsg.includes(s))) {
+                        addMsg("Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?");
+                        agentStep = 0;
+                    } else {
+                        chatData.destino = msg;
+                        addMsg(`Perfeito! Destino: <b>${msg}</b>. <br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?`);
+                        agentStep = 1;
+                    }
+                } 
+                else if (agentStep === 0) {
                     chatData.destino = msg;
-                    addMsg(`Perfeito! Destino: <b>${msg}</b>. <br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?`);
+                    addMsg(`Excelente! ✈️<br>Agora me diga: Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?`);
                     agentStep = 1;
                 }
-            } 
-            else if (agentStep === 0) {
-                chatData.destino = msg;
-                addMsg(`Excelente! ✈️<br>Agora me diga: Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?`);
-                agentStep = 1;
-            }
-            else if (agentStep === 1) {
-                if (lowerMsg.includes("volta")) {
-                    chatData.tipo = "Ida e Volta";
-                    addMsg("Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>, por favor.");
-                } else {
-                    chatData.tipo = "Somente Ida";
-                    addMsg("Entendido! Qual a <b>data de embarque</b>?");
+                else if (agentStep === 1) {
+                    if (lowerMsg.includes("volta")) {
+                        chatData.tipo = "Ida e Volta";
+                        addMsg("Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>, por favor.");
+                    } else {
+                        chatData.tipo = "Somente Ida";
+                        addMsg("Entendido! Qual a <b>data de embarque</b>?");
+                    }
+                    agentStep = 2;
                 }
-                agentStep = 2;
-            }
-            else if (agentStep === 2) {
-                chatData.datas = msg;
-                addMsg("Para <b>quantas pessoas</b>? Informe a idade se houver crianças (bebês até 11 meses não pagam!).");
-                agentStep = 3;
-            }
-            else if (agentStep === 3) {
-                chatData.passageiros = msg;
-                addMsg("Qual classe você prefere?");
+                else if (agentStep === 2) {
+                    chatData.datas = msg;
+                    addMsg("Para <b>quantas pessoas</b>? Informe a idade se houver crianças (bebês até 11 meses não pagam!).");
+                    agentStep = 3;
+                }
+                else if (agentStep === 3) {
+                    chatData.passageiros = msg;
+                    addMsg("Qual classe você prefere?");
+                    setTimeout(() => {
+                        const botoesClasse = `
+                            <div class="flex flex-col gap-2 mt-2">
+                                <button onclick="setOption('classe', 'Econômica')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-700 transition-all">Econômica</button>
+                                <button onclick="setOption('classe', 'Executiva')" class="w-full bg-blue-600 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-blue-700 transition-all">Executiva</button>
+                            </div>
+                        `;
+                        addMsg(botoesClasse);
+                    }, 800);
+                    agentStep = 4;
+                }
+                else if (agentStep === 4) {
+                    // Controlada pelo botão
+                }
+                else if (agentStep === 5) {
+                    // Controlada pelo botão
+                }
+            }, 800);
+        }
+
+        function addMsg(text, isUser = false) {
+            const container = document.getElementById('agent-messages');
+            const div = document.createElement('div');
+            div.className = isUser ? 
+                "bg-[#009c3b] text-white p-4 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[11px] font-bold mb-2 shadow-md" : 
+                "bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 max-w-[85%] text-[11px] text-slate-700 font-semibold mb-2 shadow-sm";
+            div.innerHTML = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function setOption(tipo, valor) {
+            if (tipo === 'classe') {
+                chatData.classe = valor;
+                addMsg(`${valor} ✅`, true);
+                addMsg("<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).");
                 setTimeout(() => {
-                    const botoesClasse = `
+                    const botoesBagagem = `
                         <div class="flex flex-col gap-2 mt-2">
-                            <button onclick="setOption('classe', 'Econômica')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-600 active:scale-95 transition-all">1️⃣ Econômica</button>
-                            <button onclick="setOption('classe', 'Executiva')" class="w-full bg-blue-600 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-blue-700 active:scale-95 transition-all">2️⃣ Executiva</button>
+                            <p class="text-[10px] text-slate-600 font-semibold">Deseja adicionar mala despachada de 23kg?</p>
+                            <button onclick="setOption('bagagem', 'Sim - Mala despachada de 23kg')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-700 transition-all">Sim</button>
+                            <button onclick="setOption('bagagem', 'Não - Apenas mala de mão')" class="w-full bg-slate-400 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-slate-500 transition-all">Não</button>
                         </div>
                     `;
-                    addMsg(botoesClasse);
+                    addMsg(botoesBagagem);
                 }, 800);
-                agentStep = 4;
+                agentStep = 5;
+            } else if (tipo === 'bagagem') {
+                chatData.bagagem = valor;
+                addMsg(`${valor} ✅`, true);
+                finalizarCotacao();
             }
-            else if (agentStep === 4) {
-                // Esta etapa é controlada pelo botão clicável
-            }
-            else if (agentStep === 5) {
-                // Esta etapa é controlada pelo botão clicável
-            }
-        }, 800);
-    }
-
-    function addMsg(text, isUser = false) {
-        const container = document.getElementById('agent-messages');
-        const div = document.createElement('div');
-        div.className = isUser ? 
-            "bg-[#009c3b] text-white p-4 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[11px] font-bold mb-2 shadow-md" : 
-            "bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 max-w-[85%] text-[11px] text-slate-700 font-semibold mb-2 shadow-sm";
-        div.innerHTML = text;
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-    }
-
-    function setOption(tipo, valor) {
-        if (tipo === 'classe') {
-            chatData.classe = valor;
-            addMsg(`${valor} ✅`, true);
-            addMsg("<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).");
-            setTimeout(() => {
-                const botoesBagagem = `
-                    <div class="flex flex-col gap-2 mt-2">
-                        <p class="text-[10px] text-slate-600 font-semibold">Deseja adicionar mala despachada de 23kg?</p>
-                        <button onclick="setOption('bagagem', 'Sim - Mala despachada de 23kg')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-600 active:scale-95 transition-all">✅ Sim - Adicionar mala</button>
-                        <button onclick="setOption('bagagem', 'Não - Apenas mala de mão')" class="w-full bg-slate-400 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-slate-500 active:scale-95 transition-all">❌ Não - Apenas mala de mão</button>
-                    </div>
-                `;
-                addMsg(botoesBagagem);
-            }, 800);
-            agentStep = 5;
-        } else if (tipo === 'bagagem') {
-            chatData.bagagem = valor;
-            addMsg(`${valor} ✅`, true);
-            finalizarCotacao();
         }
-    }
 
-    function finalizarCotacao() {
-        addMsg("Gerando sua cotação exclusiva com milhas...");
-        setTimeout(() => {
-            const textoWhats = `Olá Voe F5! Quero uma cotação:%0A📍 Destino: ${chatData.destino}%0A✈️ Tipo: ${chatData.tipo}%0A📅 Datas: ${chatData.datas}%0A👥 Passageiros: ${chatData.passageiros}%0A💺 Classe: ${chatData.classe}%0A🧳 Bagagem: ${chatData.bagagem}`;
-            addMsg(`<a href="https://wa.me/5511988908306?text=${textoWhats}" target="_blank" class="block w-full bg-[#009c3b] text-white text-center py-4 rounded-xl font-black mt-2 uppercase italic text-[12px] shadow-lg">Receber Valores no WhatsApp</a>`);
-        }, 1000);
-    }
+        function finalizarCotacao() {
+            addMsg("Gerando sua cotação exclusiva com milhas...");
+            setTimeout(() => {
+                const textoWhats = `Olá Voe F5! Quero uma cotação:%0A📍 Destino: ${chatData.destino}%0A✈️ Tipo: ${chatData.tipo}%0A📅 Datas: ${chatData.datas}%0A👥 Passageiros: ${chatData.passageiros}%0A🎫 Classe: ${chatData.classe}%0A💼 Bagagem: ${chatData.bagagem}`;
+                addMsg(`<a href="https://wa.me/5511988908306?text=${textoWhats}" target="_blank" class="block w-full bg-[#009c3b] text-white text-center py-4 rounded-xl font-black mt-2 uppercase italic text-[11px] shadow-lg hover:bg-emerald-700 transition-all">📲 Enviar Cotação via WhatsApp</a>`);
+            }, 1000);
+        }
 
-    document.getElementById('agent-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAgentSend(); });
-</script>
+        document.getElementById('agent-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAgentSend(); });
+    </script>
+
     <script>
         lucide.createIcons();
 
@@ -673,7 +658,10 @@
             const des = document.getElementById('destino').value;
             const ida = formatarData(document.getElementById('dataIda').value);
             const volta = formatarData(document.getElementById('dataVolta').value);
-            const msg = `Olá! Gostaria de uma cotação:\n\n✈ *Origem:* ${ori}\n📍 *Destino:* ${des}\n📅 *Ida:* ${ida}${volta ? '\n📅 *Volta:* '+volta : ''}\n👥 *Passageiros:* ${passageiros.adt} Adulto(s), ${passageiros.chd} Criança(s), ${passageiros.inf} Bebê(s)\n💼 *Bagagens:* ${bagagens.mao} de mão (10kg) e ${bagagens.desp} despachada(s) (23kg)`;
+            const adultos = passageiros.adt;
+            const criancas = passageiros.chd;
+            const bebes = passageiros.inf;
+            const msg = `Olá! Gostaria de uma cotação:\n\n✈ *Origem:* ${ori}\n📍 *Destino:* ${des}\n📅 *Ida:* ${ida}${volta ? '\n📅 *Volta:* '+volta : ''}\n👥 *Passageiros:* ${adultos} Adultos${criancas > 0 ? ', '+criancas+' Crianças' : ''}${bebes > 0 ? ', '+bebes+' Bebês' : ''}\n💼 *Bagagem:* ${bagagens.mao} de mão, ${bagagens.desp} despachadas`;
             window.open(`https://wa.me/5511988908306?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
