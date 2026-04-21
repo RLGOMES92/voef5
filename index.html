@@ -457,8 +457,8 @@
             <div class="form-mobile">
                 <!-- Linha 1: Origem + Destino -->
                 <div class="form-row-1">
-                    <input type="text" id="origem-m"  placeholder="✈ Origem"  class="input-field" required>
-                    <input type="text" id="destino-m" placeholder="📍 Destino" class="input-field" required>
+                    <input type="text" id="origem-m"  placeholder="✈ Origem"  class="input-field">
+                    <input type="text" id="destino-m" placeholder="📍 Destino" class="input-field">
                 </div>
                 <!-- Linha 2: Datas -->
                 <div class="form-row-2">
@@ -548,13 +548,13 @@
             <div class="form-desktop">
                 <!-- Linha 1: Origem + Destino -->
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-                    <input type="text" id="origem-d"  placeholder="✈ Origem"  class="input-field" required>
-                    <input type="text" id="destino-d" placeholder="📍 Destino" class="input-field" required>
+                    <input type="text" id="origem-d"  placeholder="✈ Origem"  class="input-field">
+                    <input type="text" id="destino-d" placeholder="📍 Destino" class="input-field">
                 </div>
                 <!-- Linha 2: Ida | Volta | Passageiros | Bagagem (4 colunas) -->
                 <div class="form-desktop-grid">
-                    <input type="text" id="dataIda-d"   placeholder="📅 Ida"   class="input-field" required onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
-                    <input type="text" id="dataVolta-d" placeholder="📅 Volta" class="input-field"          onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
+                    <input type="text" id="dataIda-d"   placeholder="📅 Ida"   class="input-field" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
+                    <input type="text" id="dataVolta-d" placeholder="📅 Volta" class="input-field" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
                     <!-- Passageiros desktop -->
                     <div class="drop-wrapper">
                         <button type="button" class="input-field drop-btn" onclick="abrirDrop('menu-pass-d')">
@@ -644,7 +644,25 @@
             </div>
         </div>
     </div>
-    <button onclick="toggleChat()" class="agent-pulse" style="background:#009c3b;padding:18px;border-radius:20px;box-shadow:0 8px 30px rgba(0,0,0,0.3);border:none;cursor:pointer;border-bottom:4px solid #007a2e;font-size:24px;line-height:1;">🤖</button>
+    <button onclick="toggleChat()" class="agent-pulse" style="background:linear-gradient(135deg,#009c3b,#00b844);width:60px;height:60px;border-radius:20px;box-shadow:0 8px 30px rgba(0,156,59,0.45);border:none;cursor:pointer;border-bottom:4px solid #007a2e;display:flex;align-items:center;justify-content:center;">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cabeça -->
+            <rect x="6" y="9" width="20" height="15" rx="4" fill="white" fill-opacity="0.95"/>
+            <!-- Antena -->
+            <line x1="16" y1="4" x2="16" y2="9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="3.5" r="2" fill="white"/>
+            <!-- Olhos -->
+            <circle cx="11.5" cy="15" r="2.5" fill="#009c3b"/>
+            <circle cx="20.5" cy="15" r="2.5" fill="#009c3b"/>
+            <circle cx="12" cy="14.5" r="1" fill="white"/>
+            <circle cx="21" cy="14.5" r="1" fill="white"/>
+            <!-- Boca -->
+            <rect x="11" y="19.5" width="10" height="2" rx="1" fill="#009c3b" fill-opacity="0.7"/>
+            <!-- Orelhas/parafusos -->
+            <rect x="3" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity="0.8"/>
+            <rect x="26" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity="0.8"/>
+        </svg>
+    </button>
 </div>
 
 <script>
@@ -792,42 +810,41 @@ function formatarData(val) {
 function enviarWhatsApp(e) {
     e.preventDefault();
     var isDesktop = window.innerWidth >= 768;
-    var ori, des, ida, volta;
+    var ori, des, ida, volta, msg;
     if (isDesktop) {
-        ori   = document.getElementById('origem-d').value;
-        des   = document.getElementById('destino-d').value;
+        ori   = (document.getElementById('origem-d').value || '').trim();
+        des   = (document.getElementById('destino-d').value || '').trim();
         ida   = formatarData(document.getElementById('dataIda-d').value);
         volta = formatarData(document.getElementById('dataVolta-d').value);
-        if (!ida) { alert('Por favor, informe a data de ida.'); return; }
-        var msg =
-            'Olá! Gostaria de uma cotação:\n\n' +
-            '✈ *Origem:* '  + ori + '\n' +
-            '📍 *Destino:* ' + des + '\n' +
-            '📅 *Ida:* '     + ida +
-            (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
-            '👥 *Passageiros:* ' + passD.adt + ' Adultos' +
-            (passD.chd > 0 ? ', ' + passD.chd + ' Crianças' : '') +
-            (passD.inf > 0 ? ', ' + passD.inf + ' Bebês' : '') + '\n' +
-            '💼 *Bagagem:* ' + bagD.mao + ' de mão, ' + bagD.desp + ' despachadas';
-        window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+        if (!ori || !des) { alert('Por favor, informe origem e destino.'); return; }
+        if (!ida)         { alert('Por favor, informe a data de ida.'); return; }
+        msg = 'Olá! Gostaria de uma cotação:\n\n' +
+              '✈ *Origem:* ' + ori + '\n' +
+              '📍 *Destino:* ' + des + '\n' +
+              '📅 *Ida:* ' + ida +
+              (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
+              '👥 *Passageiros:* ' + passD.adt + ' Adultos' +
+              (passD.chd > 0 ? ', ' + passD.chd + ' Crianças' : '') +
+              (passD.inf > 0 ? ', ' + passD.inf + ' Bebês' : '') + '\n' +
+              '💼 *Bagagem:* ' + bagD.mao + ' de mão, ' + bagD.desp + ' despachadas';
     } else {
-        ori   = document.getElementById('origem-m').value;
-        des   = document.getElementById('destino-m').value;
+        ori   = (document.getElementById('origem-m').value || '').trim();
+        des   = (document.getElementById('destino-m').value || '').trim();
         ida   = formatarData(dataIda);
         volta = formatarData(dataVolta);
-        if (!ida) { alert('Por favor, informe a data de ida.'); return; }
-        var msg =
-            'Olá! Gostaria de uma cotação:\n\n' +
-            '✈ *Origem:* '  + ori + '\n' +
-            '📍 *Destino:* ' + des + '\n' +
-            '📅 *Ida:* '     + ida +
-            (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
-            '👥 *Passageiros:* ' + pass.adt + ' Adultos' +
-            (pass.chd > 0 ? ', ' + pass.chd + ' Crianças' : '') +
-            (pass.inf > 0 ? ', ' + pass.inf + ' Bebês' : '') + '\n' +
-            '💼 *Bagagem:* ' + bag.mao + ' de mão, ' + bag.desp + ' despachadas';
-        window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+        if (!ori || !des) { alert('Por favor, informe origem e destino.'); return; }
+        if (!ida)         { alert('Por favor, informe a data de ida.'); return; }
+        msg = 'Olá! Gostaria de uma cotação:\n\n' +
+              '✈ *Origem:* ' + ori + '\n' +
+              '📍 *Destino:* ' + des + '\n' +
+              '📅 *Ida:* ' + ida +
+              (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
+              '👥 *Passageiros:* ' + pass.adt + ' Adultos' +
+              (pass.chd > 0 ? ', ' + pass.chd + ' Crianças' : '') +
+              (pass.inf > 0 ? ', ' + pass.inf + ' Bebês' : '') + '\n' +
+              '💼 *Bagagem:* ' + bag.mao + ' de mão, ' + bag.desp + ' despachadas';
     }
+    window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
 }
 
 // ─── 11. AGENTE CHAT ──────────────────────────────────────────────────────────
