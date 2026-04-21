@@ -23,7 +23,7 @@
         #nav-title {
             font-size:9px; font-weight:700; font-style:italic; letter-spacing:-0.01em;
             color:white; text-shadow:0 2px 8px rgba(0,0,0,0.4);
-            white-space:nowrap;
+            
             min-width:0; flex:1;
         }
         @media(min-width:360px){ #nav-title { font-size:10px; } }
@@ -36,6 +36,14 @@
         /* Cor do texto ao rolar */
         #navbar.scrolled #nav-title { color:#001A4F; text-shadow:none; }
         #navbar.scrolled #nav-title .nav-yellow { color:#cc9900 !important; }
+
+        /* ── LOGO SWAP ───────────────────────────────────────── */
+        #logo-white { transition: opacity 0.4s ease; opacity: 1; position: absolute; }
+        #logo-blue  { transition: opacity 0.4s ease; opacity: 0; position: absolute; }
+        #navbar.scrolled #logo-white { opacity: 0; }
+        #navbar.scrolled #logo-blue  { opacity: 1; }
+        .logo-wrapper { position: relative; height: 100px; width: 100px; flex-shrink: 0; }
+        @media(min-width:768px) { .logo-wrapper { height: 100px; width: 110px; } }
 
         /* Botão WhatsApp pill */
         #wpp-pill {
@@ -52,7 +60,7 @@
         #wpp-pill:hover { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.9); }
         #wpp-pill svg { width:26px; height:26px; flex-shrink:0; }
         #wpp-pill span {
-            color:white; font-weight:700; font-size:12px; white-space:nowrap;
+            color:white; font-weight:700; font-size:12px; 
             text-shadow:0 1px 4px rgba(0,0,0,0.4);
         }
         @media(min-width:480px){ #wpp-pill svg { width:30px; height:30px; } #wpp-pill span { font-size:13px; } #wpp-pill { padding:7px 16px 7px 10px; gap:8px; } }
@@ -100,33 +108,33 @@
         }
 
         .hero-content {
-            padding-bottom: 80px;
+            padding-bottom: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             width:100%;
-            max: width 800px;
             text-align:left;
             overflow:visible;
             word-break:break-word;
         }
         @media(min-width:768px) {
-            .hero-content { max-width:520px; }
+            .hero-content { max-width:520px; padding-bottom:80px; }
         }
 
         .hero-title {
-            font-size:26px;
+            font-size:22px;
             font-weight:900;
             font-style:italic;
             text-transform:uppercase;
             color:white;
             line-height:1.2;
-            margin:0 0 10px 0;
+            margin:0 0 8px 0;
             word-break:normal;
             overflow-wrap: break-word;
             animation:swell 3s ease-in-out infinite;
             text-shadow:0 0 10px rgba(255,255,255,0.3),0 0 20px rgba(255,204,0,0.2);
         }
+        @media(min-width:375px)  { .hero-title { font-size:24px; } }
         @media(min-width:480px)  { .hero-title { font-size:28px; } }
         @media(min-width:768px)  { .hero-title { font-size:38px; } }
         @media(min-width:1024px) { .hero-title { font-size:48px; } }
@@ -267,8 +275,12 @@
 <header id="navbar">
     <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:10px;">
         <!-- LOGO + TÍTULO -->
-        <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;overflow:hidden;">
-            <img src="img/logo.png" alt="Logo" style="height:100px; filter: drop-shadow(0px 0px 5px rgba(0,0,0,0,8));">
+        <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;overflow:visible;">
+            <!-- Logo wrapper com dois logos: branco (hero) e azul (após scroll) -->
+            <div class="logo-wrapper">
+                <img id="logo-white" src="img/logo.png" alt="Logo Voe F5" style="height:100px;">
+                <img id="logo-blue"  src="img/logg.png" alt="Logo Voe F5" style="height:100px;">
+            </div>
             <span id="nav-title"><em>Atualize a sua forma de <span class="nav-yellow" style="color:#FFCC00;">viajar</span></em></span>
         </div>
         <!-- BOTÃO WHATSAPP PILL -->
@@ -305,6 +317,7 @@
         <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/ame.png') center center/cover no-repeat;"></div>
     </div>
 
+    <!-- Overlay com conteúdo — visível em TODAS as telas (mobile e desktop) -->
     <div class="hero-overlay">
         <div class="hero-content">
             <h1 class="hero-title">
@@ -367,19 +380,43 @@
             <div class="step-card">
                 <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">1</div>
                 <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Você envia sua viagem</h3>
-                <div style="font-size:40px;margin-bottom:12px;">💻</div>
+                <div style="margin-bottom:12px;">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="6" y="10" width="36" height="24" rx="3" stroke="#009C3B" stroke-width="3" fill="none"/>
+                        <rect x="12" y="16" width="24" height="14" rx="1" fill="#009C3B" fill-opacity="0.15"/>
+                        <rect x="10" y="34" width="28" height="3" rx="1.5" fill="#009C3B"/>
+                        <rect x="20" y="37" width="8" height="2" rx="1" fill="#009C3B"/>
+                    </svg>
+                </div>
                 <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Origem, destino, datas e quantidade de passageiros.</p>
             </div>
             <div class="step-card">
                 <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">2</div>
                 <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Análise estratégica</h3>
-                <div style="font-size:40px;margin-bottom:12px;">🌐</div>
+                <div style="margin-bottom:12px;">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="22" cy="22" r="14" stroke="#009C3B" stroke-width="3" fill="none"/>
+                        <ellipse cx="22" cy="22" rx="6" ry="14" stroke="#009C3B" stroke-width="2" fill="none"/>
+                        <line x1="8" y1="22" x2="36" y2="22" stroke="#009C3B" stroke-width="2"/>
+                        <line x1="10" y1="16" x2="34" y2="16" stroke="#009C3B" stroke-width="1.5"/>
+                        <line x1="10" y1="28" x2="34" y2="28" stroke="#009C3B" stroke-width="1.5"/>
+                        <line x1="33" y1="33" x2="42" y2="42" stroke="#009C3B" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
                 <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Buscamos as melhores opções com inteligência de milhas.</p>
             </div>
             <div class="step-card">
                 <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">3</div>
                 <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Receba a melhor opção</h3>
-                <div style="font-size:40px;margin-bottom:12px;">✅</div>
+                <div style="margin-bottom:12px;">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="6" y="14" width="36" height="20" rx="4" stroke="#009C3B" stroke-width="3" fill="none"/>
+                        <line x1="6" y1="24" x2="42" y2="24" stroke="#009C3B" stroke-width="2" stroke-dasharray="3 3"/>
+                        <circle cx="6" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/>
+                        <circle cx="42" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/>
+                        <polyline points="17,23 21,27 31,19" stroke="#009C3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </div>
                 <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Com economia real e suporte completo na emissão.</p>
             </div>
         </div>
