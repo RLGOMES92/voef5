@@ -4,678 +4,940 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voe F5 Tour | Atualize sua forma de viajar</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus_Jakarta_Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'safira-dark': '#001A4F',
-                        'brand-green': '#009C3B',
-                        'brand-yellow': '#FFCC00',
-                    },
-                    screens: {
-                        'xs': '400px',
-                    }
-                }
-            }
+            theme: { extend: { colors: { 'safira-dark':'#001A4F','brand-green':'#009C3B','brand-yellow':'#FFCC00' }, screens:{'xs':'400px'} } }
         }
     </script>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family:'Plus Jakarta Sans',sans-serif; background:#f8fafc; color:#001A4F; overflow-x:hidden; margin:0; padding:0; }
 
-    <style type="text/tailwindcss">
-        @layer components {
-            .input-field { @apply w-full bg-white/10 border border-white/30 p-3 rounded-xl outline-none focus:border-brand-green text-white placeholder-white/70 font-medium transition-all backdrop-blur-sm; }
-            .premium-card { @apply bg-white rounded-[24px] border border-slate-100 shadow-lg p-6 transition-all hover:-translate-y-2 flex flex-col; }
-            .btn-counter { @apply w-7 h-7 rounded-full border border-white/30 flex items-center justify-center font-bold text-white hover:bg-white/20 active:scale-90 transition-all; }
-            .trip-btn { @apply px-4 py-1.5 rounded-full border-2 font-bold text-xs transition-all; }
-            .trip-active { @apply bg-brand-green border-brand-green text-white; }
-            .trip-inactive { @apply bg-transparent border-white/30 text-white hover:bg-white/10; }
-            .step-card { @apply bg-white rounded-2xl p-5 shadow-md border border-slate-50 flex flex-col items-center text-center transition-all hover:shadow-lg; }
-            .testimonial-card { @apply bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col items-center text-center shadow-sm; }
-        }
+        /* ── NAVBAR ──────────────────────────────────────────── */
+        #navbar { position:fixed; width:100%; z-index:100; padding:10px 14px; transition:all 0.4s; }
+        #navbar.scrolled { background:rgba(255,255,255,0.98)!important; padding:8px 14px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border-bottom:1px solid #e2e8f0; }
 
-        .hero-slider { height: 70vh; width: 100%; position: relative; overflow: hidden; background: #000; }
-        @media (min-width: 1024px) { .hero-slider { height: 85vh; } }
-        
-        .slide-item { 
-            position: absolute; width: 100%; height: 100%; 
-            opacity: 0; transition: opacity 2s ease-in-out;
-            z-index: 1;
-        }
-        .slide-item.active { opacity: 1; z-index: 2; }
-
-        @media (min-width: 768px) {
-            .hero-slider .slide-item {
-                background-position: center 20% !important;
-            }
-        }
-
-        #navbar.scrolled { background-color: rgba(255, 255, 255, 0.98) !important; @apply py-2 shadow-lg border-b border-slate-100; }
-        
-        .glass-form {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .dropdown-menu {
-            @apply absolute z-[120] bottom-full left-0 w-full bg-safira-dark border border-white/20 shadow-2xl rounded-2xl p-3 mb-2 space-y-3;
-            min-width: 200px;
-        }
-
+        /* Título esquerdo — frase completa sempre visível, fonte se adapta ao espaço */
         #nav-title {
-            font-size: 11px !important;
+            font-size:8.5px; font-weight:900; font-style:italic; letter-spacing:-0.03em;
+            color:white; text-shadow:0 2px 8px rgba(0,0,0,0.4);
+            white-space:nowrap;
+            min-width:0; flex:1;
+            /* SEM overflow:hidden nem text-overflow — texto completo sempre */
         }
-        @media (min-width: 400px) {
-            #nav-title {
-                font-size: 12px !important;
-            }
+        @media(min-width:360px){ #nav-title { font-size:9.5px; } }
+        @media(min-width:400px){ #nav-title { font-size:10.5px; } }
+        @media(min-width:480px){ #nav-title { font-size:12px; } }
+        @media(min-width:600px){ #nav-title { font-size:14px; } }
+        @media(min-width:768px){ #nav-title { font-size:16px; } #navbar { padding:14px 48px; } }
+
+        /* Grupo WhatsApp: ícone + label abaixo — tamanho fixo, nunca encolhe */
+        .nav-wpp-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0px;
+            flex-shrink: 0;   /* NUNCA encolhe */
+            margin-left: 10px;
         }
-        @media (min-width: 768px) {
-            #nav-title {
-                font-size: 16px !important;
-            }
+        .nav-wpp-group a { display:block; line-height:0; }
+        /* Ícone: tamanho fixo em todos os breakpoints */
+        .nav-wpp-group a img {
+            width:36px; height:36px;
+            display:block;
+            flex-shrink:0;
+        }
+        @media(min-width:768px)  { .nav-wpp-group a img { width:44px; height:44px; } }
+        @media(min-width:1024px) { .nav-wpp-group a img { width:52px; height:52px; } }
+
+        /* "Fale com especialista" — sempre visível */
+        #fale-esp {
+            display: block !important;
+            color: white;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 8px;
+            text-align: right;
+            line-height: 1.2;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+            white-space: nowrap;
+            margin-top: 2px;
+        }
+        @media(min-width:360px){ #fale-esp { font-size:9px; } }
+        @media(min-width:480px){ #fale-esp { font-size:10px; } }
+        @media(min-width:768px){ #fale-esp { font-size:12px; } }
+        @media(min-width:1024px){ #fale-esp { font-size:14px; } }
+
+        /* Cor do texto ao rolar */
+        #navbar.scrolled #nav-title,
+        #navbar.scrolled #fale-esp { color:#001A4F; text-shadow:none; }
+
+        /* ── HERO ────────────────────────────────────────────── */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            background: #000;
+            overflow: hidden;
+        }
+        @media(min-width:375px)  { .hero-slider { height: 550px; } }
+        @media(min-width:430px)  { .hero-slider { height: 580px; } }
+        @media(min-width:600px)  { .hero-slider { height: 620px; } }
+        @media(min-width:768px)  { .hero-slider { height: 660px; } }
+        @media(min-width:1024px) { .hero-slider { height: 700px; } }
+
+        .slide-item {
+            position:absolute; inset:0;
+            opacity:0; transition:opacity 2s ease-in-out; z-index:1;
+        }
+        .slide-item.active { opacity:1; z-index:2; }
+
+        .hero-overlay {
+            position:absolute; inset:0; z-index:10;
+            background:rgba(0,0,0,0.38);
+            display:flex;
+            align-items:flex-end;
+            justify-content:flex-start;
+            padding:0 20px 36px 20px;
+            overflow:hidden;
+            box-sizing:border-box;
+        }
+        @media(min-width:768px) {
+            .hero-overlay { padding:0 56px 56px 56px; }
         }
 
-        @media (max-width: 639px) {
-            #navbar .flex.items-center.gap-2 {
-                gap: 1.25rem;
-                position: relative;
-            }
-            #fale-especialista {
-                font-size: 8px !important;
-                line-height: 1;
-                position: absolute;
-                left: 0;
-                bottom: -16px;
-                white-space: nowrap;
-                transform: translateX(-50%);
-            }
-            #navbar .flex.items-center.gap-2 > a {
-                position: relative;
-                z-index: 2;
-            }
+        .hero-content {
+            width:100%;
+            max-width:100%;
+            text-align:left;
+            overflow:hidden;
+            word-break:break-word;
+        }
+        @media(min-width:768px) {
+            .hero-content { max-width:520px; }
         }
 
         .hero-title {
-            animation: swell 3s ease-in-out infinite;
-            text-shadow: 
-                0 0 10px rgba(255,255,255,0.3),
-                0 0 20px rgba(255,204,0,0.2);
+            font-size:26px;
+            font-weight:900;
+            font-style:italic;
+            text-transform:uppercase;
+            color:white;
+            line-height:1.1;
+            margin:0 0 10px 0;
+            word-break:break-word;
+            animation:swell 3s ease-in-out infinite;
+            text-shadow:0 0 10px rgba(255,255,255,0.3),0 0 20px rgba(255,204,0,0.2);
         }
+        @media(min-width:480px)  { .hero-title { font-size:30px; } }
+        @media(min-width:768px)  { .hero-title { font-size:42px; } }
+        @media(min-width:1024px) { .hero-title { font-size:52px; } }
+
+        .hero-sub {
+            color:rgba(255,255,255,0.92);
+            font-size:12px;
+            font-weight:500;
+            font-style:italic;
+            margin:0 0 20px 0;
+            line-height:1.5;
+        }
+        @media(min-width:768px) { .hero-sub { font-size:15px; margin-bottom:28px; } }
+
+        @media(max-height:450px) and (orientation:landscape) {
+            .hero-slider  { height:100vh; min-height:unset; }
+            .hero-overlay { padding:0 20px 16px 20px; align-items:center; }
+            .hero-title   { font-size:18px; margin-bottom:4px; }
+            .hero-sub     { font-size:10px; margin-bottom:10px;
+                            overflow:hidden; display:-webkit-box;
+                            -webkit-line-clamp:1; -webkit-box-orient:vertical; }
+            .hero-cta     { padding:8px 18px!important; font-size:11px!important; }
+        }
+
         @keyframes swell {
-            0%, 100% { 
-                transform: scale(1);
-                text-shadow: 
-                    0 0 10px rgba(255,255,255,0.3),
-                    0 0 20px rgba(255,204,0,0.2);
-            }
-            50% { 
-                transform: scale(1.03);
-                text-shadow: 
-                    0 0 20px rgba(255,255,255,0.5),
-                    0 0 30px rgba(255,204,0,0.4),
-                    0 0 40px rgba(255,204,0,0.2);
+            0%,100% { transform:scale(1); }
+            50% { transform:scale(1.03); text-shadow:0 0 20px rgba(255,255,255,0.5),0 0 30px rgba(255,204,0,0.4); }
+        }
+
+        .hidden-mobile { display:none; }
+        .show-mobile   { display:block; }
+        @media(min-width:768px) {
+            .hidden-mobile { display:block; }
+            .show-mobile   { display:none; }
+        }
+
+        /* ── CARDS ───────────────────────────────────────────── */
+        .premium-card    { background:white; border-radius:24px; border:1px solid #f1f5f9; box-shadow:0 4px 20px rgba(0,0,0,0.08); padding:24px; transition:transform 0.3s; display:flex; flex-direction:column; }
+        .premium-card:hover { transform:translateY(-8px); }
+        .step-card       { background:white; border-radius:16px; padding:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border:1px solid #f1f5f9; display:flex; flex-direction:column; align-items:center; text-align:center; transition:all 0.3s; }
+        .step-card:hover { transform:translateY(-8px); box-shadow:0 8px 40px rgba(0,0,0,0.15); }
+        .testimonial-card{ background:#f8fafc; border-radius:16px; padding:24px; border:1px solid #e2e8f0; display:flex; flex-direction:column; align-items:center; text-align:center; }
+
+        /* ── FORM COTAÇÃO ────────────────────────────────────── */
+        .glass-form { background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); }
+        .input-field {
+            width:100%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3);
+            padding:12px; border-radius:12px; outline:none; color:white;
+            font-weight:500; transition:all 0.2s; backdrop-filter:blur(4px);
+            font-family:'Plus Jakarta Sans',sans-serif;
+            /* Garante que inputs de data não quebrem o layout */
+            min-width:0;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .input-field::placeholder { color:rgba(255,255,255,0.7); }
+        .input-field:focus { border-color:#009C3B; }
+
+        /* Fix: input[type=date] no iOS/Android some o placeholder e expande */
+        input[type="date"].input-field {
+            color: white;
+        }
+        input[type="date"].input-field:not(:valid) {
+            color: rgba(255,255,255,0.7);
+        }
+        /* Webkit date picker color fix */
+        input[type="date"].input-field::-webkit-datetime-edit { color: white; }
+        input[type="date"].input-field::-webkit-calendar-picker-indicator {
+            filter: invert(1) opacity(0.7);
+            cursor: pointer;
+        }
+
+        .trip-btn     { padding:6px 16px; border-radius:999px; border:2px solid; font-weight:700; font-size:12px; cursor:pointer; transition:all 0.2s; }
+        .trip-active  { background:#009C3B; border-color:#009C3B; color:white; }
+        .trip-inactive{ background:transparent; border-color:rgba(255,255,255,0.3); color:white; }
+        .trip-inactive:hover { background:rgba(255,255,255,0.1); }
+
+        /* ── GRID DO FORMULÁRIO ──────────────────────────────── */
+        /* MOBILE: 3 linhas de 2 colunas com dropdowns personalizados */
+        /* DESKTOP (>=768px): 4 colunas em uma linha com inputs nativos */
+        .form-mobile  { display: block; }
+        .form-desktop { display: none; }
+        @media(min-width:768px) {
+            .form-mobile  { display: none !important; }
+            .form-desktop { display: block !important; }
+            .form-desktop-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                gap: 12px;
+                margin-bottom: 12px;
             }
         }
+        .form-row-1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        /* ── DROPDOWNS ───────────────────────────────────────── */
+        .drop-wrapper { position:relative; }
+        .drop-btn     { width:100%; display:flex; justify-content:space-between; align-items:center; font-size:12px; cursor:pointer; }
+        .drop-menu {
+            display:none; position:absolute; left:0; right:0;
+            top:calc(100% + 6px);
+            background:#001A4F; border:1px solid rgba(255,255,255,0.2);
+            border-radius:16px; padding:12px; z-index:999;
+            box-shadow:0 20px 60px rgba(0,0,0,0.5); min-width:200px;
+        }
+        /* No mobile o dropdown de bagagem (último) abre para cima */
+        @media(max-width:639px) {
+            .drop-up { top:auto; bottom:calc(100% + 6px); }
+        }
+        @media(min-width:640px){ .drop-menu { top:auto; bottom:calc(100% + 6px); } }
+        .drop-menu.open { display:block; }
+
+        /* ── COUNTER BUTTONS ─────────────────────────────────── */
+        .btn-cnt {
+            width:36px; height:36px; min-width:36px; min-height:36px;
+            border-radius:50%; border:1px solid rgba(255,255,255,0.4);
+            background:transparent; color:white; font-weight:700; font-size:16px;
+            cursor:pointer; display:flex; align-items:center; justify-content:center;
+            touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:background 0.15s;
+        }
+        .btn-cnt:hover  { background:rgba(255,255,255,0.2); }
+        .btn-cnt:active { background:rgba(255,255,255,0.3); transform:scale(0.92); }
+
+        /* ── SUBMIT ──────────────────────────────────────────── */
+        .btn-submit {
+            width:100%; background:#009C3B; color:white; font-weight:900;
+            padding:20px; border-radius:12px; font-size:18px; font-style:italic;
+            text-transform:uppercase; border:none; cursor:pointer;
+            transition:all 0.2s; box-shadow:0 8px 30px rgba(0,156,59,0.4);
+            font-family:'Plus Jakarta Sans',sans-serif;
+        }
+        .btn-submit:hover { background:#007a2e; }
+        @media(min-width:1024px){ .btn-submit { font-size:24px; } }
+
+        /* ── AGENTE CHAT ─────────────────────────────────────── */
+        .agent-pulse { animation:pulse-green 2s infinite; }
+        @keyframes pulse-green {
+            0%   { box-shadow:0 0 0 0 rgba(0,156,59,0.7); }
+            70%  { box-shadow:0 0 0 15px rgba(0,156,59,0); }
+            100% { box-shadow:0 0 0 0 rgba(0,156,59,0); }
+        }
+        #agent-chat-window { max-height:85vh; display:flex; flex-direction:column; }
+        #agent-messages b  { color:#009c3b; font-weight:800; }
+        .scrollbar-hide::-webkit-scrollbar { display:none; }
     </style>
 </head>
-<body class="font-['Plus_Jakarta_Sans'] text-safira-dark bg-slate-50 overflow-x-hidden">
+<body>
 
-    <header id="navbar" class="fixed w-full z-[100] py-4 px-4 lg:px-12 transition-all duration-500">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4 lg:gap-8">
-                <img src="img/logo.jpeg" alt="Logo" class="h-14 lg:h-20 rounded-xl shadow-2xl transition-all border-2 border-white/20">
-                <span id="nav-title" class="font-black text-[10px] xs:text-sm lg:text-x1 italic tracking-tighter text-white drop-shadow-lg leading-none">
-                    Atualize sua forma de viajar
-                </span>
-            </div>
-            
-            <div class="flex items-center gap-2">
-                <span id="fale-especialista" class="text-white font-bold italic text-[8px] lg:text-sm drop-shadow-md hidden xs:block whitespace-nowrap">Fale com um especialista agora</span>
-                <a href="https://wa.me/5511988908306" target="_blank" class="hover:scale-110 transition-transform">
-                    <img src="img/zap.png" alt="WhatsApp" class="w-8 h-8 lg:w-14 lg:h-14">
-                </a>
-            </div>
+<!-- NAVBAR -->
+<header id="navbar">
+    <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+        <!-- LOGO + TÍTULO: flex com min-width:0 para nunca empurrar o ícone -->
+        <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;overflow:hidden;">
+            <img src="img/logo.jpeg" alt="Logo" style="height:44px;border-radius:10px;border:2px solid rgba(255,255,255,0.2);box-shadow:0 6px 20px rgba(0,0,0,0.3);flex-shrink:0;">
+            <span id="nav-title">Atualize a sua forma de viajar</span>
         </div>
-    </header>
-
-    <section class="hero-slider">
-        <div class="slide-item active">
-            <div class="absolute inset-0 hidden md:block" style="background: url('img/japao.png') center top / cover no-repeat;"></div>
-            <div class="absolute inset-0 block md:hidden" style="background: url('img/jap.png') center center / cover no-repeat;"></div>
+        <!-- WHATSAPP + FALE COM ESPECIALISTA: flex-shrink:0 para nunca encolher/cortar -->
+        <div class="nav-wpp-group">
+            <a href="https://wa.me/5511988908306" target="_blank">
+                <img src="img/zap.png" alt="WhatsApp">
+            </a>
+            <span id="fale-esp">Fale com um especialista agora</span>
         </div>
-        <div class="slide-item">
-            <div class="absolute inset-0 hidden md:block" style="background: url('img/tor.png') center top / cover no-repeat;"></div>
-            <div class="absolute inset-0 block md:hidden" style="background: url('img/torre.jpg') center center / cover no-repeat;"></div>
-        </div>
-        <div class="slide-item">
-            <div class="absolute inset-0 hidden md:block" style="background: url('img/rio.png') center top / cover no-repeat;"></div>
-            <div class="absolute inset-0 block md:hidden" style="background: url('img/rj.png') center center / cover no-repeat;"></div>
-        </div>
-        <div class="slide-item">
-            <div class="absolute inset-0 hidden md:block" style="background: url('img/rec.png') center top / cover no-repeat;"></div>
-            <div class="absolute inset-0 block md:hidden" style="background: url('img/recife.png') center center / cover no-repeat;"></div>
-        </div>
-        <div class="slide-item">
-            <div class="absolute inset-0 hidden md:block" style="background: url('img/eua.png') center top / cover no-repeat;"></div>
-            <div class="absolute inset-0 block md:hidden" style="background: url('img/ame.png') center center / cover no-repeat;"></div>
-        </div>
+    </div>
+</header>
 
-        <div class="absolute inset-0 flex items-end pb-16 lg:pb-0 lg:items-center px-6 lg:px-24 bg-black/20 z-10">
-            <div class="w-full max-w-sm lg:max-w-2xl text-left">
-                <h1 class="hero-title text-2xl lg:text-6xl font-black text-white italic uppercase leading-tight lg:leading-[1.1] mb-2 drop-shadow-2xl">
-                    Economize em voos <br>
-                    <span class="text-brand-yellow">com inteligência.</span><br>
-                </h1>
-                <p class="text-white/90 text-[11px] lg:text-xl font-medium mb-8 italic max-w-sm lg:max-w-lg drop-shadow-md">
-                    Encontramos as melhores opções para sua viagem:<br class="hidden lg:block"> voos, rotas e experiências exclusivas.
-                </p>
-                <a href="#cotacao" class="bg-brand-yellow hover:bg-yellow-500 text-safira-dark font-black py-4 px-8 rounded-xl text-xs lg:text-lg uppercase italic transition-all flex items-center gap-2 w-fit shadow-lg">
-                    Simular viagem agora <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <p class="text-blue-700 font-bold text-xs lg:text-sm uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
-                <h2 class="text-xl lg:text-4xl font-black italic uppercase text-safira-dark leading-tight">Transformando eficiência em <span class="text-brand-green">economia real</span></h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="premium-card border-b-4 border-brand-green">
-                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 18%</div>
-                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → LISBOA</h3>
-                    <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
-                        Preço de Mercado: 
-                        <span class="relative inline-block px-1">
-                            R$ 4.642,00
-                            <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
-                        </span>
-                    </p>
-                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-                        <div class="flex flex-col">
-                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
-                            <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 3.760,19</span>
-                        </div>
-                        <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
-                            <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="premium-card border-b-4 border-brand-green">
-                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 28%</div>
-                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">SÃO PAULO → ORLANDO</h3>
-                    <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
-                        Preço de Mercado: 
-                        <span class="relative inline-block px-1">
-                            R$ 3.620,00
-                            <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
-                        </span>
-                    </p>
-                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-                        <div class="flex flex-col">
-                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
-                            <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 2.419,00</span>
-                        </div>
-                        <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
-                            <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="premium-card border-b-4 border-brand-green">
-                    <div class="bg-emerald-100 text-brand-green text-[10px] lg:text-[11px] font-black py-1.5 px-4 rounded-full w-fit mb-5 uppercase tracking-tighter shadow-sm">Economia de 17%</div>
-                    <h3 class="text-safira-dark font-extrabold text-lg mb-1 italic uppercase">ROMA → LISBOA</h3>
-                    <p class="text-sm text-slate-400 font-medium flex items-center gap-2">
-                        Preço de Mercado: 
-                        <span class="relative inline-block px-1">
-                            R$ 679,50
-                            <span class="absolute inset-x-0 top-1/2 h-[2px] bg-red-500/60 -rotate-3"></span>
-                        </span>
-                    </p>
-                    <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-                        <div class="flex flex-col">
-                            <span class="text-blue-600 font-bold text-[10px] uppercase bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">Com a Voe F5</span>
-                            <span class="text-safira-dark font-black text-2xl lg:text-3xl tracking-tight">R$ 564,00</span>
-                        </div>
-                        <div class="bg-brand-green/10 p-2 rounded-full animate-pulse">
-                            <i data-lucide="trending-down" class="text-brand-green w-6 h-6"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-12 px-6 bg-slate-50 border-t border-slate-100">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-center text-lg lg:text-xl font-black mb-10 uppercase tracking-widest text-safira-dark">COMO FUNCIONA</h2>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
-                    <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">1</div>
-                    <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Você envia sua viagem</h3>
-                    <i data-lucide="laptop" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
-                    <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Origem, destino, datas e quantidade de passageiros.</p>
-                </div>
-
-                <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
-                    <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">2</div>
-                    <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Análise estratégica</h3>
-                    <i data-lucide="globe-2" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
-                    <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Buscamos as melhores opções com inteligência de milhas.</p>
-                </div>
-
-                <div class="step-card shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 bg-white rounded-2xl border border-slate-100">
-                    <div class="w-10 h-10 bg-safira-dark text-white rounded-full flex items-center justify-center font-black mb-4 text-base shadow-md">3</div>
-                    <h3 class="font-black text-sm mb-3 text-safira-dark uppercase italic">Receba a melhor opção</h3>
-                    <i data-lucide="check-circle" class="w-12 h-12 text-brand-green mb-3 opacity-90"></i>
-                    <p class="text-slate-500 text-[11px] font-medium leading-relaxed">Com economia real e suporte completo na emissão.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 px-6 bg-slate-50 border-t">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-center text-xl lg:text-3xl font-black mb-12 italic uppercase text-safira-dark">O que nossos <span class="text-brand-green">Viajantes</span> dizem</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="testimonial-card">
-                    <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Conseguimos reduzir significativamente os custos das nossas viagens. A plataforma encontra oportunidades que nunca teríamos descoberto sozinhos."</p>
-                    <p class="font-bold text-safira-dark text-sm">Marcelo R.</p>
-                </div>
-                <div class="testimonial-card">
-                    <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Já comparei com buscadores tradicionais e os valores encontrados aqui foram surpreendentes. Hoje sempre consulto a Voe F5."</p>
-                    <p class="font-bold text-safira-dark text-sm">Fernanda L.</p>
-                </div>
-                <div class="testimonial-card">
-                    <i data-lucide="quote" class="w-6 h-6 text-brand-green mb-3"></i>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4 italic">"Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e dedicada."</p>
-                    <p class="font-bold text-safira-dark text-sm">Daniela S.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cotacao" class="py-20 px-6 bg-safira-dark relative overflow-hidden min-h-[600px] flex items-center justify-center">
-        <div class="absolute inset-0 opacity-40 hidden md:block" style="background: url('img/rio.png') center center / cover no-repeat;"></div>
-        <div class="absolute inset-0 opacity-50 block md:hidden" style="background: url('img/rj.png') center center / cover no-repeat;"></div>
-        
-        <div class="max-w-4xl w-full mx-auto text-center relative z-10">
-            <h2 class="text-2xl lg:text-4xl font-black text-white italic uppercase mb-8 drop-shadow-lg">Solicitar Cotação Personalizada</h2>
-            
-            <div class="flex gap-2 justify-center mb-6">
-                <button type="button" onclick="setTipo('ida-volta')" id="btn-iv" class="trip-btn trip-active">Ida e volta</button>
-                <button type="button" onclick="setTipo('somente-ida')" id="btn-si" class="trip-btn trip-inactive">Somente ida</button>
-            </div>
-
-            <form onsubmit="enviarWhatsApp(event)" class="glass-form p-6 lg:p-10 rounded-[32px] space-y-4 text-left shadow-2xl">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" id="origem" placeholder="✈ Origem" class="input-field" required>
-                    <input type="text" id="destino" placeholder="📍 Destino" class="input-field" required>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <input type="text" id="dataIda" onfocus="(this.type='date')" placeholder="📅 Ida" class="input-field" required>
-                    <input type="text" id="dataVolta" onfocus="(this.type='date')" placeholder="📅 Volta" class="input-field">
-                    
-                    <div class="relative">
-                        <button type="button" onclick="toggleDrop('drop-pass')" class="input-field flex justify-between items-center text-xs">
-                            <span id="label-pass">👥 1 Passag.</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
-                        </button>
-                        <div id="drop-pass" class="hidden dropdown-menu">
-                            <div class="flex justify-between items-center text-white p-1">
-                                <span class="text-[10px] font-bold uppercase">Adultos</span>
-                                <div class="flex items-center gap-3">
-                                    <button type="button" onclick="count('adt', -1)" class="btn-counter">-</button>
-                                    <span id="q-adt" class="font-bold w-4 text-center text-xs">1</span>
-                                    <button type="button" onclick="count('adt', 1)" class="btn-counter">+</button>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2 p-1">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Crianças</span><span class="text-[8px] text-white/50">2-11 anos</span></div>
-                                <div class="flex items-center gap-3">
-                                    <button type="button" onclick="count('chd', -1)" class="btn-counter">-</button>
-                                    <span id="q-chd" class="font-bold w-4 text-center text-xs">0</span>
-                                    <button type="button" onclick="count('chd', 1)" class="btn-counter">+</button>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2 p-1">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Bebês</span><span class="text-[8px] text-white/50">Até 2 anos</span></div>
-                                <div class="flex items-center gap-3">
-                                    <button type="button" onclick="count('inf', -1)" class="btn-counter">-</button>
-                                    <span id="q-inf" class="font-bold w-4 text-center text-xs">0</span>
-                                    <button type="button" onclick="count('inf', 1)" class="btn-counter">+</button>
-                                </div>
-                            </div>
-                            <button type="button" onclick="toggleDrop('drop-pass')" class="w-full bg-brand-green text-white py-2 rounded-lg text-[10px] font-bold uppercase mt-2">Pronto</button>
-                        </div>
-                    </div>
-
-                    <div class="relative">
-                        <button type="button" onclick="toggleDrop('drop-bag')" class="input-field flex justify-between items-center text-xs">
-                            <span id="label-bag">💼 Bagagem</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-white"></i>
-                        </button>
-                        <div id="drop-bag" class="hidden dropdown-menu">
-                            <div class="flex justify-between items-center text-white p-1">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Mão</span><span class="text-[8px] text-white/50">Até 10kg</span></div>
-                                <div class="flex items-center gap-3">
-                                    <button type="button" onclick="countBag('mao', -1)" class="btn-counter">-</button>
-                                    <span id="q-mao" class="font-bold w-4 text-center text-xs">0</span>
-                                    <button type="button" onclick="countBag('mao', 1)" class="btn-counter">+</button>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center text-white border-t border-white/10 pt-2 p-1">
-                                <div class="flex flex-col"><span class="text-[10px] font-bold uppercase">Despachada</span><span class="text-[8px] text-white/50">Até 23kg</span></div>
-                                <div class="flex items-center gap-3">
-                                    <button type="button" onclick="countBag('desp', -1)" class="btn-counter">-</button>
-                                    <span id="q-desp" class="font-bold w-4 text-center text-xs">0</span>
-                                    <button type="button" onclick="countBag('desp', 1)" class="btn-counter">+</button>
-                                </div>
-                            </div>
-                            <button type="button" onclick="toggleDrop('drop-bag')" class="w-full bg-brand-green text-white py-2 rounded-lg text-[10px] font-bold uppercase mt-2">Pronto</button>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-600 text-white font-black py-5 rounded-xl text-lg lg:text-2xl uppercase italic transition-all shadow-xl hover:shadow-2xl">
-                    Analisar Melhores Tarifas
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="py-12 bg-safira-dark text-center text-white/40 text-[10px] font-bold uppercase italic border-t border-white/5 tracking-[0.2em] relative z-0">
-        &copy; Voe F5 tour | Atualize a sua forma de viajar
-    </footer>
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        .agent-pulse { animation: pulse-green 2s infinite; }
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(0, 156, 59, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(0, 156, 59, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 156, 59, 0); }
-        }
-        #agent-messages b { color: #009c3b; font-weight: 800; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        
-        #agent-chat-window {
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
-
-    <div id="agent-widget" class="fixed bottom-6 right-6 z-[99999] flex flex-col items-end font-['Plus_Jakarta_Sans']">
-        
-        <div id="agent-chat-window" class="hidden w-[310px] md:w-[380px] bg-white rounded-[24px] md:rounded-[32px] shadow-[0_25px_60px_rgba(0,0,0,0.4)] border border-slate-200 overflow-hidden mb-4 transition-all duration-300 scale-95 opacity-0">
-            
-            <div class="bg-[#001f3f] p-4 md:p-5 flex items-center gap-3 shrink-0">
-                <div class="w-10 h-10 bg-[#009c3b] rounded-xl flex items-center justify-center text-white font-black italic shadow-md text-sm">F5</div>
-                <div class="flex-1">
-                    <h4 class="text-white font-black text-xs md:text-sm uppercase italic">Agente Voe F5</h4>
-                    <p class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Online</p>
-                </div>
-                <button onclick="toggleAgentChat()" class="text-white/70 hover:text-white p-1">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-            </div>
-
-            <div id="agent-messages" class="flex-1 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 scrollbar-hide min-h-[300px]">
-                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 max-w-[90%] text-[12px] font-semibold text-slate-700">
-                    Olá! Como posso te ajudar hoje? 👋
-                </div>
-            </div>
-
-            <div class="p-4 bg-white border-t border-slate-100 shrink-0">
-                <div class="flex gap-2">
-                    <input type="text" id="agent-input" placeholder="Digite aqui..." class="flex-1 bg-slate-100 rounded-xl px-4 py-3 text-[12px] font-bold outline-none border-2 border-transparent focus:border-brand-green transition-all">
-                    <button onclick="handleAgentSend()" class="bg-[#009c3b] text-white p-3 rounded-xl shadow-lg active:scale-90 transition-transform">
-                        <i data-lucide="send" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <button onclick="toggleAgentChat()" class="agent-pulse bg-[#009c3b] p-4 md:p-5 rounded-[20px] md:rounded-[24px] shadow-2xl transition-all hover:scale-110 active:scale-95 border-b-4 border-emerald-600">
-            <i data-lucide="bot" class="text-white w-7 h-7 md:w-8 h-8"></i>
-        </button>
+<!-- HERO SLIDER -->
+<section class="hero-slider">
+    <div class="slide-item active">
+        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/japao.png') center top/cover no-repeat;"></div>
+        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/jap.png') center center/cover no-repeat;"></div>
+    </div>
+    <div class="slide-item">
+        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/tor.png') center top/cover no-repeat;"></div>
+        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/torre.jpg') center center/cover no-repeat;"></div>
+    </div>
+    <div class="slide-item">
+        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/rio.png') center top/cover no-repeat;"></div>
+        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/rj.png') center center/cover no-repeat;"></div>
+    </div>
+    <div class="slide-item">
+        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/rec.png') center top/cover no-repeat;"></div>
+        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/recife.png') center center/cover no-repeat;"></div>
+    </div>
+    <div class="slide-item">
+        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/eua.png') center top/cover no-repeat;"></div>
+        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/ame.png') center center/cover no-repeat;"></div>
     </div>
 
-    <script>
-        lucide.createIcons();
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Economize em voos<br><span style="color:#FFCC00;">com inteligência.</span>
+            </h1>
+            <p class="hero-sub">
+                Encontramos as melhores opções para sua viagem: voos, rotas e experiências exclusivas.
+            </p>
+            <a href="#cotacao" class="hero-cta" style="display:inline-flex;align-items:center;gap:8px;background:#FFCC00;color:#001A4F;font-weight:900;padding:14px 28px;border-radius:12px;font-size:13px;text-transform:uppercase;font-style:italic;text-decoration:none;box-shadow:0 8px 30px rgba(0,0,0,0.3);">
+                Simular viagem agora ›
+            </a>
+        </div>
+    </div>
+</section>
 
-        let agentStep = -1;
-        let chatData = { destino: "", tipo: "", datas: "", passageiros: "", classe: "", bagagem: "" };
+<!-- CASOS DE SUCESSO -->
+<section style="padding:64px 24px;background:white;">
+    <div style="max-width:1280px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:48px;">
+            <p style="color:#1d4ed8;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Casos de Sucesso da Voe F5</p>
+            <h2 style="font-size:clamp(20px,4vw,36px);font-weight:900;font-style:italic;text-transform:uppercase;color:#001A4F;">Transformando eficiência em <span style="color:#009C3B;">economia real</span></h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+            <div class="premium-card" style="border-bottom:4px solid #009C3B;">
+                <div style="background:#d1fae5;color:#009C3B;font-size:10px;font-weight:900;padding:4px 16px;border-radius:999px;width:fit-content;margin-bottom:20px;text-transform:uppercase;">Economia de 18%</div>
+                <h3 style="font-weight:800;font-size:18px;font-style:italic;text-transform:uppercase;margin-bottom:4px;">SÃO PAULO → LISBOA</h3>
+                <p style="font-size:13px;color:#94a3b8;font-weight:500;">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 4px;">R$ 4.642,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,0.6);transform:rotate(-2deg);"></span></span></p>
+                <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f8fafc;display:flex;justify-content:space-between;align-items:flex-end;">
+                    <div><span style="color:#2563eb;font-weight:700;font-size:10px;background:#eff6ff;padding:2px 8px;border-radius:4px;text-transform:uppercase;display:block;margin-bottom:4px;">Com a Voe F5</span><span style="font-size:28px;font-weight:900;color:#001A4F;">R$ 3.760,19</span></div>
+                    <div style="font-size:28px;">📉</div>
+                </div>
+            </div>
+            <div class="premium-card" style="border-bottom:4px solid #009C3B;">
+                <div style="background:#d1fae5;color:#009C3B;font-size:10px;font-weight:900;padding:4px 16px;border-radius:999px;width:fit-content;margin-bottom:20px;text-transform:uppercase;">Economia de 28%</div>
+                <h3 style="font-weight:800;font-size:18px;font-style:italic;text-transform:uppercase;margin-bottom:4px;">SÃO PAULO → ORLANDO</h3>
+                <p style="font-size:13px;color:#94a3b8;font-weight:500;">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 4px;">R$ 3.620,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,0.6);transform:rotate(-2deg);"></span></span></p>
+                <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f8fafc;display:flex;justify-content:space-between;align-items:flex-end;">
+                    <div><span style="color:#2563eb;font-weight:700;font-size:10px;background:#eff6ff;padding:2px 8px;border-radius:4px;text-transform:uppercase;display:block;margin-bottom:4px;">Com a Voe F5</span><span style="font-size:28px;font-weight:900;color:#001A4F;">R$ 2.419,00</span></div>
+                    <div style="font-size:28px;">📉</div>
+                </div>
+            </div>
+            <div class="premium-card" style="border-bottom:4px solid #009C3B;">
+                <div style="background:#d1fae5;color:#009C3B;font-size:10px;font-weight:900;padding:4px 16px;border-radius:999px;width:fit-content;margin-bottom:20px;text-transform:uppercase;">Economia de 17%</div>
+                <h3 style="font-weight:800;font-size:18px;font-style:italic;text-transform:uppercase;margin-bottom:4px;">ROMA → LISBOA</h3>
+                <p style="font-size:13px;color:#94a3b8;font-weight:500;">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 4px;">R$ 679,50<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,0.6);transform:rotate(-2deg);"></span></span></p>
+                <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f8fafc;display:flex;justify-content:space-between;align-items:flex-end;">
+                    <div><span style="color:#2563eb;font-weight:700;font-size:10px;background:#eff6ff;padding:2px 8px;border-radius:4px;text-transform:uppercase;display:block;margin-bottom:4px;">Com a Voe F5</span><span style="font-size:28px;font-weight:900;color:#001A4F;">R$ 564,00</span></div>
+                    <div style="font-size:28px;">📉</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        function toggleAgentChat() {
-            const win = document.getElementById('agent-chat-window');
-            if (win.classList.contains('hidden')) {
-                win.classList.remove('hidden');
-                setTimeout(() => { 
-                    win.classList.remove('scale-95', 'opacity-0');
-                    lucide.createIcons(); 
-                }, 10);
-            } else {
-                win.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => { win.classList.add('hidden'); }, 300);
-            }
-        }
+<!-- COMO FUNCIONA -->
+<section style="padding:48px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;">
+    <div style="max-width:1000px;margin:0 auto;">
+        <h2 style="text-align:center;font-size:clamp(16px,3vw,20px);font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:#001A4F;margin-bottom:40px;">COMO FUNCIONA</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;">
+            <div class="step-card">
+                <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">1</div>
+                <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Você envia sua viagem</h3>
+                <div style="font-size:40px;margin-bottom:12px;">💻</div>
+                <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Origem, destino, datas e quantidade de passageiros.</p>
+            </div>
+            <div class="step-card">
+                <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">2</div>
+                <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Análise estratégica</h3>
+                <div style="font-size:40px;margin-bottom:12px;">🌐</div>
+                <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Buscamos as melhores opções com inteligência de milhas.</p>
+            </div>
+            <div class="step-card">
+                <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">3</div>
+                <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Receba a melhor opção</h3>
+                <div style="font-size:40px;margin-bottom:12px;">✅</div>
+                <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Com economia real e suporte completo na emissão.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-        function handleAgentSend() {
-            const input = document.getElementById('agent-input');
-            const msg = input.value.trim();
-            if (!msg) return;
+<!-- DEPOIMENTOS -->
+<section style="padding:64px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;">
+    <div style="max-width:1280px;margin:0 auto;">
+        <h2 style="text-align:center;font-size:clamp(18px,4vw,30px);font-weight:900;font-style:italic;text-transform:uppercase;color:#001A4F;margin-bottom:48px;">O que nossos <span style="color:#009C3B;">Viajantes</span> dizem</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;">
+            <div class="testimonial-card">
+                <div style="color:#009C3B;font-size:24px;margin-bottom:12px;">❝</div>
+                <p style="color:#475569;font-size:12px;line-height:1.7;margin-bottom:16px;font-style:italic;">"Conseguimos reduzir significativamente os custos das nossas viagens. A plataforma encontra oportunidades que nunca teríamos descoberto sozinhos."</p>
+                <p style="font-weight:700;color:#001A4F;font-size:13px;">Marcelo R.</p>
+            </div>
+            <div class="testimonial-card">
+                <div style="color:#009C3B;font-size:24px;margin-bottom:12px;">❝</div>
+                <p style="color:#475569;font-size:12px;line-height:1.7;margin-bottom:16px;font-style:italic;">"Já comparei com buscadores tradicionais e os valores encontrados aqui foram surpreendentes. Hoje sempre consulto a Voe F5."</p>
+                <p style="font-weight:700;color:#001A4F;font-size:13px;">Fernanda L.</p>
+            </div>
+            <div class="testimonial-card">
+                <div style="color:#009C3B;font-size:24px;margin-bottom:12px;">❝</div>
+                <p style="color:#475569;font-size:12px;line-height:1.7;margin-bottom:16px;font-style:italic;">"Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e dedicada."</p>
+                <p style="font-weight:700;color:#001A4F;font-size:13px;">Daniela S.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-            addMsg(msg, true);
-            input.value = '';
+<!-- FORMULÁRIO DE COTAÇÃO -->
+<section id="cotacao" style="padding:80px 24px;background:#001A4F;position:relative;overflow:visible;display:flex;align-items:center;justify-content:center;">
+    <div id="bg-desktop" style="position:absolute;inset:0;background:url('img/rio.png') center/cover no-repeat;opacity:0.35;display:none;"></div>
+    <div id="bg-mobile"  style="position:absolute;inset:0;background:url('img/rj.png') center/cover no-repeat;opacity:0.45;"></div>
+    <div style="max-width:900px;width:100%;text-align:center;position:relative;z-index:10;">
+        <h2 style="font-size:clamp(22px,5vw,40px);font-weight:900;color:white;font-style:italic;text-transform:uppercase;margin-bottom:32px;text-shadow:0 4px 20px rgba(0,0,0,0.5);">Solicitar Cotação Personalizada</h2>
+        <div style="display:flex;gap:8px;justify-content:center;margin-bottom:24px;">
+            <button type="button" id="btn-iv" class="trip-btn trip-active"   onclick="setTipo('ida-volta')">Ida e volta</button>
+            <button type="button" id="btn-si" class="trip-btn trip-inactive" onclick="setTipo('somente-ida')">Somente ida</button>
+        </div>
 
-            setTimeout(() => {
-                const lowerMsg = msg.toLowerCase();
+        <form id="form-cotacao" class="glass-form" style="padding:20px;border-radius:32px;text-align:left;" onsubmit="enviarWhatsApp(event)">
 
-                if (agentStep === -1) {
-                    const saudar = ["ola", "olá", "oi", "bom dia", "boa tarde", "boa noite", "blz", "tudo bem"];
-                    if (saudar.some(s => lowerMsg.includes(s))) {
-                        addMsg("Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?");
-                        agentStep = 0;
-                    } else {
-                        chatData.destino = msg;
-                        addMsg(`Perfeito! Destino: <b>${msg}</b>. <br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?`);
-                        agentStep = 1;
-                    }
-                } 
-                else if (agentStep === 0) {
-                    chatData.destino = msg;
-                    addMsg(`Excelente! ✈️<br>Agora me diga: Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?`);
-                    agentStep = 1;
-                }
-                else if (agentStep === 1) {
-                    if (lowerMsg.includes("volta")) {
-                        chatData.tipo = "Ida e Volta";
-                        addMsg("Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>, por favor.");
-                    } else {
-                        chatData.tipo = "Somente Ida";
-                        addMsg("Entendido! Qual a <b>data de embarque</b>?");
-                    }
-                    agentStep = 2;
-                }
-                else if (agentStep === 2) {
-                    chatData.datas = msg;
-                    addMsg("Para <b>quantas pessoas</b>? Informe a idade se houver crianças (bebês até 11 meses não pagam!).");
-                    agentStep = 3;
-                }
-                else if (agentStep === 3) {
-                    chatData.passageiros = msg;
-                    addMsg("Qual classe você prefere?");
-                    setTimeout(() => {
-                        const botoesClasse = `
-                            <div class="flex flex-col gap-2 mt-2">
-                                <button onclick="setOption('classe', 'Econômica')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-700 transition-all">Econômica</button>
-                                <button onclick="setOption('classe', 'Executiva')" class="w-full bg-blue-600 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-blue-700 transition-all">Executiva</button>
-                            </div>
-                        `;
-                        addMsg(botoesClasse);
-                    }, 800);
-                    agentStep = 4;
-                }
-                else if (agentStep === 4) {
-                    // Controlada pelo botão
-                }
-                else if (agentStep === 5) {
-                    // Controlada pelo botão
-                }
-            }, 800);
-        }
-
-        function addMsg(text, isUser = false) {
-            const container = document.getElementById('agent-messages');
-            const div = document.createElement('div');
-            div.className = isUser ? 
-                "bg-[#009c3b] text-white p-4 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[11px] font-bold mb-2 shadow-md" : 
-                "bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 max-w-[85%] text-[11px] text-slate-700 font-semibold mb-2 shadow-sm";
-            div.innerHTML = text;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function setOption(tipo, valor) {
-            if (tipo === 'classe') {
-                chatData.classe = valor;
-                addMsg(`${valor} ✅`, true);
-                addMsg("<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).");
-                setTimeout(() => {
-                    const botoesBagagem = `
-                        <div class="flex flex-col gap-2 mt-2">
-                            <p class="text-[10px] text-slate-600 font-semibold">Deseja adicionar mala despachada de 23kg?</p>
-                            <button onclick="setOption('bagagem', 'Sim - Mala despachada de 23kg')" class="w-full bg-[#009c3b] text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-emerald-700 transition-all">Sim</button>
-                            <button onclick="setOption('bagagem', 'Não - Apenas mala de mão')" class="w-full bg-slate-400 text-white py-3 rounded-xl font-black uppercase italic text-[11px] shadow-lg hover:bg-slate-500 transition-all">Não</button>
+            <!-- ══ VERSÃO MOBILE: 3 linhas de 2 colunas com dropdowns ══ -->
+            <div class="form-mobile">
+                <!-- Linha 1: Origem + Destino -->
+                <div class="form-row-1">
+                    <input type="text" id="origem-m"  placeholder="✈ Origem"  class="input-field" required>
+                    <input type="text" id="destino-m" placeholder="📍 Destino" class="input-field" required>
+                </div>
+                <!-- Linha 2: Datas -->
+                <div class="form-row-2">
+                    <div class="drop-wrapper">
+                        <button type="button" id="btn-data-ida" class="input-field drop-btn" onclick="abrirDatePicker('ida')">
+                            <span id="label-ida">📅 Ida</span><span>▾</span>
+                        </button>
+                        <div id="menu-data-ida" class="drop-menu drop-up" style="padding:16px;">
+                            <p style="color:rgba(255,255,255,0.7);font-size:10px;font-weight:700;text-transform:uppercase;margin:0 0 8px 0;">Data de Ida</p>
+                            <input type="date" id="input-data-ida" style="width:100%;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:10px;padding:10px;color:white;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;-webkit-appearance:none;appearance:none;color-scheme:dark;" onchange="selecionarData('ida',this.value)">
+                            <button type="button" onclick="fecharDrop('menu-data-ida')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:10px;">Confirmar</button>
                         </div>
-                    `;
-                    addMsg(botoesBagagem);
-                }, 800);
-                agentStep = 5;
-            } else if (tipo === 'bagagem') {
-                chatData.bagagem = valor;
-                addMsg(`${valor} ✅`, true);
-                finalizarCotacao();
-            }
-        }
+                    </div>
+                    <div class="drop-wrapper">
+                        <button type="button" id="btn-data-volta" class="input-field drop-btn" onclick="abrirDatePicker('volta')">
+                            <span id="label-volta">📅 Volta</span><span>▾</span>
+                        </button>
+                        <div id="menu-data-volta" class="drop-menu drop-up" style="padding:16px;">
+                            <p style="color:rgba(255,255,255,0.7);font-size:10px;font-weight:700;text-transform:uppercase;margin:0 0 8px 0;">Data de Volta</p>
+                            <input type="date" id="input-data-volta" style="width:100%;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:10px;padding:10px;color:white;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;-webkit-appearance:none;appearance:none;color-scheme:dark;" onchange="selecionarData('volta',this.value)">
+                            <button type="button" onclick="fecharDrop('menu-data-volta')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:10px;">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Linha 3: Passageiros + Bagagem -->
+                <div class="form-row-3">
+                    <div class="drop-wrapper">
+                        <button type="button" class="input-field drop-btn" onclick="abrirDrop('menu-pass')">
+                            <span id="label-pass">👥 1 Passag.</span><span>▾</span>
+                        </button>
+                        <div id="menu-pass" class="drop-menu drop-up">
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
+                                <span style="font-size:10px;font-weight:700;text-transform:uppercase;">Adultos</span>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarPass('adt',-1)">−</button>
+                                    <span id="q-adt" style="color:white;font-weight:700;min-width:16px;text-align:center;">1</span>
+                                    <button type="button" class="btn-cnt" onclick="contarPass('adt',1)">+</button>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Crianças</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">2-11 anos</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarPass('chd',-1)">−</button>
+                                    <span id="q-chd" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarPass('chd',1)">+</button>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Bebês</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 2 anos</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarPass('inf',-1)">−</button>
+                                    <span id="q-inf" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarPass('inf',1)">+</button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="fecharDrop('menu-pass')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
+                        </div>
+                    </div>
+                    <div class="drop-wrapper">
+                        <button type="button" class="input-field drop-btn" onclick="abrirDrop('menu-bag')">
+                            <span id="label-bag">💼 Bagagem</span><span>▾</span>
+                        </button>
+                        <div id="menu-bag" class="drop-menu drop-up">
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Mão</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 10kg</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarBag('mao',-1)">−</button>
+                                    <span id="q-mao" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarBag('mao',1)">+</button>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Despachada</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 23kg</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarBag('desp',-1)">−</button>
+                                    <span id="q-desp" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarBag('desp',1)">+</button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="fecharDrop('menu-bag')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        function finalizarCotacao() {
-            addMsg("Gerando sua cotação exclusiva com milhas...");
-            setTimeout(() => {
-                const textoWhats = `Olá Voe F5! Quero uma cotação:%0A📍 Destino: ${chatData.destino}%0A✈️ Tipo: ${chatData.tipo}%0A📅 Datas: ${chatData.datas}%0A👥 Passageiros: ${chatData.passageiros}%0A🎫 Classe: ${chatData.classe}%0A💼 Bagagem: ${chatData.bagagem}`;
-                addMsg(`<a href="https://wa.me/5511988908306?text=${textoWhats}" target="_blank" class="block w-full bg-[#009c3b] text-white text-center py-4 rounded-xl font-black mt-2 uppercase italic text-[11px] shadow-lg hover:bg-emerald-700 transition-all">📲 Enviar Cotação via WhatsApp</a>`);
-            }, 1000);
-        }
+            <!-- ══ VERSÃO DESKTOP: layout original 4 colunas + inputs nativos ══ -->
+            <div class="form-desktop">
+                <!-- Linha 1: Origem + Destino -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <input type="text" id="origem-d"  placeholder="✈ Origem"  class="input-field" required>
+                    <input type="text" id="destino-d" placeholder="📍 Destino" class="input-field" required>
+                </div>
+                <!-- Linha 2: Ida | Volta | Passageiros | Bagagem (4 colunas) -->
+                <div class="form-desktop-grid">
+                    <input type="text" id="dataIda-d"   placeholder="📅 Ida"   class="input-field" required onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
+                    <input type="text" id="dataVolta-d" placeholder="📅 Volta" class="input-field"          onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
+                    <!-- Passageiros desktop -->
+                    <div class="drop-wrapper">
+                        <button type="button" class="input-field drop-btn" onclick="abrirDrop('menu-pass-d')">
+                            <span id="label-pass-d">👥 1 Passag.</span><span>▾</span>
+                        </button>
+                        <div id="menu-pass-d" class="drop-menu" style="bottom:calc(100% + 6px);top:auto;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
+                                <span style="font-size:10px;font-weight:700;text-transform:uppercase;">Adultos</span>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarPassD('adt',-1)">−</button>
+                                    <span id="qd-adt" style="color:white;font-weight:700;min-width:16px;text-align:center;">1</span>
+                                    <button type="button" class="btn-cnt" onclick="contarPassD('adt',1)">+</button>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Crianças</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">2-11 anos</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarPassD('chd',-1)">−</button>
+                                    <span id="qd-chd" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarPassD('chd',1)">+</button>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Bebês</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 2 anos</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarPassD('inf',-1)">−</button>
+                                    <span id="qd-inf" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarPassD('inf',1)">+</button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="fecharDrop('menu-pass-d')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
+                        </div>
+                    </div>
+                    <!-- Bagagem desktop -->
+                    <div class="drop-wrapper">
+                        <button type="button" class="input-field drop-btn" onclick="abrirDrop('menu-bag-d')">
+                            <span id="label-bag-d">💼 Bagagem</span><span>▾</span>
+                        </button>
+                        <div id="menu-bag-d" class="drop-menu" style="bottom:calc(100% + 6px);top:auto;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Mão</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 10kg</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarBagD('mao',-1)">−</button>
+                                    <span id="qd-mao" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarBagD('mao',1)">+</button>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
+                                <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Despachada</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 23kg</div></div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <button type="button" class="btn-cnt" onclick="contarBagD('desp',-1)">−</button>
+                                    <span id="qd-desp" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
+                                    <button type="button" class="btn-cnt" onclick="contarBagD('desp',1)">+</button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="fecharDrop('menu-bag-d')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        document.getElementById('agent-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAgentSend(); });
-    </script>
+            <button type="submit" class="btn-submit">Analisar Melhores Tarifas</button>
+        </form>
+    </div>
+</section>
 
-    <script>
-        lucide.createIcons();
+<!-- FOOTER -->
+<footer style="padding:48px 24px;background:#001A4F;text-align:center;color:rgba(255,255,255,0.4);font-size:10px;font-weight:700;text-transform:uppercase;font-style:italic;letter-spacing:0.2em;border-top:1px solid rgba(255,255,255,0.05);">
+    &copy; Voe F5 tour | Atualize a sua forma de viajar
+</footer>
 
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide-item');
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 5000);
+<!-- AGENTE CHAT -->
+<div id="agent-widget" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;align-items:flex-end;font-family:'Plus Jakarta Sans',sans-serif;">
+    <div id="agent-chat-window" style="display:none;width:320px;background:white;border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,0.4);border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px;opacity:0;transform:scale(0.95);transition:all 0.3s;">
+        <div style="background:#001f3f;padding:16px 20px;display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;background:#009c3b;border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-style:italic;font-size:13px;">F5</div>
+            <div style="flex:1;"><h4 style="color:white;font-weight:900;font-size:12px;text-transform:uppercase;font-style:italic;margin:0;">Agente Voe F5</h4><p style="color:#34d399;font-size:9px;font-weight:700;text-transform:uppercase;margin:0;">Online</p></div>
+            <button onclick="toggleChat()" style="color:rgba(255,255,255,0.7);background:none;border:none;cursor:pointer;font-size:20px;line-height:1;">✕</button>
+        </div>
+        <div id="agent-messages" class="scrollbar-hide" style="overflow-y:auto;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:380px;">
+            <div style="background:white;padding:14px;border-radius:16px 16px 16px 4px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid #e2e8f0;max-width:90%;font-size:12px;font-weight:600;color:#334155;">Olá! Como posso te ajudar hoje? 👋</div>
+        </div>
+        <div style="padding:16px;background:white;border-top:1px solid #e2e8f0;">
+            <div style="display:flex;gap:8px;">
+                <input type="text" id="agent-input" placeholder="Digite aqui..." style="flex:1;background:#f1f5f9;border:2px solid transparent;border-radius:12px;padding:12px 16px;font-size:12px;font-weight:700;outline:none;font-family:'Plus Jakarta Sans',sans-serif;" onfocus="this.style.borderColor='#009c3b'" onblur="this.style.borderColor='transparent'">
+                <button onclick="enviarMensagem()" style="background:#009c3b;color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;font-size:18px;line-height:1;">➤</button>
+            </div>
+        </div>
+    </div>
+    <button onclick="toggleChat()" class="agent-pulse" style="background:#009c3b;padding:18px;border-radius:20px;box-shadow:0 8px 30px rgba(0,0,0,0.3);border:none;cursor:pointer;border-bottom:4px solid #007a2e;font-size:24px;line-height:1;">🤖</button>
+</div>
 
-        window.onscroll = function() {
-            const nav = document.getElementById('navbar');
-            const title = document.getElementById('nav-title');
-            const fale = document.getElementById('fale-especialista');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-                title.classList.replace('text-white', 'text-safira-dark');
-                if(fale) fale.classList.replace('text-white', 'text-safira-dark');
+<script>
+
+// ─── 1. NAVBAR ───────────────────────────────────────────────────────────────
+(function() {
+    window.addEventListener('scroll', function() {
+        var nav = document.getElementById('navbar');
+        if (window.scrollY > 50) nav.classList.add('scrolled');
+        else                     nav.classList.remove('scrolled');
+    });
+})();
+
+// ─── 2. BG DESKTOP/MOBILE ────────────────────────────────────────────────────
+(function() {
+    var bgD = document.getElementById('bg-desktop');
+    var bgM = document.getElementById('bg-mobile');
+    function ajustar() {
+        if (window.innerWidth >= 768) { bgD.style.display='block'; bgM.style.display='none'; }
+        else                          { bgD.style.display='none';  bgM.style.display='block'; }
+    }
+    ajustar();
+    window.addEventListener('resize', ajustar);
+})();
+
+// ─── 3. SLIDER ───────────────────────────────────────────────────────────────
+(function() {
+    var slides = document.querySelectorAll('.slide-item');
+    var atual  = 0;
+    setInterval(function() {
+        slides[atual].classList.remove('active');
+        atual = (atual + 1) % slides.length;
+        slides[atual].classList.add('active');
+    }, 5000);
+})();
+
+// ─── 4. TIPO DE VIAGEM ────────────────────────────────────────────────────────
+function setTipo(tipo) {
+    var btnIV = document.getElementById('btn-iv');
+    var btnSI = document.getElementById('btn-si');
+    // Mobile
+    var btnVolta = document.getElementById('btn-data-volta');
+    // Desktop
+    var dvD = document.getElementById('dataVolta-d');
+    if (tipo === 'ida-volta') {
+        btnIV.className = 'trip-btn trip-active';
+        btnSI.className = 'trip-btn trip-inactive';
+        if (btnVolta) { btnVolta.disabled=false; btnVolta.style.opacity='1'; btnVolta.style.pointerEvents='auto'; }
+        if (dvD)      { dvD.disabled=false; dvD.style.opacity='1'; dvD.style.pointerEvents='auto'; }
+    } else {
+        btnSI.className = 'trip-btn trip-active';
+        btnIV.className = 'trip-btn trip-inactive';
+        if (btnVolta) { btnVolta.disabled=true; btnVolta.style.opacity='0.35'; btnVolta.style.pointerEvents='none'; }
+        if (dvD)      { dvD.disabled=true; dvD.style.opacity='0.35'; dvD.style.pointerEvents='none'; dvD.value=''; if(dvD.type==='date')dvD.type='text'; }
+        document.getElementById('input-data-volta').value = '';
+        document.getElementById('label-volta').textContent = '📅 Volta';
+        dataVolta = '';
+    }
+}
+
+// ─── 5. DROPDOWNS ────────────────────────────────────────────────────────────
+function abrirDrop(id) {
+    var menu = document.getElementById(id);
+    var aberto = menu.classList.contains('open');
+    document.querySelectorAll('.drop-menu').forEach(function(m) { m.classList.remove('open'); });
+    if (!aberto) menu.classList.add('open');
+}
+function fecharDrop(id) {
+    document.getElementById(id).classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.drop-wrapper'))
+        document.querySelectorAll('.drop-menu').forEach(function(m) { m.classList.remove('open'); });
+});
+
+// ─── 6. DATE PICKER (substituiu input type=date inline) ──────────────────────
+var dataIda   = '';
+var dataVolta = '';
+
+function abrirDatePicker(tipo) {
+    abrirDrop('menu-data-' + tipo);
+}
+
+function selecionarData(tipo, valor) {
+    if (!valor) return;
+    var partes = valor.split('-');
+    var formatado = partes[2] + '/' + partes[1] + '/' + partes[0];
+    if (tipo === 'ida') {
+        dataIda = valor;
+        document.getElementById('label-ida').textContent = '📅 ' + formatado;
+    } else {
+        dataVolta = valor;
+        document.getElementById('label-volta').textContent = '📅 ' + formatado;
+    }
+}
+
+// ─── 7. PASSAGEIROS MOBILE ────────────────────────────────────────────────────
+var pass = { adt:1, chd:0, inf:0 };
+function contarPass(tipo, delta) {
+    if (tipo === 'adt' && pass.adt + delta < 1) return;
+    if (pass[tipo] + delta < 0) return;
+    pass[tipo] += delta;
+    document.getElementById('q-' + tipo).textContent = pass[tipo];
+    document.getElementById('label-pass').textContent = '👥 ' + (pass.adt + pass.chd + pass.inf) + ' Passag.';
+}
+
+// ─── 7b. PASSAGEIROS DESKTOP ─────────────────────────────────────────────────
+var passD = { adt:1, chd:0, inf:0 };
+function contarPassD(tipo, delta) {
+    if (tipo === 'adt' && passD.adt + delta < 1) return;
+    if (passD[tipo] + delta < 0) return;
+    passD[tipo] += delta;
+    document.getElementById('qd-' + tipo).textContent = passD[tipo];
+    document.getElementById('label-pass-d').textContent = '👥 ' + (passD.adt + passD.chd + passD.inf) + ' Passag.';
+}
+
+// ─── 8. BAGAGEM MOBILE ────────────────────────────────────────────────────────
+var bag = { mao:0, desp:0 };
+function contarBag(tipo, delta) {
+    if (bag[tipo] + delta < 0) return;
+    bag[tipo] += delta;
+    document.getElementById('q-' + tipo).textContent = bag[tipo];
+    var total = bag.mao + bag.desp;
+    document.getElementById('label-bag').textContent = total > 0 ? '💼 ' + total + ' Mala(s)' : '💼 Bagagem';
+}
+
+// ─── 8b. BAGAGEM DESKTOP ─────────────────────────────────────────────────────
+var bagD = { mao:0, desp:0 };
+function contarBagD(tipo, delta) {
+    if (bagD[tipo] + delta < 0) return;
+    bagD[tipo] += delta;
+    document.getElementById('qd-' + tipo).textContent = bagD[tipo];
+    var total = bagD.mao + bagD.desp;
+    document.getElementById('label-bag-d').textContent = total > 0 ? '💼 ' + total + ' Mala(s)' : '💼 Bagagem';
+}
+
+// ─── 9. FORMATAR DATA ─────────────────────────────────────────────────────────
+function formatarData(val) {
+    if (!val) return '';
+    var p = val.split('-');
+    return p.length === 3 ? p[2]+'/'+p[1]+'/'+p[0] : val;
+}
+
+// ─── 10. ENVIAR WHATSAPP ──────────────────────────────────────────────────────
+function enviarWhatsApp(e) {
+    e.preventDefault();
+    var isDesktop = window.innerWidth >= 768;
+    var ori, des, ida, volta;
+    if (isDesktop) {
+        ori   = document.getElementById('origem-d').value;
+        des   = document.getElementById('destino-d').value;
+        ida   = formatarData(document.getElementById('dataIda-d').value);
+        volta = formatarData(document.getElementById('dataVolta-d').value);
+        if (!ida) { alert('Por favor, informe a data de ida.'); return; }
+        var msg =
+            'Olá! Gostaria de uma cotação:\n\n' +
+            '✈ *Origem:* '  + ori + '\n' +
+            '📍 *Destino:* ' + des + '\n' +
+            '📅 *Ida:* '     + ida +
+            (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
+            '👥 *Passageiros:* ' + passD.adt + ' Adultos' +
+            (passD.chd > 0 ? ', ' + passD.chd + ' Crianças' : '') +
+            (passD.inf > 0 ? ', ' + passD.inf + ' Bebês' : '') + '\n' +
+            '💼 *Bagagem:* ' + bagD.mao + ' de mão, ' + bagD.desp + ' despachadas';
+        window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+    } else {
+        ori   = document.getElementById('origem-m').value;
+        des   = document.getElementById('destino-m').value;
+        ida   = formatarData(dataIda);
+        volta = formatarData(dataVolta);
+        if (!ida) { alert('Por favor, informe a data de ida.'); return; }
+        var msg =
+            'Olá! Gostaria de uma cotação:\n\n' +
+            '✈ *Origem:* '  + ori + '\n' +
+            '📍 *Destino:* ' + des + '\n' +
+            '📅 *Ida:* '     + ida +
+            (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
+            '👥 *Passageiros:* ' + pass.adt + ' Adultos' +
+            (pass.chd > 0 ? ', ' + pass.chd + ' Crianças' : '') +
+            (pass.inf > 0 ? ', ' + pass.inf + ' Bebês' : '') + '\n' +
+            '💼 *Bagagem:* ' + bag.mao + ' de mão, ' + bag.desp + ' despachadas';
+        window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+    }
+}
+
+// ─── 11. AGENTE CHAT ──────────────────────────────────────────────────────────
+var chatStep = -1;
+var chatData = { destino:'', tipo:'', datas:'', passageiros:'', classe:'', bagagem:'' };
+
+function toggleChat() {
+    var win = document.getElementById('agent-chat-window');
+    if (win.style.display === 'none' || win.style.display === '') {
+        win.style.display = 'flex'; win.style.flexDirection = 'column';
+        setTimeout(function() { win.style.opacity='1'; win.style.transform='scale(1)'; }, 10);
+    } else {
+        win.style.opacity='0'; win.style.transform='scale(0.95)';
+        setTimeout(function() { win.style.display='none'; }, 300);
+    }
+}
+
+function addMsgChat(texto, isUser) {
+    var c = document.getElementById('agent-messages');
+    var d = document.createElement('div');
+    d.style.cssText = isUser
+        ? 'background:#009c3b;color:white;padding:14px;border-radius:16px 16px 4px 16px;margin-left:auto;max-width:85%;font-size:11px;font-weight:700;'
+        : 'background:white;padding:14px;border-radius:16px 16px 16px 4px;border:1px solid #e2e8f0;max-width:85%;font-size:11px;color:#334155;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
+    d.innerHTML = texto;
+    c.appendChild(d);
+    c.scrollTop = c.scrollHeight;
+}
+
+function escolherOpcao(tipo, valor) {
+    addMsgChat(valor + ' ✅', true);
+    if (tipo === 'classe') {
+        chatData.classe = valor;
+        addMsgChat('<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).');
+        setTimeout(function() {
+            addMsgChat(
+                '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">' +
+                '<p style="font-size:10px;color:#64748b;font-weight:600;">Deseja adicionar mala despachada de 23kg?</p>' +
+                '<button onclick="escolherOpcao(\'bagagem\',\'Sim - Mala despachada de 23kg\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Sim</button>' +
+                '<button onclick="escolherOpcao(\'bagagem\',\'Não - Apenas mala de mão\')" style="background:#94a3b8;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Não</button>' +
+                '</div>'
+            );
+        }, 800);
+        chatStep = 5;
+    } else if (tipo === 'bagagem') {
+        chatData.bagagem = valor;
+        finalizarChat();
+    }
+}
+
+function finalizarChat() {
+    addMsgChat('Gerando sua cotação exclusiva com milhas... ✨');
+    setTimeout(function() {
+        var t = 'Olá Voe F5! Quero uma cotação:%0A📍 Destino: ' + chatData.destino +
+                '%0A✈️ Tipo: ' + chatData.tipo + '%0A📅 Datas: ' + chatData.datas +
+                '%0A👥 Passageiros: ' + chatData.passageiros + '%0A🎫 Classe: ' + chatData.classe +
+                '%0A💼 Bagagem: ' + chatData.bagagem;
+        addMsgChat('<a href="https://wa.me/5511988908306?text=' + t + '" target="_blank" style="display:block;background:#009c3b;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:700;margin-top:8px;font-size:11px;text-decoration:none;">📲 Enviar Cotação via WhatsApp</a>');
+    }, 1000);
+}
+
+function enviarMensagem() {
+    var input = document.getElementById('agent-input');
+    var msg   = input.value.trim();
+    if (!msg) return;
+    addMsgChat(msg, true);
+    input.value = '';
+    setTimeout(function() {
+        var lower = msg.toLowerCase();
+        if (chatStep === -1) {
+            var saudacoes = ['ola','olá','oi','bom dia','boa tarde','boa noite','blz','tudo bem'];
+            if (saudacoes.some(function(s){ return lower.includes(s); })) {
+                addMsgChat('Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?');
+                chatStep = 0;
             } else {
-                nav.classList.remove('scrolled');
-                title.classList.replace('text-safira-dark', 'text-white');
-                if(fale) fale.classList.replace('text-safira-dark', 'text-white');
+                chatData.destino = msg;
+                addMsgChat('Perfeito! Destino: <b>' + msg + '</b>.<br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');
+                chatStep = 1;
             }
-        };
-
-        function setTipo(tipo) {
-            const biv = document.getElementById('btn-iv');
-            const bsi = document.getElementById('btn-si');
-            const dv = document.getElementById('dataVolta');
-            if(tipo === 'ida-volta') {
-                biv.className = 'trip-btn trip-active'; bsi.className = 'trip-btn trip-inactive';
-                dv.disabled = false; dv.style.opacity = '1';
-            } else {
-                bsi.className = 'trip-btn trip-active'; biv.className = 'trip-btn trip-inactive';
-                dv.disabled = true; dv.style.opacity = '0.3'; dv.value = "";
-            }
+        } else if (chatStep === 0) {
+            chatData.destino = msg;
+            addMsgChat('Excelente! ✈️<br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');
+            chatStep = 1;
+        } else if (chatStep === 1) {
+            chatData.tipo = lower.includes('volta') ? 'Ida e Volta' : 'Somente Ida';
+            addMsgChat(chatData.tipo === 'Ida e Volta' ? 'Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>.' : 'Entendido! Qual a <b>data de embarque</b>?');
+            chatStep = 2;
+        } else if (chatStep === 2) {
+            chatData.datas = msg;
+            addMsgChat('Para <b>quantas pessoas</b>? Informe a idade se houver crianças.');
+            chatStep = 3;
+        } else if (chatStep === 3) {
+            chatData.passageiros = msg;
+            addMsgChat('Qual classe você prefere?');
+            setTimeout(function() {
+                addMsgChat(
+                    '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">' +
+                    '<button onclick="escolherOpcao(\'classe\',\'Econômica\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Econômica</button>' +
+                    '<button onclick="escolherOpcao(\'classe\',\'Executiva\')" style="background:#2563eb;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Executiva</button>' +
+                    '</div>'
+                );
+            }, 800);
+            chatStep = 4;
         }
+    }, 800);
+}
 
-        function toggleDrop(id) {
-            const el = document.getElementById(id);
-            const isHidden = el.classList.contains('hidden');
-            document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden'));
-            if(isHidden) el.classList.remove('hidden');
-        }
+document.getElementById('agent-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') enviarMensagem();
+});
 
-        let passageiros = { adt: 1, chd: 0, inf: 0 };
-        function count(t, v) {
-            if(t === 'adt' && passageiros.adt + v < 1) return;
-            if(passageiros[t] + v < 0) return;
-            passageiros[t] += v;
-            document.getElementById('q-' + t).innerText = passageiros[t];
-            let total = passageiros.adt + passageiros.chd + passageiros.inf;
-            document.getElementById('label-pass').innerText = `👥 ${total} Passag.`;
-        }
-
-        let bagagens = { mao: 0, desp: 0 };
-        function countBag(t, v) {
-            if(bagagens[t] + v < 0) return;
-            bagagens[t] += v;
-            document.getElementById('q-' + t).innerText = bagagens[t];
-            let totalB = bagagens.mao + bagagens.desp;
-            document.getElementById('label-bag').innerText = totalB > 0 ? `💼 ${totalB} Mala(s)` : '💼 Bagagem';
-        }
-
-        function enviarWhatsApp(e) {
-            e.preventDefault();
-            const ori = document.getElementById('origem').value;
-            const des = document.getElementById('destino').value;
-            const ida = formatarData(document.getElementById('dataIda').value);
-            const volta = formatarData(document.getElementById('dataVolta').value);
-            const adultos = passageiros.adt;
-            const criancas = passageiros.chd;
-            const bebes = passageiros.inf;
-            const msg = `Olá! Gostaria de uma cotação:\n\n✈ *Origem:* ${ori}\n📍 *Destino:* ${des}\n📅 *Ida:* ${ida}${volta ? '\n📅 *Volta:* '+volta : ''}\n👥 *Passageiros:* ${adultos} Adultos${criancas > 0 ? ', '+criancas+' Crianças' : ''}${bebes > 0 ? ', '+bebes+' Bebês' : ''}\n💼 *Bagagem:* ${bagagens.mao} de mão, ${bagagens.desp} despachadas`;
-            window.open(`https://wa.me/5511988908306?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function formatarData(data) {
-            if (!data) return '';
-            const partes = data.split('-');
-            return `${partes[2]}/${partes[1]}/${partes[0]}`;
-        }
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.relative')) {
-                document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden'));
-            }
-        });
-    </script>
+</script>
 </body>
 </html>
