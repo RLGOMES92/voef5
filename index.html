@@ -24,8 +24,9 @@
             font-size:9px; font-weight:700; font-style:italic; letter-spacing:-0.01em;
             color:white; text-shadow:0 2px 8px rgba(0,0,0,0.4);
             
-            min-width:0; flex:1;
+            min-width:0; flex:none;
             white-space: nowrap;
+            margin-left: -4px;
         }
         @media(min-width:360px){ #nav-title { font-size:9.5px; } }
         @media(min-width:400px){ #nav-title { font-size:11px; } }
@@ -59,7 +60,7 @@
             transition:all 0.25s;
         }
         #wpp-pill:hover { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.9); }
-        #wpp-pill svg { width:14px; height:26px; flex-shrink:0; }
+        #wpp-pill svg { width:26px; height:26px; flex-shrink:0; }
         #wpp-pill span {
             color:white; font-weight:700; font-size:12px; 
             text-shadow:0 1px 4px rgba(0,0,0,0.4);
@@ -276,7 +277,7 @@
 <header id="navbar">
     <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:10px;">
         <!-- LOGO + TÍTULO -->
-        <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;overflow:visible;">
+        <div style="display:flex;align-items:center;gap:0px;min-width:0;overflow:visible;">
             <!-- Logo wrapper com dois logos: branco (hero) e azul (após scroll) -->
             <div class="logo-wrapper">
                 <img id="logo-white" src="img/logo.png" alt="Logo Voe F5" style="height:100px;">
