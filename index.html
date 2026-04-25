@@ -12,297 +12,415 @@
         }
     </script>
     <style>
-      /* ── NAVBAR ──────────────────────────────────────────── */
-#navbar { 
-    position: fixed; 
-    width: 100%; 
-    z-index: 100; 
-    padding: 10px 14px; 
-    transition: all 0.4s; 
-    display: flex;       /* Garante que o alinhamento flexível funcione */
-    align-items: center; 
-}
+      /* ══════════════════════════════════════════════════════
+         NAVBAR
+      ══════════════════════════════════════════════════════ */
+      #navbar {
+          position: fixed;
+          width: 100%;
+          z-index: 100;
+          padding: 6px 14px;
+          transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+          display: flex;
+          align-items: center;
+      }
 
-#navbar.scrolled { 
-    background: rgba(0, 40, 80, 0.9) !important; 
-    backdrop-filter: blur(10px); 
-    padding: 8px 14px; 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
-    border-bottom: 1px solid #e2e8f0; 
-}
+      /* ── Scrolled: totalmente transparente ── */
+      #navbar.scrolled {
+          background: transparent !important;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          padding: 4px 14px;
+          box-shadow: none;
+          border-bottom: none;
+      }
 
-/* Título esquerdo - COLADO NO LOGO */
-#nav-title {
-    font-size: 9px; 
-    font-weight: 700; 
-    font-style: italic; 
-    letter-spacing: -0.01em;
-    color: white; 
-    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    white-space: nowrap; /* Não quebra linha */
-    flex: none;          /* Não deixa o texto espalhar */
-    
-    /* Puxa o texto para a esquerda para encostar no logo */
-    margin-left: -12px;  
-    position: relative;
-    z-index: 10;
-}
+      @media(min-width:768px) { #navbar { padding: 8px 48px; } #navbar.scrolled { padding: 6px 48px; } }
 
-/* Ajustes de escala conforme a tela aumenta */
-@media(min-width:360px){ #nav-title { font-size: 9.5px; margin-left: -10px; } }
-@media(min-width:400px){ #nav-title { font-size: 11px; margin-left: -5px; } }
-@media(min-width:768px){ 
-    #nav-title { font-size: 17px; margin-left: 10px; } 
-    #navbar { padding: 14px 48px; } 
-}
+      /* ── Inner container ── */
+      #navbar-inner {
+          max-width: 1280px;
+          margin: 0 auto;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 8px;
+      }
 
-/* ── LOGO SWAP ───────────────────────────────────────── */
-.logo-wrapper { 
-    position: relative; 
-    height: 80px;  /* Ajustei um pouco a altura para não empurrar muito a barra */
-    width: 90px; 
-    flex-shrink: 0; 
-}
-#logo-white, #logo-blue { transition: opacity 0.4s ease; position: absolute; top: 50%; transform: translateY(-50%); }
-#logo-blue { opacity: 0; }
-#navbar.scrolled #logo-white { opacity: 0; }
-#navbar.scrolled #logo-blue { opacity: 1; }
+      /* ── Logo area ── */
+      .logo-area {
+          display: flex;
+          align-items: center;
+          gap: 0;
+          flex-shrink: 0;
+          min-width: 0;
+      }
 
-/* ── WHATSAPP PILL ───────────────────────────────────── */
-#wpp-pill {
-    display: flex; 
-    align-items: center; 
-    gap: 4px;
-    background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(255,255,255,0.6);
-    border-radius: 999px;
-    padding: 6px 12px;
-    text-decoration: none;
-    flex-shrink: 0;
-    backdrop-filter: blur(6px);
-    transition: all 0.25s;
-    
-    /* Joga o botão para o canto direito */
-    margin-left: auto; 
-}
+      .logo-wrapper {
+          position: relative;
+          height: 64px;
+          width: 72px;
+          flex-shrink: 0;
+      }
+      @media(min-width:768px) { .logo-wrapper { height: 80px; width: 90px; } }
+      @media(max-height:500px) and (orientation:landscape) { .logo-wrapper { height: 44px; width: 50px; } }
 
-#navbar.scrolled #wpp-pill { background: rgba(0,26,79,0.08); border-color: #001A4F; }
-#navbar.scrolled #wpp-pill span { color: #001A4F; text-shadow: none; }
+      #logo-white, #logo-blue {
+          transition: opacity 0.4s ease;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 100%;
+          width: auto;
+      }
+      #logo-blue  { opacity: 0; }
+      #navbar.scrolled #logo-white { opacity: 0; }
+      #navbar.scrolled #logo-blue  { opacity: 1; }
 
-        /* ── HERO ────────────────────────────────────────────── */
-        .hero-slider {
-            height:100vh;
-            display:flex;
-            align-items:center;
-            position: relative;
-            width: 100%;
-            height: 520px;
-            background: #000;
-            overflow: hidden;
-        }
-        @media(min-width:375px)  { .hero-slider { height: 550px; } }
-        @media(min-width:430px)  { .hero-slider { height: 580px; } }
-        @media(min-width:600px)  { .hero-slider { height: 620px; } }
-        @media(min-width:768px)  { .hero-slider { height: 660px; } }
-        @media(min-width:1024px) { .hero-slider { height: 700px; } }
+      /* ── Tagline: sistema igual ao logo — duas camadas sobrepostas ── */
+      #nav-title {
+          position: relative;
+          font-size: clamp(8px, 2.2vw, 17px);
+          font-weight: 700;
+          font-style: italic;
+          letter-spacing: -0.01em;
+          white-space: nowrap;
+          flex-shrink: 0;
+          margin-left: -4px;
+          display: inline-block;
+      }
+      /* camada branca — visível no hero */
+      #nav-title .title-white {
+          color: white;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+          transition: opacity 0.4s ease;
+          opacity: 1;
+          display: block;
+      }
+      /* camada colorida — oculta no hero, aparece ao scrollar */
+      #nav-title .title-color {
+          position: absolute;
+          top: 0; left: 0;
+          white-space: nowrap;
+          transition: opacity 0.4s ease;
+          opacity: 0;
+          display: block;
+      }
+      #nav-title .title-color .txt-dark  { color: #001A4F; }
+      #nav-title .title-color .txt-green { color: #009C3B; }
 
-        .slide-item {
-            position:absolute; inset:0;
-            opacity:0; transition:opacity 2s ease-in-out; z-index:1;
-        }
-        .slide-item.active { opacity:1; z-index:2; }
+      /* Ao scrollar: troca as opacidades */
+      #navbar.scrolled #nav-title .title-white { opacity: 0; }
+      #navbar.scrolled #nav-title .title-color  { opacity: 1; }
 
-        .hero-overlay {
-            position:absolute; inset:0; z-index:10;
-            background:rgba(0,0,0,0.38);
-            display:flex;
-            align-items:flex-end;
-            justify-content:flex-start;
-            padding:0 20px 36px 20px;
-            overflow:hidden;
-            box-sizing:border-box;
-        }
-        @media(min-width:768px) {
-            .hero-overlay { padding:0 56px 56px 56px; }
-        }
+      @media(max-height:500px) and (orientation:landscape) { #nav-title { font-size: 9px; } }
 
-        .hero-content {
-            padding-bottom: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width:100%;
-            text-align:left;
-            overflow:visible;
-            word-break:break-word;
-        }
-        @media(min-width:768px) {
-            .hero-content { max-width:520px; padding-bottom:80px; }
-        }
+      /* ── WhatsApp pill ── */
+      #wpp-pill {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          background: rgba(255,255,255,0.12);
+          border: 2px solid rgba(255,255,255,0.55);
+          border-radius: 999px;
+          padding: 6px 14px;
+          text-decoration: none;
+          flex-shrink: 0;
+          backdrop-filter: blur(6px);
+          transition: background 0.4s, border-color 0.4s;
+          margin-left: auto;
+      }
+      #wpp-pill svg { width: 22px; height: 22px; }
+      #wpp-pill span {
+          color: white;
+          font-size: clamp(10px, 1.8vw, 13px);
+          font-weight: 700;
+          text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+          transition: color 0.4s ease, text-shadow 0.4s ease;
+      }
+      /* Scrolled: pill com cores da marca (azul + verde) */
+      #navbar.scrolled #wpp-pill {
+          background: rgba(0,156,59,0.10);
+          border-color: #009C3B;
+      }
+      #navbar.scrolled #wpp-pill span {
+          color: #001A4F;
+          font-weight: 800;
+          text-shadow: none;
+      }
 
-        .hero-title {
-            font-size:22px;
-            font-weight:900;
-            font-style:italic;
-            text-transform:uppercase;
-            color:white;
-            line-height:1.2;
-            margin:0 0 8px 0;
-            word-break:normal;
-            overflow-wrap: break-word;
-            animation:swell 3s ease-in-out infinite;
-            text-shadow:0 0 10px rgba(255,255,255,0.3),0 0 20px rgba(255,204,0,0.2);
-        }
-        @media(min-width:375px)  { .hero-title { font-size:24px; } }
-        @media(min-width:480px)  { .hero-title { font-size:28px; } }
-        @media(min-width:768px)  { .hero-title { font-size:38px; } }
-        @media(min-width:1024px) { .hero-title { font-size:48px; } }
+      @media(max-height:500px) and (orientation:landscape) {
+          #wpp-pill { padding: 4px 10px; }
+          #wpp-pill svg { width: 18px; height: 18px; }
+          #wpp-pill span { font-size: 9px; }
+      }
 
-        .hero-sub {
-            color:rgba(255,255,255,0.92);
-            font-size:12px;
-            font-weight:500;
-            font-style:italic;
-            margin:0 0 20px 0;
-            line-height:1.5;
-        }
-        @media(min-width:768px) { .hero-sub { font-size:15px; margin-bottom:28px; } }
+      /* ══════════════════════════════════════════════════════
+         HERO SLIDER
+      ══════════════════════════════════════════════════════ */
+      .hero-slider {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+          background: #000;
 
-        @media(max-height:450px) and (orientation:landscape) {
-            .hero-slider  { height:100vh; min-height:unset; }
-            .hero-overlay { padding:0 20px 16px 20px; align-items:center; }
-            .hero-title   { font-size:18px; margin-bottom:4px; }
-            .hero-sub     { font-size:10px; margin-bottom:10px;
-                            overflow:hidden; display:-webkit-box;
-                            -webkit-line-clamp:1; -webkit-box-orient:vertical; }
-            .hero-cta     { padding:8px 18px!important; font-size:11px!important; }
-        }
+          /* Mobile portrait: compacto */
+          height: 520px;
+      }
+      @media(min-width:375px)  { .hero-slider { height: 560px; } }
+      @media(min-width:430px)  { .hero-slider { height: 590px; } }
+      @media(min-width:600px)  { .hero-slider { height: 620px; } }
+      @media(min-width:768px)  { .hero-slider { height: 660px; } }
+      @media(min-width:1024px) { .hero-slider { height: 100vh; min-height: 640px; } }
 
-        @keyframes swell {
-            0%,100% { transform:scale(1); }
-            50% { transform:scale(1.03); text-shadow:0 0 20px rgba(255,255,255,0.5),0 0 30px rgba(255,204,0,0.4); }
-        }
+      /* ── LANDSCAPE: altura reduzida para caber na tela sem scroll ── */
+      @media(max-height:500px) and (orientation:landscape) {
+          .hero-slider { height: 100svh; min-height: unset; }
+      }
 
-        .hidden-mobile { display:none; }
-        .show-mobile   { display:block; }
-        @media(min-width:768px) {
-            .hidden-mobile { display:block; }
-            .show-mobile   { display:none; }
-        }
+      .slide-item {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transition: opacity 2s ease-in-out;
+          z-index: 1;
+      }
+      .slide-item.active { opacity: 1; z-index: 2; }
 
-        /* ── CARDS ───────────────────────────────────────────── */
-        .premium-card    { background:white; border-radius:24px; border:1px solid #f1f5f9; box-shadow:0 4px 20px rgba(0,0,0,0.08); padding:24px; transition:transform 0.3s; display:flex; flex-direction:column; }
-        .premium-card:hover { transform:translateY(-8px); }
-        .step-card       { background:white; border-radius:16px; padding:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border:1px solid #f1f5f9; display:flex; flex-direction:column; align-items:center; text-align:center; transition:all 0.3s; }
-        .step-card:hover { transform:translateY(-8px); box-shadow:0 8px 40px rgba(0,0,0,0.15); }
-        .testimonial-card{ background:#f8fafc; border-radius:16px; padding:24px; border:1px solid #e2e8f0; display:flex; flex-direction:column; align-items:center; text-align:center; }
+      /* ── Overlay posiciona o conteúdo no canto inferior-esquerdo ── */
+      .hero-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 10;
+          background: linear-gradient(
+              to top,
+              rgba(0,0,0,0.72) 0%,
+              rgba(0,0,0,0.25) 55%,
+              rgba(0,0,0,0.10) 100%
+          );
+          display: flex;
+          align-items: flex-end;       /* ancora no bottom */
+          justify-content: flex-start;
+          padding: 0 20px 40px 20px;
+          box-sizing: border-box;
+      }
+      @media(min-width:768px) { .hero-overlay { padding: 0 56px 60px 56px; } }
 
-        /* ── FORM COTAÇÃO ────────────────────────────────────── */
-        .glass-form { background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); }
-        .input-field {
-            width:100%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3);
-            padding:12px; border-radius:12px; outline:none; color:white;
-            font-weight:500; transition:all 0.2s; backdrop-filter:blur(4px);
-            font-family:'Plus Jakarta Sans',sans-serif;
-            min-width:0;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        .input-field::placeholder { color:rgba(255,255,255,0.7); }
-        .input-field:focus { border-color:#009C3B; }
+      /* ── Landscape: menos padding para economizar espaço vertical ── */
+      @media(max-height:500px) and (orientation:landscape) {
+          .hero-overlay {
+              padding: 0 20px 18px 20px;
+              align-items: flex-end;
+          }
+      }
 
-        input[type="date"].input-field { color: white; }
-        input[type="date"].input-field:not(:valid) { color: rgba(255,255,255,0.7); }
-        input[type="date"].input-field::-webkit-datetime-edit { color: white; }
-        input[type="date"].input-field::-webkit-calendar-picker-indicator {
-            filter: invert(1) opacity(0.7); cursor: pointer;
-        }
+      /* ── Conteúdo do hero ── */
+      .hero-content {
+          width: 100%;
+          max-width: 540px;
+          text-align: left;
+      }
 
-        .trip-btn     { padding:6px 16px; border-radius:999px; border:2px solid; font-weight:700; font-size:12px; cursor:pointer; transition:all 0.2s; }
-        .trip-active  { background:#009C3B; border-color:#009C3B; color:white; }
-        .trip-inactive{ background:transparent; border-color:rgba(255,255,255,0.3); color:white; }
-        .trip-inactive:hover { background:rgba(255,255,255,0.1); }
+      .hero-title {
+          font-weight: 900;
+          font-style: italic;
+          text-transform: uppercase;
+          color: white;
+          line-height: 1.15;
+          margin: 0 0 10px 0;
+          word-break: normal;
+          overflow-wrap: break-word;
+          animation: swell 3s ease-in-out infinite;
+          text-shadow: 0 2px 12px rgba(0,0,0,0.4), 0 0 24px rgba(255,204,0,0.15);
 
-        /* ── GRID DO FORMULÁRIO ──────────────────────────────── */
-        .form-mobile  { display: block; }
-        .form-desktop { display: none; }
-        @media(min-width:768px) {
-            .form-mobile  { display: none !important; }
-            .form-desktop { display: block !important; }
-            .form-desktop-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                gap: 12px;
-                margin-bottom: 12px;
-            }
-        }
-        .form-row-1 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
-        .form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
-        .form-row-3 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+          /* clamp: mínimo 20px, sobe com viewport, máximo 52px */
+          font-size: clamp(20px, 5.5vw, 52px);
+      }
 
-        /* ── DROPDOWNS ───────────────────────────────────────── */
-        .drop-wrapper { position:relative; }
-        .drop-btn     { width:100%; display:flex; justify-content:space-between; align-items:center; font-size:12px; cursor:pointer; }
-        .drop-menu {
-            display:none; position:absolute; left:0; right:0;
-            top:calc(100% + 6px);
-            background:#001A4F; border:1px solid rgba(255,255,255,0.2);
-            border-radius:16px; padding:12px; z-index:999;
-            box-shadow:0 20px 60px rgba(0,0,0,0.5); min-width:200px;
-        }
-        @media(max-width:639px) { .drop-up { top:auto; bottom:calc(100% + 6px); } }
-        @media(min-width:640px){ .drop-menu { top:auto; bottom:calc(100% + 6px); } }
-        .drop-menu.open { display:block; }
+      /* Portrait (tela alta, estreita): limita mais agressivamente */
+      @media(max-width:480px) {
+          .hero-title { font-size: clamp(19px, 6vw, 28px); }
+      }
 
-        /* ── COUNTER BUTTONS ─────────────────────────────────── */
-        .btn-cnt {
-            width:36px; height:36px; min-width:36px; min-height:36px;
-            border-radius:50%; border:1px solid rgba(255,255,255,0.4);
-            background:transparent; color:white; font-weight:700; font-size:16px;
-            cursor:pointer; display:flex; align-items:center; justify-content:center;
-            touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:background 0.15s;
-        }
-        .btn-cnt:hover  { background:rgba(255,255,255,0.2); }
-        .btn-cnt:active { background:rgba(255,255,255,0.3); transform:scale(0.92); }
+      /* Landscape: ainda menor para não ocupar a tela toda */
+      @media(max-height:500px) and (orientation:landscape) {
+          .hero-title {
+              font-size: clamp(15px, 3.5vh, 22px);
+              margin-bottom: 4px;
+              animation: none; /* evita tremido no modo horizontal */
+          }
+      }
 
-        /* ── SUBMIT ──────────────────────────────────────────── */
-        .btn-submit {
-            width:100%; background:#009C3B; color:white; font-weight:900;
-            padding:20px; border-radius:12px; font-size:18px; font-style:italic;
-            text-transform:uppercase; border:none; cursor:pointer;
-            transition:all 0.2s; box-shadow:0 8px 30px rgba(0,156,59,0.4);
-            font-family:'Plus Jakarta Sans',sans-serif;
-        }
-        .btn-submit:hover { background:#007a2e; }
-        @media(min-width:1024px){ .btn-submit { font-size:24px; } }
+      .hero-sub {
+          color: rgba(255,255,255,0.90);
+          font-weight: 500;
+          font-style: italic;
+          margin: 0 0 22px 0;
+          line-height: 1.55;
+          font-size: clamp(11px, 2vw, 16px);
+      }
+      @media(max-height:500px) and (orientation:landscape) {
+          .hero-sub {
+              font-size: clamp(9px, 1.6vh, 12px);
+              margin-bottom: 10px;
+              /* corta em 1 linha para poupar espaço */
+              overflow: hidden;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+          }
+      }
 
-        /* ── AGENTE CHAT ─────────────────────────────────────── */
-        .agent-pulse { animation:pulse-green 2s infinite; }
-        @keyframes pulse-green {
-            0%   { box-shadow:0 0 0 0 rgba(0,156,59,0.7); }
-            70%  { box-shadow:0 0 0 15px rgba(0,156,59,0); }
-            100% { box-shadow:0 0 0 0 rgba(0,156,59,0); }
-        }
-        #agent-chat-window { max-height:85vh; display:flex; flex-direction:column; }
-        #agent-messages b  { color:#009c3b; font-weight:800; }
-        .scrollbar-hide::-webkit-scrollbar { display:none; }
+      .hero-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #FFCC00;
+          color: #001A4F;
+          font-weight: 900;
+          padding: clamp(10px,1.8vh,16px) clamp(18px,3vw,32px);
+          border-radius: 12px;
+          font-size: clamp(11px, 1.8vw, 15px);
+          text-transform: uppercase;
+          font-style: italic;
+          text-decoration: none;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+          transition: background 0.2s, transform 0.15s;
+      }
+      .hero-cta:hover { background: #e6b800; transform: translateY(-2px); }
+      @media(max-height:500px) and (orientation:landscape) {
+          .hero-cta { padding: 8px 18px; font-size: 10px; }
+      }
+
+      @keyframes swell {
+          0%,100% { transform: scale(1); }
+          50% {
+              transform: scale(1.025);
+              text-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 32px rgba(255,204,0,0.3);
+          }
+      }
+
+      /* ── Slide backgrounds: mobile vs desktop ── */
+      .hidden-mobile { display: none; }
+      .show-mobile   { display: block; }
+      @media(min-width:768px) {
+          .hidden-mobile { display: block; }
+          .show-mobile   { display: none; }
+      }
+
+      /* ══════════════════════════════════════════════════════
+         CARDS
+      ══════════════════════════════════════════════════════ */
+      .premium-card    { background:white; border-radius:24px; border:1px solid #f1f5f9; box-shadow:0 4px 20px rgba(0,0,0,0.08); padding:24px; transition:transform 0.3s; display:flex; flex-direction:column; }
+      .premium-card:hover { transform:translateY(-8px); }
+      .step-card       { background:white; border-radius:16px; padding:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border:1px solid #f1f5f9; display:flex; flex-direction:column; align-items:center; text-align:center; transition:all 0.3s; }
+      .step-card:hover { transform:translateY(-8px); box-shadow:0 8px 40px rgba(0,0,0,0.15); }
+      .testimonial-card{ background:#f8fafc; border-radius:16px; padding:24px; border:1px solid #e2e8f0; display:flex; flex-direction:column; align-items:center; text-align:center; }
+
+      /* ══════════════════════════════════════════════════════
+         FORM COTAÇÃO
+      ══════════════════════════════════════════════════════ */
+      .glass-form { background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); }
+      .input-field {
+          width:100%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3);
+          padding:12px; border-radius:12px; outline:none; color:white;
+          font-weight:500; transition:all 0.2s; backdrop-filter:blur(4px);
+          font-family:'Plus Jakarta Sans',sans-serif;
+          min-width:0; -webkit-appearance:none; appearance:none;
+      }
+      .input-field::placeholder { color:rgba(255,255,255,0.7); }
+      .input-field:focus { border-color:#009C3B; }
+
+      input[type="date"].input-field { color:white; }
+      input[type="date"].input-field:not(:valid) { color:rgba(255,255,255,0.7); }
+      input[type="date"].input-field::-webkit-datetime-edit { color:white; }
+      input[type="date"].input-field::-webkit-calendar-picker-indicator { filter:invert(1) opacity(0.7); cursor:pointer; }
+
+      .trip-btn     { padding:6px 16px; border-radius:999px; border:2px solid; font-weight:700; font-size:12px; cursor:pointer; transition:all 0.2s; }
+      .trip-active  { background:#009C3B; border-color:#009C3B; color:white; }
+      .trip-inactive{ background:transparent; border-color:rgba(255,255,255,0.3); color:white; }
+      .trip-inactive:hover { background:rgba(255,255,255,0.1); }
+
+      .form-mobile  { display:block; }
+      .form-desktop { display:none; }
+      @media(min-width:768px) {
+          .form-mobile  { display:none !important; }
+          .form-desktop { display:block !important; }
+          .form-desktop-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; margin-bottom:12px; }
+      }
+      .form-row-1 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+      .form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+      .form-row-3 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+
+      .drop-wrapper { position:relative; }
+      .drop-btn     { width:100%; display:flex; justify-content:space-between; align-items:center; font-size:12px; cursor:pointer; }
+      .drop-menu {
+          display:none; position:absolute; left:0; right:0;
+          top:calc(100% + 6px);
+          background:#001A4F; border:1px solid rgba(255,255,255,0.2);
+          border-radius:16px; padding:12px; z-index:999;
+          box-shadow:0 20px 60px rgba(0,0,0,0.5); min-width:200px;
+      }
+      @media(max-width:639px) { .drop-up { top:auto; bottom:calc(100% + 6px); } }
+      @media(min-width:640px) { .drop-menu { top:auto; bottom:calc(100% + 6px); } }
+      .drop-menu.open { display:block; }
+
+      .btn-cnt {
+          width:36px; height:36px; min-width:36px; min-height:36px;
+          border-radius:50%; border:1px solid rgba(255,255,255,0.4);
+          background:transparent; color:white; font-weight:700; font-size:16px;
+          cursor:pointer; display:flex; align-items:center; justify-content:center;
+          touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:background 0.15s;
+      }
+      .btn-cnt:hover  { background:rgba(255,255,255,0.2); }
+      .btn-cnt:active { background:rgba(255,255,255,0.3); transform:scale(0.92); }
+
+      .btn-submit {
+          width:100%; background:#009C3B; color:white; font-weight:900;
+          padding:20px; border-radius:12px; font-size:18px; font-style:italic;
+          text-transform:uppercase; border:none; cursor:pointer;
+          transition:all 0.2s; box-shadow:0 8px 30px rgba(0,156,59,0.4);
+          font-family:'Plus Jakarta Sans',sans-serif;
+      }
+      .btn-submit:hover { background:#007a2e; }
+      @media(min-width:1024px){ .btn-submit { font-size:24px; } }
+
+      /* ══════════════════════════════════════════════════════
+         AGENTE CHAT
+      ══════════════════════════════════════════════════════ */
+      .agent-pulse { animation:pulse-green 2s infinite; }
+      @keyframes pulse-green {
+          0%   { box-shadow:0 0 0 0 rgba(0,156,59,0.7); }
+          70%  { box-shadow:0 0 0 15px rgba(0,156,59,0); }
+          100% { box-shadow:0 0 0 0 rgba(0,156,59,0); }
+      }
+      #agent-chat-window { max-height:85vh; display:flex; flex-direction:column; }
+      #agent-messages b  { color:#009c3b; font-weight:800; }
+      .scrollbar-hide::-webkit-scrollbar { display:none; }
     </style>
 </head>
-<body>
+<body style="font-family:'Plus Jakarta Sans',sans-serif;">
 
-<!-- NAVBAR -->
+<!-- ══════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════ -->
 <header id="navbar">
-    <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:10px;">
-        <!-- LOGO + TÍTULO -->
-        <div style="display:flex;align-items:center;gap:0px;min-width:0;overflow:visible;">
-            <!-- Logo wrapper com dois logos: branco (hero) e azul (após scroll) -->
+    <div id="navbar-inner">
+
+        <!-- LOGO + TAGLINE -->
+        <div class="logo-area">
             <div class="logo-wrapper">
-                <img id="logo-white" src="img/logo.png" alt="Logo Voe F5" style="height:100px;">
-                <img id="logo-blue"  src="img/logg.png" alt="Logo Voe F5" style="height:100px;">
+                <img id="logo-white" src="img/logo.png" alt="Voe F5 Tour">
+                <img id="logo-blue"  src="img/logg.png" alt="Voe F5 Tour">
             </div>
-            <span id="nav-title"><em>Atualize a sua forma de <span class="nav-yellow" style="color:#FFCC00;">viajar</span></em></span>
+            <span id="nav-title">
+                <em class="title-white">Atualize a sua forma de <span style="color:#FFCC00;">viajar</span></em>
+                <em class="title-color"><span class="txt-dark">Atualize a sua forma de </span><span class="txt-green">viajar</span></em>
+            </span>
         </div>
-        <!-- BOTÃO WHATSAPP PILL -->
+
+        <!-- BOTÃO WHATSAPP -->
         <a href="https://wa.me/5511988908306" target="_blank" id="wpp-pill">
             <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="24" cy="24" r="24" fill="#25D366"/>
@@ -310,11 +428,16 @@
             </svg>
             <span>Fale conosco</span>
         </a>
+
     </div>
 </header>
 
-<!-- HERO SLIDER -->
+<!-- ══════════════════════════════════════════════
+     HERO SLIDER
+══════════════════════════════════════════════ -->
 <section class="hero-slider">
+
+    <!-- Slides -->
     <div class="slide-item active">
         <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/japao.png') center top/cover no-repeat;"></div>
         <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/jap.png') center center/cover no-repeat;"></div>
@@ -336,7 +459,7 @@
         <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/ame.png') center center/cover no-repeat;"></div>
     </div>
 
-    <!-- Overlay com conteúdo — visível em TODAS as telas (mobile e desktop) -->
+    <!-- Overlay + conteúdo -->
     <div class="hero-overlay">
         <div class="hero-content">
             <h1 class="hero-title">
@@ -345,14 +468,17 @@
             <p class="hero-sub">
                 Encontramos as melhores opções para sua viagem: voos, rotas e experiências exclusivas.
             </p>
-            <a href="#cotacao" class="hero-cta" style="display:inline-flex;align-items:center;gap:8px;background:#FFCC00;color:#001A4F;font-weight:900;padding:14px 28px;border-radius:12px;font-size:13px;text-transform:uppercase;font-style:italic;text-decoration:none;box-shadow:0 8px 30px rgba(0,0,0,0.3);">
+            <a href="#cotacao" class="hero-cta">
                 Simular viagem agora ›
             </a>
         </div>
     </div>
+
 </section>
 
-<!-- CASOS DE SUCESSO -->
+<!-- ══════════════════════════════════════════════
+     CASOS DE SUCESSO
+══════════════════════════════════════════════ -->
 <section style="padding:64px 24px;background:white;">
     <div style="max-width:1280px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:48px;">
@@ -391,7 +517,9 @@
     </div>
 </section>
 
-<!-- COMO FUNCIONA -->
+<!-- ══════════════════════════════════════════════
+     COMO FUNCIONA
+══════════════════════════════════════════════ -->
 <section style="padding:48px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;">
     <div style="max-width:1000px;margin:0 auto;">
         <h2 style="text-align:center;font-size:clamp(16px,3vw,20px);font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:#001A4F;margin-bottom:40px;">COMO FUNCIONA</h2>
@@ -400,12 +528,7 @@
                 <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">1</div>
                 <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Você envia sua viagem</h3>
                 <div style="margin-bottom:12px;">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="6" y="10" width="36" height="24" rx="3" stroke="#009C3B" stroke-width="3" fill="none"/>
-                        <rect x="12" y="16" width="24" height="14" rx="1" fill="#009C3B" fill-opacity="0.15"/>
-                        <rect x="10" y="34" width="28" height="3" rx="1.5" fill="#009C3B"/>
-                        <rect x="20" y="37" width="8" height="2" rx="1" fill="#009C3B"/>
-                    </svg>
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="24" rx="3" stroke="#009C3B" stroke-width="3" fill="none"/><rect x="12" y="16" width="24" height="14" rx="1" fill="#009C3B" fill-opacity="0.15"/><rect x="10" y="34" width="28" height="3" rx="1.5" fill="#009C3B"/><rect x="20" y="37" width="8" height="2" rx="1" fill="#009C3B"/></svg>
                 </div>
                 <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Origem, destino, datas e quantidade de passageiros.</p>
             </div>
@@ -413,14 +536,7 @@
                 <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">2</div>
                 <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Análise estratégica</h3>
                 <div style="margin-bottom:12px;">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="22" cy="22" r="14" stroke="#009C3B" stroke-width="3" fill="none"/>
-                        <ellipse cx="22" cy="22" rx="6" ry="14" stroke="#009C3B" stroke-width="2" fill="none"/>
-                        <line x1="8" y1="22" x2="36" y2="22" stroke="#009C3B" stroke-width="2"/>
-                        <line x1="10" y1="16" x2="34" y2="16" stroke="#009C3B" stroke-width="1.5"/>
-                        <line x1="10" y1="28" x2="34" y2="28" stroke="#009C3B" stroke-width="1.5"/>
-                        <line x1="33" y1="33" x2="42" y2="42" stroke="#009C3B" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="22" cy="22" r="14" stroke="#009C3B" stroke-width="3" fill="none"/><ellipse cx="22" cy="22" rx="6" ry="14" stroke="#009C3B" stroke-width="2" fill="none"/><line x1="8" y1="22" x2="36" y2="22" stroke="#009C3B" stroke-width="2"/><line x1="10" y1="16" x2="34" y2="16" stroke="#009C3B" stroke-width="1.5"/><line x1="10" y1="28" x2="34" y2="28" stroke="#009C3B" stroke-width="1.5"/><line x1="33" y1="33" x2="42" y2="42" stroke="#009C3B" stroke-width="3" stroke-linecap="round"/></svg>
                 </div>
                 <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Buscamos as melhores opções com inteligência de milhas.</p>
             </div>
@@ -428,13 +544,7 @@
                 <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">3</div>
                 <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Receba a melhor opção</h3>
                 <div style="margin-bottom:12px;">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="6" y="14" width="36" height="20" rx="4" stroke="#009C3B" stroke-width="3" fill="none"/>
-                        <line x1="6" y1="24" x2="42" y2="24" stroke="#009C3B" stroke-width="2" stroke-dasharray="3 3"/>
-                        <circle cx="6" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/>
-                        <circle cx="42" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/>
-                        <polyline points="17,23 21,27 31,19" stroke="#009C3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="20" rx="4" stroke="#009C3B" stroke-width="3" fill="none"/><line x1="6" y1="24" x2="42" y2="24" stroke="#009C3B" stroke-width="2" stroke-dasharray="3 3"/><circle cx="6" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><circle cx="42" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><polyline points="17,23 21,27 31,19" stroke="#009C3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
                 </div>
                 <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Com economia real e suporte completo na emissão.</p>
             </div>
@@ -442,7 +552,9 @@
     </div>
 </section>
 
-<!-- DEPOIMENTOS -->
+<!-- ══════════════════════════════════════════════
+     DEPOIMENTOS
+══════════════════════════════════════════════ -->
 <section style="padding:64px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;">
     <div style="max-width:1280px;margin:0 auto;">
         <h2 style="text-align:center;font-size:clamp(18px,4vw,30px);font-weight:900;font-style:italic;text-transform:uppercase;color:#001A4F;margin-bottom:48px;">O que nossos <span style="color:#009C3B;">Viajantes</span> dizem</h2>
@@ -466,7 +578,9 @@
     </div>
 </section>
 
-<!-- FORMULÁRIO DE COTAÇÃO -->
+<!-- ══════════════════════════════════════════════
+     FORMULÁRIO DE COTAÇÃO
+══════════════════════════════════════════════ -->
 <section id="cotacao" style="padding:80px 24px;background:#001A4F;position:relative;overflow:visible;display:flex;align-items:center;justify-content:center;">
     <div id="bg-desktop" style="position:absolute;inset:0;background:url('img/rio.png') center/cover no-repeat;opacity:0.35;display:none;"></div>
     <div id="bg-mobile"  style="position:absolute;inset:0;background:url('img/rj.png') center/cover no-repeat;opacity:0.45;"></div>
@@ -479,7 +593,7 @@
 
         <form id="form-cotacao" class="glass-form" style="padding:20px;border-radius:32px;text-align:left;" onsubmit="enviarWhatsApp(event)">
 
-            <!-- ══ VERSÃO MOBILE ══ -->
+            <!-- MOBILE -->
             <div class="form-mobile">
                 <div class="form-row-1">
                     <input type="text" id="origem-m"  placeholder="✈ Origem"  class="input-field">
@@ -515,27 +629,15 @@
                         <div id="menu-pass" class="drop-menu drop-up">
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
                                 <span style="font-size:10px;font-weight:700;text-transform:uppercase;">Adultos</span>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarPass('adt',-1)">−</button>
-                                    <span id="q-adt" style="color:white;font-weight:700;min-width:16px;text-align:center;">1</span>
-                                    <button type="button" class="btn-cnt" onclick="contarPass('adt',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarPass('adt',-1)">−</button><span id="q-adt" style="color:white;font-weight:700;min-width:16px;text-align:center;">1</span><button type="button" class="btn-cnt" onclick="contarPass('adt',1)">+</button></div>
                             </div>
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Crianças</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">2-11 anos</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarPass('chd',-1)">−</button>
-                                    <span id="q-chd" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarPass('chd',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarPass('chd',-1)">−</button><span id="q-chd" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarPass('chd',1)">+</button></div>
                             </div>
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Bebês</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 2 anos</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarPass('inf',-1)">−</button>
-                                    <span id="q-inf" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarPass('inf',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarPass('inf',-1)">−</button><span id="q-inf" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarPass('inf',1)">+</button></div>
                             </div>
                             <button type="button" onclick="fecharDrop('menu-pass')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
                         </div>
@@ -547,19 +649,11 @@
                         <div id="menu-bag" class="drop-menu drop-up">
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Mão</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 10kg</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarBag('mao',-1)">−</button>
-                                    <span id="q-mao" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarBag('mao',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarBag('mao',-1)">−</button><span id="q-mao" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarBag('mao',1)">+</button></div>
                             </div>
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Despachada</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 23kg</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarBag('desp',-1)">−</button>
-                                    <span id="q-desp" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarBag('desp',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarBag('desp',-1)">−</button><span id="q-desp" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarBag('desp',1)">+</button></div>
                             </div>
                             <button type="button" onclick="fecharDrop('menu-bag')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
                         </div>
@@ -567,7 +661,7 @@
                 </div>
             </div>
 
-            <!-- ══ VERSÃO DESKTOP ══ -->
+            <!-- DESKTOP -->
             <div class="form-desktop">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
                     <input type="text" id="origem-d"  placeholder="✈ Origem"  class="input-field">
@@ -583,27 +677,15 @@
                         <div id="menu-pass-d" class="drop-menu" style="bottom:calc(100% + 6px);top:auto;">
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
                                 <span style="font-size:10px;font-weight:700;text-transform:uppercase;">Adultos</span>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarPassD('adt',-1)">−</button>
-                                    <span id="qd-adt" style="color:white;font-weight:700;min-width:16px;text-align:center;">1</span>
-                                    <button type="button" class="btn-cnt" onclick="contarPassD('adt',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarPassD('adt',-1)">−</button><span id="qd-adt" style="color:white;font-weight:700;min-width:16px;text-align:center;">1</span><button type="button" class="btn-cnt" onclick="contarPassD('adt',1)">+</button></div>
                             </div>
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Crianças</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">2-11 anos</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarPassD('chd',-1)">−</button>
-                                    <span id="qd-chd" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarPassD('chd',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarPassD('chd',-1)">−</button><span id="qd-chd" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarPassD('chd',1)">+</button></div>
                             </div>
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Bebês</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 2 anos</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarPassD('inf',-1)">−</button>
-                                    <span id="qd-inf" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarPassD('inf',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarPassD('inf',-1)">−</button><span id="qd-inf" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarPassD('inf',1)">+</button></div>
                             </div>
                             <button type="button" onclick="fecharDrop('menu-pass-d')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
                         </div>
@@ -615,19 +697,11 @@
                         <div id="menu-bag-d" class="drop-menu" style="bottom:calc(100% + 6px);top:auto;">
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:4px 0;">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Mão</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 10kg</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarBagD('mao',-1)">−</button>
-                                    <span id="qd-mao" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarBagD('mao',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarBagD('mao',-1)">−</button><span id="qd-mao" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarBagD('mao',1)">+</button></div>
                             </div>
                             <div style="display:flex;justify-content:space-between;align-items:center;color:white;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.1);">
                                 <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;">Despachada</div><div style="font-size:9px;color:rgba(255,255,255,0.5);">Até 23kg</div></div>
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <button type="button" class="btn-cnt" onclick="contarBagD('desp',-1)">−</button>
-                                    <span id="qd-desp" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span>
-                                    <button type="button" class="btn-cnt" onclick="contarBagD('desp',1)">+</button>
-                                </div>
+                                <div style="display:flex;align-items:center;gap:12px;"><button type="button" class="btn-cnt" onclick="contarBagD('desp',-1)">−</button><span id="qd-desp" style="color:white;font-weight:700;min-width:16px;text-align:center;">0</span><button type="button" class="btn-cnt" onclick="contarBagD('desp',1)">+</button></div>
                             </div>
                             <button type="button" onclick="fecharDrop('menu-bag-d')" style="width:100%;background:#009C3B;color:white;padding:8px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:none;cursor:pointer;margin-top:8px;">Pronto</button>
                         </div>
@@ -640,12 +714,16 @@
     </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
 <footer style="padding:48px 24px;background:#001A4F;text-align:center;color:rgba(255,255,255,0.4);font-size:10px;font-weight:700;text-transform:uppercase;font-style:italic;letter-spacing:0.2em;border-top:1px solid rgba(255,255,255,0.05);">
     &copy; Voe F5 tour | Atualize a sua forma de viajar
 </footer>
 
-<!-- AGENTE CHAT -->
+<!-- ══════════════════════════════════════════════
+     AGENTE CHAT
+══════════════════════════════════════════════ -->
 <div id="agent-widget" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;align-items:flex-end;font-family:'Plus Jakarta Sans',sans-serif;">
     <div id="agent-chat-window" style="display:none;width:320px;background:white;border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,0.4);border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px;opacity:0;transform:scale(0.95);transition:all 0.3s;">
         <div style="background:#001f3f;padding:16px 20px;display:flex;align-items:center;gap:12px;">
@@ -664,7 +742,7 @@
         </div>
     </div>
     <button onclick="toggleChat()" class="agent-pulse" style="background:linear-gradient(135deg,#009c3b,#00b844);width:60px;height:60px;border-radius:20px;box-shadow:0 8px 30px rgba(0,156,59,0.45);border:none;cursor:pointer;border-bottom:4px solid #007a2e;display:flex;align-items:center;justify-content:center;">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
             <rect x="6" y="9" width="20" height="15" rx="4" fill="white" fill-opacity="0.95"/>
             <line x1="16" y1="4" x2="16" y2="9" stroke="white" stroke-width="2" stroke-linecap="round"/>
             <circle cx="16" cy="3.5" r="2" fill="white"/>
@@ -680,6 +758,7 @@
 </div>
 
 <script>
+/* ── Navbar scroll ── */
 (function() {
     window.addEventListener('scroll', function() {
         var nav = document.getElementById('navbar');
@@ -688,6 +767,7 @@
     });
 })();
 
+/* ── Background cotação responsivo ── */
 (function() {
     var bgD = document.getElementById('bg-desktop');
     var bgM = document.getElementById('bg-mobile');
@@ -699,6 +779,7 @@
     window.addEventListener('resize', ajustar);
 })();
 
+/* ── Slider automático ── */
 (function() {
     var slides = document.querySelectorAll('.slide-item');
     var atual  = 0;
@@ -709,11 +790,12 @@
     }, 5000);
 })();
 
+/* ── Tipo de viagem ── */
 function setTipo(tipo) {
-    var btnIV = document.getElementById('btn-iv');
-    var btnSI = document.getElementById('btn-si');
-    var btnVolta = document.getElementById('btn-data-volta');
-    var dvD = document.getElementById('dataVolta-d');
+    var btnIV   = document.getElementById('btn-iv');
+    var btnSI   = document.getElementById('btn-si');
+    var btnVolta= document.getElementById('btn-data-volta');
+    var dvD     = document.getElementById('dataVolta-d');
     if (tipo === 'ida-volta') {
         btnIV.className = 'trip-btn trip-active';
         btnSI.className = 'trip-btn trip-inactive';
@@ -724,234 +806,195 @@ function setTipo(tipo) {
         btnIV.className = 'trip-btn trip-inactive';
         if (btnVolta) { btnVolta.disabled=true; btnVolta.style.opacity='0.35'; btnVolta.style.pointerEvents='none'; }
         if (dvD)      { dvD.disabled=true; dvD.style.opacity='0.35'; dvD.style.pointerEvents='none'; dvD.value=''; if(dvD.type==='date')dvD.type='text'; }
-        document.getElementById('input-data-volta').value = '';
-        document.getElementById('label-volta').textContent = '📅 Volta';
-        dataVolta = '';
+        document.getElementById('input-data-volta').value='';
+        document.getElementById('label-volta').textContent='📅 Volta';
+        dataVolta='';
     }
 }
 
+/* ── Dropdowns ── */
 function abrirDrop(id) {
-    var menu = document.getElementById(id);
-    var aberto = menu.classList.contains('open');
-    document.querySelectorAll('.drop-menu').forEach(function(m) { m.classList.remove('open'); });
+    var menu  = document.getElementById(id);
+    var aberto= menu.classList.contains('open');
+    document.querySelectorAll('.drop-menu').forEach(function(m){ m.classList.remove('open'); });
     if (!aberto) menu.classList.add('open');
 }
-function fecharDrop(id) {
-    document.getElementById(id).classList.remove('open');
-}
+function fecharDrop(id) { document.getElementById(id).classList.remove('open'); }
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.drop-wrapper'))
-        document.querySelectorAll('.drop-menu').forEach(function(m) { m.classList.remove('open'); });
+        document.querySelectorAll('.drop-menu').forEach(function(m){ m.classList.remove('open'); });
 });
 
-var dataIda   = '';
-var dataVolta = '';
-
-function abrirDatePicker(tipo) {
-    abrirDrop('menu-data-' + tipo);
-}
-
-function selecionarData(tipo, valor) {
+/* ── Date pickers ── */
+var dataIda='', dataVolta='';
+function abrirDatePicker(tipo) { abrirDrop('menu-data-'+tipo); }
+function selecionarData(tipo,valor) {
     if (!valor) return;
-    var partes = valor.split('-');
-    var formatado = partes[2] + '/' + partes[1] + '/' + partes[0];
-    if (tipo === 'ida') {
-        dataIda = valor;
-        document.getElementById('label-ida').textContent = '📅 ' + formatado;
-    } else {
-        dataVolta = valor;
-        document.getElementById('label-volta').textContent = '📅 ' + formatado;
-    }
+    var p=valor.split('-'), formatado=p[2]+'/'+p[1]+'/'+p[0];
+    if (tipo==='ida')   { dataIda=valor;   document.getElementById('label-ida').textContent='📅 '+formatado; }
+    else                { dataVolta=valor; document.getElementById('label-volta').textContent='📅 '+formatado; }
 }
 
-var pass = { adt:1, chd:0, inf:0 };
-function contarPass(tipo, delta) {
-    if (tipo === 'adt' && pass.adt + delta < 1) return;
-    if (pass[tipo] + delta < 0) return;
-    pass[tipo] += delta;
-    document.getElementById('q-' + tipo).textContent = pass[tipo];
-    document.getElementById('label-pass').textContent = '👥 ' + (pass.adt + pass.chd + pass.inf) + ' Passag.';
+/* ── Contadores Mobile ── */
+var pass={adt:1,chd:0,inf:0};
+function contarPass(tipo,delta) {
+    if (tipo==='adt' && pass.adt+delta<1) return;
+    if (pass[tipo]+delta<0) return;
+    pass[tipo]+=delta;
+    document.getElementById('q-'+tipo).textContent=pass[tipo];
+    document.getElementById('label-pass').textContent='👥 '+(pass.adt+pass.chd+pass.inf)+' Passag.';
 }
 
-var passD = { adt:1, chd:0, inf:0 };
-function contarPassD(tipo, delta) {
-    if (tipo === 'adt' && passD.adt + delta < 1) return;
-    if (passD[tipo] + delta < 0) return;
-    passD[tipo] += delta;
-    document.getElementById('qd-' + tipo).textContent = passD[tipo];
-    document.getElementById('label-pass-d').textContent = '👥 ' + (passD.adt + passD.chd + passD.inf) + ' Passag.';
+/* ── Contadores Desktop ── */
+var passD={adt:1,chd:0,inf:0};
+function contarPassD(tipo,delta) {
+    if (tipo==='adt' && passD.adt+delta<1) return;
+    if (passD[tipo]+delta<0) return;
+    passD[tipo]+=delta;
+    document.getElementById('qd-'+tipo).textContent=passD[tipo];
+    document.getElementById('label-pass-d').textContent='👥 '+(passD.adt+passD.chd+passD.inf)+' Passag.';
 }
 
-var bag = { mao:0, desp:0 };
-function contarBag(tipo, delta) {
-    if (bag[tipo] + delta < 0) return;
-    bag[tipo] += delta;
-    document.getElementById('q-' + tipo).textContent = bag[tipo];
-    var total = bag.mao + bag.desp;
-    document.getElementById('label-bag').textContent = total > 0 ? '💼 ' + total + ' Mala(s)' : '💼 Bagagem';
+var bag={mao:0,desp:0};
+function contarBag(tipo,delta) {
+    if (bag[tipo]+delta<0) return;
+    bag[tipo]+=delta;
+    document.getElementById('q-'+tipo).textContent=bag[tipo];
+    var t=bag.mao+bag.desp;
+    document.getElementById('label-bag').textContent=t>0?'💼 '+t+' Mala(s)':'💼 Bagagem';
 }
 
-var bagD = { mao:0, desp:0 };
-function contarBagD(tipo, delta) {
-    if (bagD[tipo] + delta < 0) return;
-    bagD[tipo] += delta;
-    document.getElementById('qd-' + tipo).textContent = bagD[tipo];
-    var total = bagD.mao + bagD.desp;
-    document.getElementById('label-bag-d').textContent = total > 0 ? '💼 ' + total + ' Mala(s)' : '💼 Bagagem';
+var bagD={mao:0,desp:0};
+function contarBagD(tipo,delta) {
+    if (bagD[tipo]+delta<0) return;
+    bagD[tipo]+=delta;
+    document.getElementById('qd-'+tipo).textContent=bagD[tipo];
+    var t=bagD.mao+bagD.desp;
+    document.getElementById('label-bag-d').textContent=t>0?'💼 '+t+' Mala(s)':'💼 Bagagem';
 }
 
 function formatarData(val) {
     if (!val) return '';
-    var p = val.split('-');
-    return p.length === 3 ? p[2]+'/'+p[1]+'/'+p[0] : val;
+    var p=val.split('-');
+    return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:val;
 }
 
+/* ── Enviar WhatsApp ── */
 function enviarWhatsApp(e) {
     e.preventDefault();
-    var isDesktop = window.innerWidth >= 768;
-    var ori, des, ida, volta, msg;
+    var isDesktop=window.innerWidth>=768;
+    var ori,des,ida,volta,msg;
     if (isDesktop) {
-        ori   = (document.getElementById('origem-d').value || '').trim();
-        des   = (document.getElementById('destino-d').value || '').trim();
-        ida   = formatarData(document.getElementById('dataIda-d').value);
-        volta = formatarData(document.getElementById('dataVolta-d').value);
-        if (!ori || !des) { alert('Por favor, informe origem e destino.'); return; }
-        if (!ida)         { alert('Por favor, informe a data de ida.'); return; }
-        msg = 'Olá! Gostaria de uma cotação:\n\n' +
-              '✈ *Origem:* ' + ori + '\n' +
-              '📍 *Destino:* ' + des + '\n' +
-              '📅 *Ida:* ' + ida +
-              (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
-              '👥 *Passageiros:* ' + passD.adt + ' Adultos' +
-              (passD.chd > 0 ? ', ' + passD.chd + ' Crianças' : '') +
-              (passD.inf > 0 ? ', ' + passD.inf + ' Bebês' : '') + '\n' +
-              '💼 *Bagagem:* ' + bagD.mao + ' de mão, ' + bagD.desp + ' despachadas';
+        ori  =(document.getElementById('origem-d').value||'').trim();
+        des  =(document.getElementById('destino-d').value||'').trim();
+        ida  =formatarData(document.getElementById('dataIda-d').value);
+        volta=formatarData(document.getElementById('dataVolta-d').value);
+        if(!ori||!des){alert('Por favor, informe origem e destino.');return;}
+        if(!ida)      {alert('Por favor, informe a data de ida.');return;}
+        msg='Olá! Gostaria de uma cotação:\n\n✈ *Origem:* '+ori+'\n📍 *Destino:* '+des+'\n📅 *Ida:* '+ida+(volta?'\n📅 *Volta:* '+volta:'')+'\n👥 *Passageiros:* '+passD.adt+' Adultos'+(passD.chd>0?', '+passD.chd+' Crianças':'')+(passD.inf>0?', '+passD.inf+' Bebês':'')+'\n💼 *Bagagem:* '+bagD.mao+' de mão, '+bagD.desp+' despachadas';
     } else {
-        ori   = (document.getElementById('origem-m').value || '').trim();
-        des   = (document.getElementById('destino-m').value || '').trim();
-        ida   = formatarData(dataIda);
-        volta = formatarData(dataVolta);
-        if (!ori || !des) { alert('Por favor, informe origem e destino.'); return; }
-        if (!ida)         { alert('Por favor, informe a data de ida.'); return; }
-        msg = 'Olá! Gostaria de uma cotação:\n\n' +
-              '✈ *Origem:* ' + ori + '\n' +
-              '📍 *Destino:* ' + des + '\n' +
-              '📅 *Ida:* ' + ida +
-              (volta ? '\n📅 *Volta:* ' + volta : '') + '\n' +
-              '👥 *Passageiros:* ' + pass.adt + ' Adultos' +
-              (pass.chd > 0 ? ', ' + pass.chd + ' Crianças' : '') +
-              (pass.inf > 0 ? ', ' + pass.inf + ' Bebês' : '') + '\n' +
-              '💼 *Bagagem:* ' + bag.mao + ' de mão, ' + bag.desp + ' despachadas';
+        ori  =(document.getElementById('origem-m').value||'').trim();
+        des  =(document.getElementById('destino-m').value||'').trim();
+        ida  =formatarData(dataIda);
+        volta=formatarData(dataVolta);
+        if(!ori||!des){alert('Por favor, informe origem e destino.');return;}
+        if(!ida)      {alert('Por favor, informe a data de ida.');return;}
+        msg='Olá! Gostaria de uma cotação:\n\n✈ *Origem:* '+ori+'\n📍 *Destino:* '+des+'\n📅 *Ida:* '+ida+(volta?'\n📅 *Volta:* '+volta:'')+'\n👥 *Passageiros:* '+pass.adt+' Adultos'+(pass.chd>0?', '+pass.chd+' Crianças':'')+(pass.inf>0?', '+pass.inf+' Bebês':'')+'\n💼 *Bagagem:* '+bag.mao+' de mão, '+bag.desp+' despachadas';
     }
-    window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+    window.open('https://wa.me/5511988908306?text='+encodeURIComponent(msg),'_blank');
 }
 
-var chatStep = -1;
-var chatData = { destino:'', tipo:'', datas:'', passageiros:'', classe:'', bagagem:'' };
+/* ── Agente chat ── */
+var chatStep=-1;
+var chatData={destino:'',tipo:'',datas:'',passageiros:'',classe:'',bagagem:''};
 
 function toggleChat() {
-    var win = document.getElementById('agent-chat-window');
-    if (win.style.display === 'none' || win.style.display === '') {
-        win.style.display = 'flex'; win.style.flexDirection = 'column';
-        setTimeout(function() { win.style.opacity='1'; win.style.transform='scale(1)'; }, 10);
+    var win=document.getElementById('agent-chat-window');
+    if(win.style.display==='none'||win.style.display===''){
+        win.style.display='flex'; win.style.flexDirection='column';
+        setTimeout(function(){ win.style.opacity='1'; win.style.transform='scale(1)'; },10);
     } else {
         win.style.opacity='0'; win.style.transform='scale(0.95)';
-        setTimeout(function() { win.style.display='none'; }, 300);
+        setTimeout(function(){ win.style.display='none'; },300);
     }
 }
 
-function addMsgChat(texto, isUser) {
-    var c = document.getElementById('agent-messages');
-    var d = document.createElement('div');
-    d.style.cssText = isUser
-        ? 'background:#009c3b;color:white;padding:14px;border-radius:16px 16px 4px 16px;margin-left:auto;max-width:85%;font-size:11px;font-weight:700;'
-        : 'background:white;padding:14px;border-radius:16px 16px 16px 4px;border:1px solid #e2e8f0;max-width:85%;font-size:11px;color:#334155;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
-    d.innerHTML = texto;
+function addMsgChat(texto,isUser) {
+    var c=document.getElementById('agent-messages');
+    var d=document.createElement('div');
+    d.style.cssText=isUser
+        ?'background:#009c3b;color:white;padding:14px;border-radius:16px 16px 4px 16px;margin-left:auto;max-width:85%;font-size:11px;font-weight:700;'
+        :'background:white;padding:14px;border-radius:16px 16px 16px 4px;border:1px solid #e2e8f0;max-width:85%;font-size:11px;color:#334155;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
+    d.innerHTML=texto;
     c.appendChild(d);
-    c.scrollTop = c.scrollHeight;
+    c.scrollTop=c.scrollHeight;
 }
 
-function escolherOpcao(tipo, valor) {
-    addMsgChat(valor + ' ✅', true);
-    if (tipo === 'classe') {
-        chatData.classe = valor;
+function escolherOpcao(tipo,valor) {
+    addMsgChat(valor+' ✅',true);
+    if (tipo==='classe') {
+        chatData.classe=valor;
         addMsgChat('<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).');
-        setTimeout(function() {
-            addMsgChat(
-                '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">' +
-                '<p style="font-size:10px;color:#64748b;font-weight:600;">Deseja adicionar mala despachada de 23kg?</p>' +
-                '<button onclick="escolherOpcao(\'bagagem\',\'Sim - Mala despachada de 23kg\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Sim</button>' +
-                '<button onclick="escolherOpcao(\'bagagem\',\'Não - Apenas mala de mão\')" style="background:#94a3b8;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Não</button>' +
-                '</div>'
-            );
-        }, 800);
-        chatStep = 5;
-    } else if (tipo === 'bagagem') {
-        chatData.bagagem = valor;
+        setTimeout(function(){
+            addMsgChat('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><p style="font-size:10px;color:#64748b;font-weight:600;">Deseja adicionar mala despachada de 23kg?</p><button onclick="escolherOpcao(\'bagagem\',\'Sim - Mala despachada de 23kg\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Sim</button><button onclick="escolherOpcao(\'bagagem\',\'Não - Apenas mala de mão\')" style="background:#94a3b8;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Não</button></div>');
+        },800);
+        chatStep=5;
+    } else if (tipo==='bagagem') {
+        chatData.bagagem=valor;
         finalizarChat();
     }
 }
 
 function finalizarChat() {
     addMsgChat('Gerando sua cotação exclusiva com milhas... ✨');
-    setTimeout(function() {
-        var t = 'Olá Voe F5! Quero uma cotação:%0A📍 Destino: ' + chatData.destino +
-                '%0A✈️ Tipo: ' + chatData.tipo + '%0A📅 Datas: ' + chatData.datas +
-                '%0A👥 Passageiros: ' + chatData.passageiros + '%0A🎫 Classe: ' + chatData.classe +
-                '%0A💼 Bagagem: ' + chatData.bagagem;
-        addMsgChat('<a href="https://wa.me/5511988908306?text=' + t + '" target="_blank" style="display:block;background:#009c3b;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:700;margin-top:8px;font-size:11px;text-decoration:none;">📲 Enviar Cotação via WhatsApp</a>');
-    }, 1000);
+    setTimeout(function(){
+        var t='Olá Voe F5! Quero uma cotação:%0A📍 Destino: '+chatData.destino+'%0A✈️ Tipo: '+chatData.tipo+'%0A📅 Datas: '+chatData.datas+'%0A👥 Passageiros: '+chatData.passageiros+'%0A🎫 Classe: '+chatData.classe+'%0A💼 Bagagem: '+chatData.bagagem;
+        addMsgChat('<a href="https://wa.me/5511988908306?text='+t+'" target="_blank" style="display:block;background:#009c3b;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:700;margin-top:8px;font-size:11px;text-decoration:none;">📲 Enviar Cotação via WhatsApp</a>');
+    },1000);
 }
 
 function enviarMensagem() {
-    var input = document.getElementById('agent-input');
-    var msg   = input.value.trim();
-    if (!msg) return;
-    addMsgChat(msg, true);
-    input.value = '';
-    setTimeout(function() {
-        var lower = msg.toLowerCase();
-        if (chatStep === -1) {
-            var saudacoes = ['ola','olá','oi','bom dia','boa tarde','boa noite','blz','tudo bem'];
-            if (saudacoes.some(function(s){ return lower.includes(s); })) {
+    var input=document.getElementById('agent-input');
+    var msg=input.value.trim();
+    if(!msg) return;
+    addMsgChat(msg,true);
+    input.value='';
+    setTimeout(function(){
+        var lower=msg.toLowerCase();
+        if(chatStep===-1){
+            var saudacoes=['ola','olá','oi','bom dia','boa tarde','boa noite','blz','tudo bem'];
+            if(saudacoes.some(function(s){return lower.includes(s);})){
                 addMsgChat('Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?');
-                chatStep = 0;
+                chatStep=0;
             } else {
-                chatData.destino = msg;
-                addMsgChat('Perfeito! Destino: <b>' + msg + '</b>.<br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');
-                chatStep = 1;
+                chatData.destino=msg;
+                addMsgChat('Perfeito! Destino: <b>'+msg+'</b>.<br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');
+                chatStep=1;
             }
-        } else if (chatStep === 0) {
-            chatData.destino = msg;
+        } else if(chatStep===0){
+            chatData.destino=msg;
             addMsgChat('Excelente! ✈️<br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');
-            chatStep = 1;
-        } else if (chatStep === 1) {
-            chatData.tipo = lower.includes('volta') ? 'Ida e Volta' : 'Somente Ida';
-            addMsgChat(chatData.tipo === 'Ida e Volta' ? 'Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>.' : 'Entendido! Qual a <b>data de embarque</b>?');
-            chatStep = 2;
-        } else if (chatStep === 2) {
-            chatData.datas = msg;
+            chatStep=1;
+        } else if(chatStep===1){
+            chatData.tipo=lower.includes('volta')?'Ida e Volta':'Somente Ida';
+            addMsgChat(chatData.tipo==='Ida e Volta'?'Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>.':'Entendido! Qual a <b>data de embarque</b>?');
+            chatStep=2;
+        } else if(chatStep===2){
+            chatData.datas=msg;
             addMsgChat('Para <b>quantas pessoas</b>? Informe a idade se houver crianças.');
-            chatStep = 3;
-        } else if (chatStep === 3) {
-            chatData.passageiros = msg;
+            chatStep=3;
+        } else if(chatStep===3){
+            chatData.passageiros=msg;
             addMsgChat('Qual classe você prefere?');
-            setTimeout(function() {
-                addMsgChat(
-                    '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">' +
-                    '<button onclick="escolherOpcao(\'classe\',\'Econômica\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Econômica</button>' +
-                    '<button onclick="escolherOpcao(\'classe\',\'Executiva\')" style="background:#2563eb;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Executiva</button>' +
-                    '</div>'
-                );
-            }, 800);
-            chatStep = 4;
+            setTimeout(function(){
+                addMsgChat('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><button onclick="escolherOpcao(\'classe\',\'Econômica\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Econômica</button><button onclick="escolherOpcao(\'classe\',\'Executiva\')" style="background:#2563eb;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Executiva</button></div>');
+            },800);
+            chatStep=4;
         }
-    }, 800);
+    },800);
 }
 
-document.getElementById('agent-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') enviarMensagem();
-});
+document.getElementById('agent-input').addEventListener('keypress',function(e){ if(e.key==='Enter') enviarMensagem(); });
 </script>
 </body>
 </html>
