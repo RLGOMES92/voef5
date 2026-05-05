@@ -24,20 +24,16 @@
           display: flex;
           align-items: center;
       }
-
-    /* ── Scrolled: Fundo branco suave para legibilidade ── */
-    #navbar.scrolled {
-        background: rgba(255, 255, 255, 0.85) !important; /* Branco com 85% de opacidade */
-        backdrop-filter: blur(10px); /* Efeito de vidro fosco */
-        -webkit-backdrop-filter: blur(10px);
-        padding: 8px 14px; /* Ajustei levemente o padding para não "esmagar" tanto */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra bem leve para dar profundidade */
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
+      #navbar.scrolled {
+          background: rgba(255,255,255,0.85) !important;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          padding: 8px 14px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+          border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
       @media(min-width:768px) { #navbar { padding: 8px 48px; } #navbar.scrolled { padding: 6px 48px; } }
 
-      /* ── Inner container ── */
       #navbar-inner {
           max-width: 1280px;
           margin: 0 auto;
@@ -47,8 +43,6 @@
           align-items: center;
           gap: 8px;
       }
-
-      /* ── Logo area ── */
       .logo-area {
           display: flex;
           align-items: center;
@@ -56,31 +50,27 @@
           flex-shrink: 0;
           min-width: 0;
       }
-
-        .logo-wrapper {
-        position: relative;
-        height: 64px; 
-        width: 72px;
-        flex-shrink: 0;
-        display: flex;         /* Alinha o conteúdo internamente */
-        align-items: center;   /* Centraliza o logo verticalmente */
-}
+      .logo-wrapper {
+          position: relative;
+          height: 64px;
+          width: 72px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+      }
       @media(min-width:768px) { .logo-wrapper { height: 120px; width: 100px; } }
       @media(max-height:500px) and (orientation:landscape) { .logo-wrapper { height: 44px; width: 50px; } }
 
-    #logo-white, #logo-blue {
-        transition: opacity 0.4s ease;
-        position: absolute;
-        /* top: 50%; <--- REMOVA OU COMENTE ESTA LINHA */
-        /* transform: translateY(-50%); <--- REMOVA OU COMENTE ESTA LINHA */
-        height:115%;
-        width: auto;
-    }
+      #logo-white, #logo-blue {
+          transition: opacity 0.4s ease;
+          position: absolute;
+          height: 115%;
+          width: auto;
+      }
       #logo-blue  { opacity: 0; }
       #navbar.scrolled #logo-white { opacity: 0; }
       #navbar.scrolled #logo-blue  { opacity: 1; }
 
-      /* ── Tagline: sistema igual ao logo — duas camadas sobrepostas ── */
       #nav-title {
           position: relative;
           font-size: clamp(8px, 2.2vw, 17px);
@@ -92,7 +82,6 @@
           margin-left: -4px;
           display: inline-block;
       }
-      /* camada branca — visível no hero */
       #nav-title .title-white {
           color: white;
           text-shadow: 0 2px 8px rgba(0,0,0,0.45);
@@ -100,7 +89,6 @@
           opacity: 1;
           display: block;
       }
-      /* camada colorida — oculta no hero, aparece ao scrollar */
       #nav-title .title-color {
           position: absolute;
           top: 0; left: 0;
@@ -111,14 +99,10 @@
       }
       #nav-title .title-color .txt-dark  { color: #001A4F; }
       #nav-title .title-color .txt-green { color: #009C3B; }
-
-      /* Ao scrollar: troca as opacidades */
       #navbar.scrolled #nav-title .title-white { opacity: 0; }
       #navbar.scrolled #nav-title .title-color  { opacity: 1; }
-
       @media(max-height:500px) and (orientation:landscape) { #nav-title { font-size: 9px; } }
 
-      /* ── WhatsApp pill ── */
       #wpp-pill {
           display: flex;
           align-items: center;
@@ -141,17 +125,8 @@
           text-shadow: 0 1px 4px rgba(0,0,0,0.3);
           transition: color 0.4s ease, text-shadow 0.4s ease;
       }
-      /* Scrolled: pill com cores da marca (azul + verde) */
-      #navbar.scrolled #wpp-pill {
-          background: rgba(0,156,59,0.10);
-          border-color: #009C3B;
-      }
-      #navbar.scrolled #wpp-pill span {
-          color: #001A4F;
-          font-weight: 800;
-          text-shadow: none;
-      }
-
+      #navbar.scrolled #wpp-pill { background: rgba(0,156,59,0.10); border-color: #009C3B; }
+      #navbar.scrolled #wpp-pill span { color: #001A4F; font-weight: 800; text-shadow: none; }
       @media(max-height:500px) and (orientation:landscape) {
           #wpp-pill { padding: 4px 10px; }
           #wpp-pill svg { width: 18px; height: 18px; }
@@ -166,8 +141,6 @@
           width: 100%;
           overflow: hidden;
           background: #000;
-
-          /* Mobile portrait: compacto */
           height: 520px;
       }
       @media(min-width:375px)  { .hero-slider { height: 560px; } }
@@ -175,11 +148,7 @@
       @media(min-width:600px)  { .hero-slider { height: 620px; } }
       @media(min-width:768px)  { .hero-slider { height: 660px; } }
       @media(min-width:1024px) { .hero-slider { height: 100vh; min-height: 640px; } }
-
-      /* ── LANDSCAPE: altura reduzida para caber na tela sem scroll ── */
-      @media(max-height:500px) and (orientation:landscape) {
-          .hero-slider { height: 100svh; min-height: unset; }
-      }
+      @media(max-height:500px) and (orientation:landscape) { .hero-slider { height: 100svh; min-height: unset; } }
 
       .slide-item {
           position: absolute;
@@ -190,40 +159,21 @@
       }
       .slide-item.active { opacity: 1; z-index: 2; }
 
-      /* ── Overlay posiciona o conteúdo no canto inferior-esquerdo ── */
       .hero-overlay {
           position: absolute;
           inset: 0;
           z-index: 10;
-          background: linear-gradient(
-              to top,
-              rgba(0,0,0,0.72) 0%,
-              rgba(0,0,0,0.25) 55%,
-              rgba(0,0,0,0.10) 100%
-          );
+          background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.10) 100%);
           display: flex;
-          align-items: flex-end;       /* ancora no bottom */
+          align-items: flex-end;
           justify-content: flex-start;
           padding: 0 20px 40px 20px;
           box-sizing: border-box;
       }
       @media(min-width:768px) { .hero-overlay { padding: 0 56px 60px 56px; } }
+      @media(max-height:500px) and (orientation:landscape) { .hero-overlay { padding: 0 20px 18px 20px; align-items: flex-end; } }
 
-      /* ── Landscape: menos padding para economizar espaço vertical ── */
-      @media(max-height:500px) and (orientation:landscape) {
-          .hero-overlay {
-              padding: 0 20px 18px 20px;
-              align-items: flex-end;
-          }
-      }
-
-      /* ── Conteúdo do hero ── */
-      .hero-content {
-          width: 100%;
-          max-width: 540px;
-          text-align: left;
-      }
-
+      .hero-content { width: 100%; max-width: 540px; text-align: left; }
       .hero-title {
           font-weight: 900;
           font-style: italic;
@@ -235,24 +185,10 @@
           overflow-wrap: break-word;
           animation: swell 3s ease-in-out infinite;
           text-shadow: 0 2px 12px rgba(0,0,0,0.4), 0 0 24px rgba(255,204,0,0.15);
-
-          /* clamp: mínimo 20px, sobe com viewport, máximo 52px */
           font-size: clamp(20px, 5.5vw, 52px);
       }
-
-      /* Portrait (tela alta, estreita): limita mais agressivamente */
-      @media(max-width:480px) {
-          .hero-title { font-size: clamp(19px, 6vw, 28px); }
-      }
-
-      /* Landscape: ainda menor para não ocupar a tela toda */
-      @media(max-height:500px) and (orientation:landscape) {
-          .hero-title {
-              font-size: clamp(15px, 3.5vh, 22px);
-              margin-bottom: 4px;
-              animation: none; /* evita tremido no modo horizontal */
-          }
-      }
+      @media(max-width:480px) { .hero-title { font-size: clamp(19px, 6vw, 28px); } }
+      @media(max-height:500px) and (orientation:landscape) { .hero-title { font-size: clamp(15px, 3.5vh, 22px); margin-bottom: 4px; animation: none; } }
 
       .hero-sub {
           color: rgba(255,255,255,0.90);
@@ -263,15 +199,7 @@
           font-size: clamp(11px, 2vw, 16px);
       }
       @media(max-height:500px) and (orientation:landscape) {
-          .hero-sub {
-              font-size: clamp(9px, 1.6vh, 12px);
-              margin-bottom: 10px;
-              /* corta em 1 linha para poupar espaço */
-              overflow: hidden;
-              display: -webkit-box;
-              -webkit-line-clamp: 1;
-              -webkit-box-orient: vertical;
-          }
+          .hero-sub { font-size: clamp(9px, 1.6vh, 12px); margin-bottom: 10px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
       }
 
       .hero-cta {
@@ -291,25 +219,16 @@
           transition: background 0.2s, transform 0.15s;
       }
       .hero-cta:hover { background: #e6b800; transform: translateY(-2px); }
-      @media(max-height:500px) and (orientation:landscape) {
-          .hero-cta { padding: 8px 18px; font-size: 10px; }
-      }
+      @media(max-height:500px) and (orientation:landscape) { .hero-cta { padding: 8px 18px; font-size: 10px; } }
 
       @keyframes swell {
           0%,100% { transform: scale(1); }
-          50% {
-              transform: scale(1.025);
-              text-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 32px rgba(255,204,0,0.3);
-          }
+          50% { transform: scale(1.025); text-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 32px rgba(255,204,0,0.3); }
       }
 
-      /* ── Slide backgrounds: mobile vs desktop ── */
       .hidden-mobile { display: none; }
       .show-mobile   { display: block; }
-      @media(min-width:768px) {
-          .hidden-mobile { display: block; }
-          .show-mobile   { display: none; }
-      }
+      @media(min-width:768px) { .hidden-mobile { display: block; } .show-mobile { display: none; } }
 
       /* ══════════════════════════════════════════════════════
          CARDS
@@ -321,7 +240,7 @@
       .testimonial-card{ background:#f8fafc; border-radius:16px; padding:24px; border:1px solid #e2e8f0; display:flex; flex-direction:column; align-items:center; text-align:center; }
 
       /* ══════════════════════════════════════════════════════
-         FORM COTAÇÃO
+         FORM COTAÇÃO (seção #cotacao existente)
       ══════════════════════════════════════════════════════ */
       .glass-form { background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); }
       .input-field {
@@ -333,7 +252,6 @@
       }
       .input-field::placeholder { color:rgba(255,255,255,0.7); }
       .input-field:focus { border-color:#009C3B; }
-
       input[type="date"].input-field { color:white; }
       input[type="date"].input-field:not(:valid) { color:rgba(255,255,255,0.7); }
       input[type="date"].input-field::-webkit-datetime-edit { color:white; }
@@ -400,6 +318,207 @@
       #agent-chat-window { max-height:85vh; display:flex; flex-direction:column; }
       #agent-messages b  { color:#009c3b; font-weight:800; }
       .scrollbar-hide::-webkit-scrollbar { display:none; }
+
+      /* ══════════════════════════════════════════════════════
+         NOVA SEÇÃO: COTAÇÃO RÁPIDA (entre hero e casos de sucesso)
+      ══════════════════════════════════════════════════════ */
+      #quick-quote {
+          background: #001A4F;
+          padding: 0 20px 0;
+          position: relative;
+          z-index: 20;
+      }
+      @media(min-width:768px) { #quick-quote { padding: 0 48px 0; } }
+
+      .qq-card {
+          max-width: 1200px;
+          margin: 0 auto;
+          background: #ffffff;
+          border-radius: 24px 24px 0 0;
+          box-shadow: 0 -8px 40px rgba(0,0,0,0.18), 0 16px 48px rgba(0,26,79,0.14);
+          overflow: visible;
+          position: relative;
+          top: -2px;
+      }
+
+      .qq-toggle-bar {
+          background: linear-gradient(135deg, #009C3B 0%, #00b844 100%);
+          border-radius: 24px 24px 0 0;
+          padding: 12px 28px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+      }
+      .qq-toggle-bar .bar-label {
+          color: rgba(255,255,255,0.75);
+          font-size: 10px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          margin-right: 4px;
+      }
+      .qq-type-btn {
+          padding: 6px 20px;
+          border-radius: 999px;
+          border: 2px solid rgba(255,255,255,0.55);
+          background: transparent;
+          color: rgba(255,255,255,0.85);
+          font-size: 11px;
+          font-weight: 800;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          cursor: pointer;
+          transition: all 0.2s;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+      }
+      .qq-type-btn.active { background: white; border-color: white; color: #009C3B; }
+      .qq-type-btn:not(.active):hover { background: rgba(255,255,255,0.18); }
+
+      .qq-body { padding: 20px 28px 24px; }
+      @media(max-width:767px) { .qq-body { padding: 16px 16px 20px; } .qq-toggle-bar { padding: 12px 18px; } }
+
+      /* Grid 6 colunas desktop / 2 mobile */
+      .qq-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+          gap: 10px;
+          align-items: end;
+      }
+      @media(max-width:767px) {
+          .qq-grid { grid-template-columns: 1fr 1fr; }
+      }
+
+      .qq-field { display: flex; flex-direction: column; gap: 5px; }
+      .qq-field label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; }
+
+      .qq-input {
+          width: 100%;
+          background: #f1f5f9;
+          border: 2px solid transparent;
+          border-radius: 12px;
+          padding: 11px 14px;
+          font-size: 12px;
+          font-weight: 700;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          color: #001A4F;
+          outline: none;
+          transition: border-color 0.2s, background 0.2s;
+          -webkit-appearance: none;
+          appearance: none;
+          box-sizing: border-box;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+      }
+      .qq-input::placeholder { color: #94a3b8; font-weight: 600; }
+      .qq-input:focus { border-color: #009C3B; background: #f8fff9; }
+      input[type="date"].qq-input::-webkit-calendar-picker-indicator { filter: invert(40%) sepia(80%) saturate(500%) hue-rotate(90deg); cursor: pointer; opacity: 0.7; }
+      input[type="date"].qq-input { color: #001A4F; }
+      input[type="date"].qq-input:not(:valid) { color: #94a3b8; }
+
+      /* Dropdowns da nova seção */
+      .qq-drop-wrapper { position: relative; }
+      .qq-drop-trigger {
+          width: 100%;
+          background: #f1f5f9;
+          border: 2px solid transparent;
+          border-radius: 12px;
+          padding: 11px 14px;
+          font-size: 12px;
+          font-weight: 700;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          color: #001A4F;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: border-color 0.2s, background 0.2s;
+          box-sizing: border-box;
+          gap: 4px;
+      }
+      .qq-drop-trigger:hover,
+      .qq-drop-trigger.open { border-color: #009C3B; background: #f8fff9; }
+      .qq-drop-trigger .trigger-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; text-align: left; }
+      .qq-drop-trigger .arrow { font-size: 9px; color: #94a3b8; flex-shrink: 0; transition: transform 0.2s; }
+      .qq-drop-trigger.open .arrow { transform: rotate(180deg); }
+
+      .qq-drop-menu {
+          display: none;
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 0;
+          right: 0;
+          min-width: 220px;
+          background: #001A4F;
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 18px;
+          padding: 16px;
+          z-index: 9999;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      }
+      .qq-drop-menu.open { display: block; }
+
+      .qq-drop-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+      .qq-drop-row:first-child { border-top: none; padding-top: 0; }
+      .qq-drop-row-title { font-size: 10px; font-weight: 800; text-transform: uppercase; color: white; }
+      .qq-drop-row-sub   { font-size: 9px; color: rgba(255,255,255,0.45); }
+
+      .qq-cnt-btn {
+          width: 30px; height: 30px; min-width: 30px;
+          border-radius: 50%;
+          border: 1.5px solid rgba(255,255,255,0.35);
+          background: transparent; color: white;
+          font-size: 16px; font-weight: 700;
+          cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          transition: background 0.15s;
+          touch-action: manipulation;
+          -webkit-tap-highlight-color: transparent;
+      }
+      .qq-cnt-btn:hover  { background: rgba(255,255,255,0.18); }
+      .qq-cnt-btn:active { background: rgba(255,255,255,0.3); transform: scale(0.9); }
+      .qq-cnt-val { color: white; font-weight: 800; font-size: 13px; min-width: 20px; text-align: center; }
+
+      .qq-drop-confirm {
+          width: 100%; background: #009C3B; color: white;
+          padding: 9px; border-radius: 10px;
+          font-size: 10px; font-weight: 800; text-transform: uppercase;
+          border: none; cursor: pointer; margin-top: 10px;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          transition: background 0.2s;
+      }
+      .qq-drop-confirm:hover { background: #007a2e; }
+
+      /* Botão de submit da nova seção */
+      .qq-submit {
+          background: linear-gradient(135deg, #009C3B 0%, #00b844 100%);
+          color: white;
+          border: none;
+          border-radius: 14px;
+          padding: 14px;
+          font-size: 14px;
+          font-weight: 900;
+          text-transform: uppercase;
+          font-style: italic;
+          letter-spacing: 0.04em;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          cursor: pointer;
+          transition: all 0.2s;
+          box-shadow: 0 6px 20px rgba(0,156,59,0.38);
+          width: 100%;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 14px;
+      }
+      .qq-submit:hover {
+          background: linear-gradient(135deg, #007a2e 0%, #009C3B 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 28px rgba(0,156,59,0.48);
+      }
     </style>
 </head>
 <body style="font-family:'Plus Jakarta Sans',sans-serif;">
@@ -409,8 +528,6 @@
 ══════════════════════════════════════════════ -->
 <header id="navbar">
     <div id="navbar-inner">
-
-        <!-- LOGO + TAGLINE -->
         <div class="logo-area">
             <div class="logo-wrapper">
                 <img id="logo-white" src="img/logo.png" alt="Voe F5 Tour">
@@ -421,8 +538,6 @@
                 <em class="title-color"><span class="txt-dark">Atualize a sua forma de </span><span class="txt-green">viajar</span></em>
             </span>
         </div>
-
-        <!-- BOTÃO WHATSAPP -->
         <a href="https://wa.me/5511988908306" target="_blank" id="wpp-pill">
             <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="24" cy="24" r="24" fill="#25D366"/>
@@ -430,7 +545,6 @@
             </svg>
             <span>Fale conosco</span>
         </a>
-
     </div>
 </header>
 
@@ -438,8 +552,6 @@
      HERO SLIDER
 ══════════════════════════════════════════════ -->
 <section class="hero-slider">
-
-    <!-- Slides -->
     <div class="slide-item active">
         <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/japao.png') center top/cover no-repeat;"></div>
         <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/jap.png') center center/cover no-repeat;"></div>
@@ -460,8 +572,6 @@
         <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/eua.png') center top/cover no-repeat;"></div>
         <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/ame.png') center center/cover no-repeat;"></div>
     </div>
-
-    <!-- Overlay + conteúdo -->
     <div class="hero-overlay">
         <div class="hero-content">
             <h1 class="hero-title">
@@ -470,12 +580,147 @@
             <p class="hero-sub">
                 Encontramos as melhores opções para sua viagem: voos, rotas e experiências exclusivas.
             </p>
-            <a href="#cotacao" class="hero-cta">
+            <a href="#quick-quote" class="hero-cta">
                 Simular viagem agora ›
             </a>
         </div>
     </div>
+</section>
 
+<!-- ══════════════════════════════════════════════
+     NOVA SEÇÃO: COTAÇÃO RÁPIDA
+     (posicionada entre o Hero e Casos de Sucesso)
+══════════════════════════════════════════════ -->
+<section id="quick-quote">
+    <div class="qq-card">
+
+        <!-- Barra verde com toggles de tipo de voo -->
+        <div class="qq-toggle-bar">
+            <span class="bar-label">Tipo de voo</span>
+            <button type="button" class="qq-type-btn active" id="qq-btn-iv" onclick="qqSetTipo('ida-volta')">✈ Ida e Volta</button>
+            <button type="button" class="qq-type-btn"        id="qq-btn-si" onclick="qqSetTipo('somente-ida')">→ Somente Ida</button>
+        </div>
+
+        <!-- Corpo com campos horizontais -->
+        <div class="qq-body">
+            <form id="qq-form" onsubmit="qqEnviar(event)">
+                <div class="qq-grid">
+
+                    <!-- Origem -->
+                    <div class="qq-field">
+                        <label>✈ Origem</label>
+                        <input type="text" id="qq-origem" class="qq-input" placeholder="Ex: São Paulo">
+                    </div>
+
+                    <!-- Destino -->
+                    <div class="qq-field">
+                        <label>📍 Destino</label>
+                        <input type="text" id="qq-destino" class="qq-input" placeholder="Ex: Lisboa">
+                    </div>
+
+                    <!-- Data de Ida -->
+                    <div class="qq-field">
+                        <label>📅 Data de Ida</label>
+                        <input type="date" id="qq-ida" class="qq-input">
+                    </div>
+
+                    <!-- Data de Volta -->
+                    <div class="qq-field" id="qq-volta-field">
+                        <label>📅 Data de Volta</label>
+                        <input type="date" id="qq-volta" class="qq-input">
+                    </div>
+
+                    <!-- Passageiros -->
+                    <div class="qq-field">
+                        <label>👥 Passageiros</label>
+                        <div class="qq-drop-wrapper">
+                            <button type="button" class="qq-drop-trigger" id="qq-trigger-pass" onclick="qqToggleDrop('qq-menu-pass','qq-trigger-pass')">
+                                <span class="trigger-label" id="qq-label-pass">1 Adulto</span>
+                                <span class="arrow">▾</span>
+                            </button>
+                            <div class="qq-drop-menu" id="qq-menu-pass">
+                                <div class="qq-drop-row">
+                                    <div><div class="qq-drop-row-title">Adultos</div></div>
+                                    <div style="display:flex;align-items:center;gap:10px;">
+                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('adt',-1)">−</button>
+                                        <span class="qq-cnt-val" id="qq-v-adt">1</span>
+                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('adt',1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="qq-drop-row">
+                                    <div>
+                                        <div class="qq-drop-row-title">Crianças</div>
+                                        <div class="qq-drop-row-sub">2–11 anos</div>
+                                    </div>
+                                    <div style="display:flex;align-items:center;gap:10px;">
+                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('chd',-1)">−</button>
+                                        <span class="qq-cnt-val" id="qq-v-chd">0</span>
+                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('chd',1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="qq-drop-row">
+                                    <div>
+                                        <div class="qq-drop-row-title">Bebês</div>
+                                        <div class="qq-drop-row-sub">Até 2 anos</div>
+                                    </div>
+                                    <div style="display:flex;align-items:center;gap:10px;">
+                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('inf',-1)">−</button>
+                                        <span class="qq-cnt-val" id="qq-v-inf">0</span>
+                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('inf',1)">+</button>
+                                    </div>
+                                </div>
+                                <button type="button" class="qq-drop-confirm" onclick="qqCloseDrop('qq-menu-pass','qq-trigger-pass')">Confirmar ✓</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bagagem -->
+                    <div class="qq-field">
+                        <label>💼 Bagagem</label>
+                        <div class="qq-drop-wrapper">
+                            <button type="button" class="qq-drop-trigger" id="qq-trigger-bag" onclick="qqToggleDrop('qq-menu-bag','qq-trigger-bag')">
+                                <span class="trigger-label" id="qq-label-bag">Sem despachada</span>
+                                <span class="arrow">▾</span>
+                            </button>
+                            <div class="qq-drop-menu" id="qq-menu-bag">
+                                <div class="qq-drop-row">
+                                    <div>
+                                        <div class="qq-drop-row-title">Mão</div>
+                                        <div class="qq-drop-row-sub">Até 10 kg</div>
+                                    </div>
+                                    <div style="display:flex;align-items:center;gap:10px;">
+                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('mao',-1)">−</button>
+                                        <span class="qq-cnt-val" id="qq-v-mao">0</span>
+                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('mao',1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="qq-drop-row">
+                                    <div>
+                                        <div class="qq-drop-row-title">Despachada</div>
+                                        <div class="qq-drop-row-sub">Até 23 kg</div>
+                                    </div>
+                                    <div style="display:flex;align-items:center;gap:10px;">
+                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('desp',-1)">−</button>
+                                        <span class="qq-cnt-val" id="qq-v-desp">0</span>
+                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('desp',1)">+</button>
+                                    </div>
+                                </div>
+                                <button type="button" class="qq-drop-confirm" onclick="qqCloseDrop('qq-menu-bag','qq-trigger-bag')">Confirmar ✓</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /qq-grid -->
+
+                <button type="submit" class="qq-submit">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    Analisar Melhores Tarifas Agora
+                </button>
+            </form>
+        </div><!-- /qq-body -->
+    </div><!-- /qq-card -->
 </section>
 
 <!-- ══════════════════════════════════════════════
@@ -581,7 +826,7 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     FORMULÁRIO DE COTAÇÃO
+     FORMULÁRIO DE COTAÇÃO COMPLETO
 ══════════════════════════════════════════════ -->
 <section id="cotacao" style="padding:80px 24px;background:#001A4F;position:relative;overflow:visible;display:flex;align-items:center;justify-content:center;">
     <div id="bg-desktop" style="position:absolute;inset:0;background:url('img/rio.png') center/cover no-repeat;opacity:0.35;display:none;"></div>
@@ -592,9 +837,7 @@
             <button type="button" id="btn-iv" class="trip-btn trip-active"   onclick="setTipo('ida-volta')">Ida e volta</button>
             <button type="button" id="btn-si" class="trip-btn trip-inactive" onclick="setTipo('somente-ida')">Somente ida</button>
         </div>
-
         <form id="form-cotacao" class="glass-form" style="padding:20px;border-radius:32px;text-align:left;" onsubmit="enviarWhatsApp(event)">
-
             <!-- MOBILE -->
             <div class="form-mobile">
                 <div class="form-row-1">
@@ -662,7 +905,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- DESKTOP -->
             <div class="form-desktop">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
@@ -710,7 +952,6 @@
                     </div>
                 </div>
             </div>
-
             <button type="submit" class="btn-submit">Analisar Melhores Tarifas</button>
         </form>
     </div>
@@ -760,7 +1001,9 @@
 </div>
 
 <script>
-/* ── Navbar scroll ── */
+/* ══════════════════════════════════════════════
+   NAVBAR SCROLL
+══════════════════════════════════════════════ */
 (function() {
     window.addEventListener('scroll', function() {
         var nav = document.getElementById('navbar');
@@ -769,7 +1012,9 @@
     });
 })();
 
-/* ── Background cotação responsivo ── */
+/* ══════════════════════════════════════════════
+   BACKGROUND COTAÇÃO RESPONSIVO
+══════════════════════════════════════════════ */
 (function() {
     var bgD = document.getElementById('bg-desktop');
     var bgM = document.getElementById('bg-mobile');
@@ -781,7 +1026,9 @@
     window.addEventListener('resize', ajustar);
 })();
 
-/* ── Slider automático ── */
+/* ══════════════════════════════════════════════
+   SLIDER AUTOMÁTICO
+══════════════════════════════════════════════ */
 (function() {
     var slides = document.querySelectorAll('.slide-item');
     var atual  = 0;
@@ -792,7 +1039,9 @@
     }, 5000);
 })();
 
-/* ── Tipo de viagem ── */
+/* ══════════════════════════════════════════════
+   TIPO DE VIAGEM (formulário #cotacao)
+══════════════════════════════════════════════ */
 function setTipo(tipo) {
     var btnIV   = document.getElementById('btn-iv');
     var btnSI   = document.getElementById('btn-si');
@@ -814,7 +1063,9 @@ function setTipo(tipo) {
     }
 }
 
-/* ── Dropdowns ── */
+/* ══════════════════════════════════════════════
+   DROPDOWNS (formulário #cotacao)
+══════════════════════════════════════════════ */
 function abrirDrop(id) {
     var menu  = document.getElementById(id);
     var aberto= menu.classList.contains('open');
@@ -823,11 +1074,13 @@ function abrirDrop(id) {
 }
 function fecharDrop(id) { document.getElementById(id).classList.remove('open'); }
 document.addEventListener('click', function(e) {
-    if (!e.target.closest('.drop-wrapper'))
-        document.querySelectorAll('.drop-menu').forEach(function(m){ m.classList.remove('open'); });
+    if (!e.target.closest('.drop-wrapper') && !e.target.closest('.qq-drop-wrapper'))
+        document.querySelectorAll('.drop-menu, .qq-drop-menu').forEach(function(m){ m.classList.remove('open'); });
 });
 
-/* ── Date pickers ── */
+/* ══════════════════════════════════════════════
+   DATE PICKERS (formulário #cotacao mobile)
+══════════════════════════════════════════════ */
 var dataIda='', dataVolta='';
 function abrirDatePicker(tipo) { abrirDrop('menu-data-'+tipo); }
 function selecionarData(tipo,valor) {
@@ -837,7 +1090,9 @@ function selecionarData(tipo,valor) {
     else                { dataVolta=valor; document.getElementById('label-volta').textContent='📅 '+formatado; }
 }
 
-/* ── Contadores Mobile ── */
+/* ══════════════════════════════════════════════
+   CONTADORES MOBILE (formulário #cotacao)
+══════════════════════════════════════════════ */
 var pass={adt:1,chd:0,inf:0};
 function contarPass(tipo,delta) {
     if (tipo==='adt' && pass.adt+delta<1) return;
@@ -847,7 +1102,9 @@ function contarPass(tipo,delta) {
     document.getElementById('label-pass').textContent='👥 '+(pass.adt+pass.chd+pass.inf)+' Passag.';
 }
 
-/* ── Contadores Desktop ── */
+/* ══════════════════════════════════════════════
+   CONTADORES DESKTOP (formulário #cotacao)
+══════════════════════════════════════════════ */
 var passD={adt:1,chd:0,inf:0};
 function contarPassD(tipo,delta) {
     if (tipo==='adt' && passD.adt+delta<1) return;
@@ -881,7 +1138,9 @@ function formatarData(val) {
     return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:val;
 }
 
-/* ── Enviar WhatsApp ── */
+/* ══════════════════════════════════════════════
+   ENVIAR WHATSAPP (formulário #cotacao)
+══════════════════════════════════════════════ */
 function enviarWhatsApp(e) {
     e.preventDefault();
     var isDesktop=window.innerWidth>=768;
@@ -906,7 +1165,104 @@ function enviarWhatsApp(e) {
     window.open('https://wa.me/5511988908306?text='+encodeURIComponent(msg),'_blank');
 }
 
-/* ── Agente chat ── */
+/* ══════════════════════════════════════════════
+   NOVA SEÇÃO: COTAÇÃO RÁPIDA (#quick-quote)
+   Estado e funções com prefixo "qq" para
+   evitar conflito com o formulário existente.
+══════════════════════════════════════════════ */
+var qqTipo    = 'ida-volta';
+var qqPass    = { adt: 1, chd: 0, inf: 0 };
+var qqBagData = { mao: 0, desp: 0 };
+
+/* ── Tipo de voo (nova seção) ── */
+function qqSetTipo(tipo) {
+    qqTipo = tipo;
+    var btnIV     = document.getElementById('qq-btn-iv');
+    var btnSI     = document.getElementById('qq-btn-si');
+    var voltaField= document.getElementById('qq-volta-field');
+    var voltaInput= document.getElementById('qq-volta');
+    if (tipo === 'ida-volta') {
+        btnIV.classList.add('active');    btnSI.classList.remove('active');
+        voltaField.style.opacity = '1';   voltaField.style.pointerEvents = 'auto';
+        voltaInput.disabled = false;
+    } else {
+        btnSI.classList.add('active');    btnIV.classList.remove('active');
+        voltaField.style.opacity = '0.38'; voltaField.style.pointerEvents = 'none';
+        voltaInput.disabled = true;        voltaInput.value = '';
+    }
+}
+
+/* ── Dropdowns (nova seção) ── */
+function qqToggleDrop(menuId, triggerId) {
+    var menu    = document.getElementById(menuId);
+    var trigger = document.getElementById(triggerId);
+    var isOpen  = menu.classList.contains('open');
+    document.querySelectorAll('.qq-drop-menu').forEach(function(m) { m.classList.remove('open'); });
+    document.querySelectorAll('.qq-drop-trigger').forEach(function(t) { t.classList.remove('open'); });
+    if (!isOpen) { menu.classList.add('open'); trigger.classList.add('open'); }
+}
+function qqCloseDrop(menuId, triggerId) {
+    document.getElementById(menuId).classList.remove('open');
+    document.getElementById(triggerId).classList.remove('open');
+}
+
+/* ── Contadores passageiros (nova seção) ── */
+function qqCount(tipo, delta) {
+    if (tipo === 'adt' && qqPass.adt + delta < 1) return;
+    if (qqPass[tipo] + delta < 0) return;
+    qqPass[tipo] += delta;
+    document.getElementById('qq-v-' + tipo).textContent = qqPass[tipo];
+    var label = qqPass.adt + ' Adult' + (qqPass.adt > 1 ? 'os' : 'o');
+    if (qqPass.chd > 0) label += ', ' + qqPass.chd + ' Crian' + (qqPass.chd > 1 ? 'ças' : 'ça');
+    if (qqPass.inf > 0) label += ', ' + qqPass.inf + ' Bebê'  + (qqPass.inf > 1 ? 's'   : '');
+    document.getElementById('qq-label-pass').textContent = label;
+}
+
+/* ── Contadores bagagem (nova seção) ── */
+function qqBag(tipo, delta) {
+    if (qqBagData[tipo] + delta < 0) return;
+    qqBagData[tipo] += delta;
+    document.getElementById('qq-v-' + tipo).textContent = qqBagData[tipo];
+    var total = qqBagData.mao + qqBagData.desp;
+    document.getElementById('qq-label-bag').textContent = total > 0
+        ? qqBagData.mao + ' mão, ' + qqBagData.desp + ' desp.'
+        : 'Sem despachada';
+}
+
+/* ── Formatar data dd/mm/aaaa ── */
+function qqFmtData(val) {
+    if (!val) return '';
+    var p = val.split('-');
+    return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : val;
+}
+
+/* ── Envio WhatsApp (nova seção) ── */
+function qqEnviar(e) {
+    e.preventDefault();
+    var ori  = (document.getElementById('qq-origem').value  || '').trim();
+    var des  = (document.getElementById('qq-destino').value || '').trim();
+    var ida  = qqFmtData(document.getElementById('qq-ida').value);
+    var volta= qqFmtData(document.getElementById('qq-volta').value);
+    if (!ori || !des) { alert('Por favor, informe a origem e o destino.'); return; }
+    if (!ida)         { alert('Por favor, informe a data de ida.');        return; }
+    var msg = 'Olá! Gostaria de uma cotação:\n\n'
+        + '✈ *Origem:* '    + ori
+        + '\n📍 *Destino:* ' + des
+        + '\n📅 *Ida:* '     + ida
+        + (volta && qqTipo === 'ida-volta' ? '\n📅 *Volta:* ' + volta : '')
+        + '\n👥 *Passageiros:* '
+            + qqPass.adt + ' Adulto(s)'
+            + (qqPass.chd > 0 ? ', ' + qqPass.chd + ' Criança(s)' : '')
+            + (qqPass.inf > 0 ? ', ' + qqPass.inf + ' Bebê(s)'    : '')
+        + '\n💼 *Bagagem:* '
+            + qqBagData.mao  + ' de mão, '
+            + qqBagData.desp + ' despachada(s)';
+    window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* ══════════════════════════════════════════════
+   AGENTE CHAT
+══════════════════════════════════════════════ */
 var chatStep=-1;
 var chatData={destino:'',tipo:'',datas:'',passageiros:'',classe:'',bagagem:''};
 
