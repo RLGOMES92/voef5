@@ -3,867 +3,1024 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voe F5 Tour | Atualize sua forma de viajar</title>
+    <title>Voe F5 Tour | Atualize a sua forma de viajar</title>
+
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
-            theme: { extend: { colors: { 'safira-dark':'#001A4F','brand-green':'#009C3B','brand-yellow':'#FFCC00' }, screens:{'xs':'400px'} } }
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue':   '#001A4F',
+                        'brand-green':  '#009C3B',
+                        'brand-yellow': '#FFCC00',
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans','sans-serif'] }
+                }
+            }
         }
     </script>
+
     <style>
-      /* ══════════════════════════════════════════════════════
-         NAVBAR
-      ══════════════════════════════════════════════════════ */
-      #navbar {
-          position: fixed; width: 100%; z-index: 100;
-          padding: 6px 14px;
-          transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
-          display: flex; align-items: center;
-      }
-      #navbar.scrolled {
-          background: rgba(255,255,255,0.85) !important;
-          backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-          padding: 8px 14px;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-          border-bottom: 1px solid rgba(0,0,0,0.05);
-      }
-      @media(min-width:768px){ #navbar { padding: 8px 48px; } #navbar.scrolled { padding: 6px 48px; } }
+        /* ── Reset ── */
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin: 0; }
 
-      #navbar-inner { max-width: 1280px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-      .logo-area { display: flex; align-items: center; gap: 0; flex-shrink: 0; min-width: 0; }
-      .logo-wrapper { position: relative; height: 64px; width: 72px; flex-shrink: 0; display: flex; align-items: center; }
-      @media(min-width:768px){ .logo-wrapper { height: 120px; width: 100px; } }
-      @media(max-height:500px) and (orientation:landscape){ .logo-wrapper { height: 44px; width: 50px; } }
+        /* ══════════════════════════════════════════════
+           NAVBAR
+        ══════════════════════════════════════════════ */
+        #navbar {
+            position: fixed; inset: 0 0 auto; z-index: 200;
+            padding: 6px 16px;
+            display: flex; align-items: center;
+            transition: background .4s, box-shadow .4s;
+        }
+        #navbar.scrolled {
+            background: rgba(255,255,255,.9);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 4px 24px rgba(0,0,0,.08);
+            border-bottom: 1px solid rgba(0,0,0,.06);
+        }
+        @media(min-width:768px){ #navbar { padding: 8px 52px; } }
 
-      #logo-white, #logo-blue { transition: opacity 0.4s ease; position: absolute; height: 115%; width: auto; }
-      #logo-blue { opacity: 0; }
-      #navbar.scrolled #logo-white { opacity: 0; }
-      #navbar.scrolled #logo-blue  { opacity: 1; }
+        .logo-wrap { position:relative; height:60px; width:66px; flex-shrink:0; display:flex; align-items:center; }
+        @media(min-width:768px){ .logo-wrap { height:108px; width:94px; } }
+        #logo-w,#logo-b { position:absolute; height:115%; width:auto; transition:opacity .4s; }
+        #logo-b { opacity:0; }
+        #navbar.scrolled #logo-w { opacity:0; }
+        #navbar.scrolled #logo-b  { opacity:1; }
 
-      #nav-title { position: relative; font-size: clamp(8px,2.2vw,17px); font-weight: 700; font-style: italic; letter-spacing: -0.01em; white-space: nowrap; flex-shrink: 0; margin-left: -4px; display: inline-block; }
-      #nav-title .title-white { color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.45); transition: opacity 0.4s ease; opacity: 1; display: block; }
-      #nav-title .title-color { position: absolute; top: 0; left: 0; white-space: nowrap; transition: opacity 0.4s ease; opacity: 0; display: block; }
-      #nav-title .title-color .txt-dark  { color: #001A4F; }
-      #nav-title .title-color .txt-green { color: #009C3B; }
-      #navbar.scrolled #nav-title .title-white { opacity: 0; }
-      #navbar.scrolled #nav-title .title-color  { opacity: 1; }
-      @media(max-height:500px) and (orientation:landscape){ #nav-title { font-size: 9px; } }
+        #nav-tag { position:relative; font-size:clamp(8px,2.2vw,16px); font-weight:700; font-style:italic; white-space:nowrap; flex-shrink:0; margin-left:-4px; display:inline-block; }
+        #nav-tag .tw { color:#fff; text-shadow:0 2px 8px rgba(0,0,0,.45); transition:opacity .4s; opacity:1; display:block; }
+        #nav-tag .tc { position:absolute; top:0; left:0; white-space:nowrap; transition:opacity .4s; opacity:0; display:block; }
+        #nav-tag .tc .nd { color:#001A4F; }
+        #nav-tag .tc .ng { color:#009C3B; }
+        #navbar.scrolled #nav-tag .tw { opacity:0; }
+        #navbar.scrolled #nav-tag .tc { opacity:1; }
 
-      #wpp-pill { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.55); border-radius: 999px; padding: 6px 14px; text-decoration: none; flex-shrink: 0; backdrop-filter: blur(6px); transition: background 0.4s, border-color 0.4s; margin-left: auto; }
-      #wpp-pill svg { width: 22px; height: 22px; }
-      #wpp-pill span { color: white; font-size: clamp(10px,1.8vw,13px); font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,0.3); transition: color 0.4s, text-shadow 0.4s; }
-      #navbar.scrolled #wpp-pill { background: rgba(0,156,59,0.10); border-color: #009C3B; }
-      #navbar.scrolled #wpp-pill span { color: #001A4F; font-weight: 800; text-shadow: none; }
-      @media(max-height:500px) and (orientation:landscape){ #wpp-pill { padding: 4px 10px; } #wpp-pill svg { width: 18px; height: 18px; } #wpp-pill span { font-size: 9px; } }
+        #wpp-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,.12); border:2px solid rgba(255,255,255,.55); border-radius:999px; padding:7px 16px; text-decoration:none; backdrop-filter:blur(6px); transition:background .35s, border-color .35s; margin-left:auto; flex-shrink:0; }
+        #wpp-btn svg { width:22px; height:22px; }
+        #wpp-btn span { color:#fff; font-size:clamp(10px,1.8vw,13px); font-weight:700; text-shadow:0 1px 4px rgba(0,0,0,.3); transition:color .35s, text-shadow .35s; }
+        #navbar.scrolled #wpp-btn { background:rgba(0,156,59,.1); border-color:#009C3B; }
+        #navbar.scrolled #wpp-btn span { color:#001A4F; font-weight:800; text-shadow:none; }
 
-      /* ══════════════════════════════════════════════════════
-         HERO SLIDER
-      ══════════════════════════════════════════════════════ */
-      .hero-slider { position: relative; width: 100%; overflow: hidden; background: #000; height: 520px; }
-      @media(min-width:375px)  { .hero-slider { height: 560px; } }
-      @media(min-width:430px)  { .hero-slider { height: 590px; } }
-      @media(min-width:600px)  { .hero-slider { height: 620px; } }
-      @media(min-width:768px)  { .hero-slider { height: 660px; } }
-      @media(min-width:1024px) { .hero-slider { height: 100vh; min-height: 640px; } }
-      @media(max-height:500px) and (orientation:landscape){ .hero-slider { height: 100svh; min-height: unset; } }
+        /* ══════════════════════════════════════════════
+           HERO — 100svh / 100vh full screen
+        ══════════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100svh;
+            min-height: 580px;
+            overflow: hidden;
+            background: #000;
+        }
+        @media(min-width:1024px){ .hero { height: 100vh; } }
 
-      .slide-item { position: absolute; inset: 0; opacity: 0; transition: opacity 2s ease-in-out; z-index: 1; }
-      .slide-item.active { opacity: 1; z-index: 2; }
+        .slide { position:absolute; inset:0; opacity:0; transition:opacity 2s ease-in-out; z-index:1; }
+        .slide.active { opacity:1; z-index:2; }
+        .slide-bg { position:absolute; inset:0; background-size:cover; background-position:center top; }
+        @media(max-width:767px){ .slide-bg { background-position:center center; } }
 
-      .hero-overlay { position: absolute; inset: 0; z-index: 10; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.10) 100%); display: flex; align-items: flex-end; justify-content: flex-start; padding: 0 20px 40px 20px; box-sizing: border-box; }
-      @media(min-width:768px){ .hero-overlay { padding: 0 56px 60px 56px; } }
-      @media(max-height:500px) and (orientation:landscape){ .hero-overlay { padding: 0 20px 18px 20px; } }
+        .hero-overlay {
+            position: absolute; inset: 0; z-index: 10;
+            background: linear-gradient(to top,
+                rgba(0,10,30,.82) 0%,
+                rgba(0,10,30,.30) 48%,
+                rgba(0,10,30,.08) 100%);
+            display: flex; align-items: flex-end;
+            padding: 0 24px 44px;
+        }
+        @media(min-width:768px){ .hero-overlay { padding: 0 56px 64px; } }
 
-      .hero-content { width: 100%; max-width: 640px; text-align: left; }
-      .hero-title { font-weight: 900; font-style: italic; text-transform: uppercase; color: white; line-height: 1.15; margin: 0 0 10px 0; animation: swell 3s ease-in-out infinite; text-shadow: 0 2px 12px rgba(0,0,0,0.4), 0 0 24px rgba(255,204,0,0.15); font-size: clamp(20px,5.5vw,52px); }
-      @media(max-width:480px){ .hero-title { font-size: clamp(19px,6vw,28px); } }
-      @media(max-height:500px) and (orientation:landscape){ .hero-title { font-size: clamp(15px,3.5vh,22px); margin-bottom: 4px; animation: none; } }
-      .hero-sub { color: rgba(255,255,255,0.90); font-weight: 500; font-style: italic; margin: 0 0 12px 0; line-height: 1.55; font-size: clamp(11px,2vw,16px); }
-      @media(max-height:500px) and (orientation:landscape){ .hero-sub { font-size: clamp(9px,1.6vh,12px); margin-bottom: 8px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; } }
-      @keyframes swell { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.025); text-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 32px rgba(255,204,0,0.3); } }
+        .hero-title {
+            font-weight: 900; font-style: italic; text-transform: uppercase; color: #fff;
+            line-height: 1.12; margin: 0 0 12px;
+            font-size: clamp(22px,5.8vw,58px);
+            text-shadow: 0 2px 18px rgba(0,0,0,.45), 0 0 32px rgba(255,204,0,.15);
+            animation: swell 3.5s ease-in-out infinite;
+        }
+        .hero-sub { color:rgba(255,255,255,.88); font-weight:500; font-style:italic; margin:0; line-height:1.6; font-size:clamp(12px,2vw,17px); }
 
-      .hidden-mobile { display: none; }
-      .show-mobile   { display: block; }
-      @media(min-width:768px){ .hidden-mobile { display: block; } .show-mobile { display: none; } }
-
-      /* ══════════════════════════════════════════════════════
-         CARDS
-      ══════════════════════════════════════════════════════ */
-      .premium-card { background:white; border-radius:24px; border:1px solid #f1f5f9; box-shadow:0 4px 20px rgba(0,0,0,0.08); padding:24px; transition:transform 0.3s; display:flex; flex-direction:column; }
-      .premium-card:hover { transform:translateY(-8px); }
-      .step-card { background:white; border-radius:16px; padding:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border:1px solid #f1f5f9; display:flex; flex-direction:column; align-items:center; text-align:center; transition:all 0.3s; }
-      .step-card:hover { transform:translateY(-8px); box-shadow:0 8px 40px rgba(0,0,0,0.15); }
-
-      /* ══════════════════════════════════════════════════════
-         FORMULÁRIO — BASE (mobile-first: card branco)
-      ══════════════════════════════════════════════════════ */
-      #quick-quote {
-          background: #001A4F;
-          padding: 0 16px;
-          position: relative;
-          z-index: 20;
-          overflow: visible;
-      }
-
-      /* Card branco flutuante — visível só no mobile */
-      .qq-card {
-          max-width: 100%;
-          margin: 0 auto;
-          background: #ffffff;
-          border-radius: 24px 24px 0 0;
-          box-shadow: 0 -8px 40px rgba(0,0,0,0.18), 0 16px 48px rgba(0,26,79,0.14);
-          overflow: visible;
-          position: relative;
-          top: -2px;
-      }
-
-      /* Barra verde de tipo de voo */
-      .qq-toggle-bar {
-          background: linear-gradient(135deg, #6c4df5 0%, #00b844 100%);
-          border-radius: 24px 24px 0 0;
-          padding: 12px 18px;
-          display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-      }
-      .qq-toggle-bar .bar-label { color: rgba(255,255,255,0.75); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; margin-right: 4px; }
-      .qq-type-btn { padding: 6px 18px; border-radius: 999px; border: 2px solid rgba(255,255,255,0.55); background: transparent; color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em; }
-      .qq-type-btn.active { background: white; border-color: white; color: #009C3B; }
-      .qq-type-btn:not(.active):hover { background: rgba(255,255,255,0.18); }
-
-      /* Corpo */
-      .qq-body { padding: 16px 16px 20px; }
-
-      /* Grid: 2 colunas no mobile */
-      .qq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: end; }
-
-      /* Campos */
-      .qq-field { display: flex; flex-direction: column; gap: 5px; }
-      .qq-field label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; }
-
-      /* Inputs — estilo claro (mobile) */
-      .qq-input {
-          width: 100%; background: #f1f5f9; border: 2px solid transparent;
-          border-radius: 12px; padding: 12px 12px; font-size: 12px; font-weight: 700;
-          font-family: 'Plus Jakarta Sans', sans-serif; color: #001A4F; outline: none;
-          transition: border-color 0.2s, background 0.2s;
-          -webkit-appearance: none; appearance: none; box-sizing: border-box; min-width: 0;
-      }
-      .qq-input::placeholder { color: #94a3b8; font-weight: 600; }
-      .qq-input:focus { border-color: #009C3B; background: #f8fff9; }
-      input[type="date"].qq-input { color: #001A4F; }
-      input[type="date"].qq-input:not(:valid) { color: #94a3b8; }
-      input[type="date"].qq-input::-webkit-calendar-picker-indicator { filter: invert(40%) sepia(80%) saturate(500%) hue-rotate(90deg); cursor: pointer; opacity: 0.7; }
-
-      /* Trigger dropdown — estilo claro (mobile) */
-      .qq-drop-wrapper { position: relative; }
-      .qq-drop-trigger {
-          width: 100%; background: #f1f5f9; border: 2px solid transparent;
-          border-radius: 12px; padding: 12px 12px; font-size: 12px; font-weight: 700;
-          font-family: 'Plus Jakarta Sans', sans-serif; color: #001A4F; cursor: pointer;
-          display: flex; justify-content: space-between; align-items: center;
-          transition: border-color 0.2s, background 0.2s;
-          box-sizing: border-box; gap: 4px; min-width: 0; overflow: hidden;
-      }
-      .qq-drop-trigger:hover, .qq-drop-trigger.open { border-color: #009C3B; background: #f8fff9; }
-      .qq-drop-trigger .trigger-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; text-align: left; }
-      .qq-drop-trigger .arrow { font-size: 9px; color: #94a3b8; flex-shrink: 0; transition: transform 0.2s; }
-      .qq-drop-trigger.open .arrow { transform: rotate(180deg); }
-
-      /* Dropdown flutuante */
-      .qq-drop-menu {
-          display: none; position: absolute;
-          bottom: calc(100% + 8px);
-          width: 240px;
-          background: #001A4F;
-          border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 18px; padding: 16px;
-          z-index: 9999; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      }
-      .qq-drop-menu.open { display: block; }
-
-      /* Mobile: passageiros (coluna esquerda) → abre para a direita */
-      #qq-menu-pass { left: 0; right: auto; }
-      /* Mobile: bagagem (coluna direita) → ancora à direita, não sai da tela */
-      #qq-menu-bag  { right: 0; left: auto; }
-
-      .qq-drop-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.08); }
-      .qq-drop-row:first-child { border-top: none; padding-top: 0; }
-      .qq-drop-row-title { font-size: 10px; font-weight: 800; text-transform: uppercase; color: white; }
-      .qq-drop-row-sub   { font-size: 9px; color: rgba(255,255,255,0.45); margin-top: 2px; }
-      .qq-cnt-wrap { display: flex; align-items: center; gap: 10px; }
-      .qq-cnt-btn { width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.35); background: transparent; color: white; font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; line-height: 1; }
-      .qq-cnt-btn:hover  { background: rgba(255,255,255,0.2); }
-      .qq-cnt-btn:active { background: rgba(255,255,255,0.35); transform: scale(0.9); }
-      .qq-cnt-val { color: white; font-weight: 900; font-size: 14px; min-width: 22px; text-align: center; }
-      .qq-drop-confirm { width: 100%; background: #009C3B; color: white; padding: 9px; border-radius: 10px; font-size: 10px; font-weight: 800; text-transform: uppercase; border: none; cursor: pointer; margin-top: 12px; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.2s; }
-      .qq-drop-confirm:hover { background: #007a2e; }
-
-      /* Botão enviar */
-      .qq-submit {
-          background: linear-gradient(135deg, #009C3B 0%, #00b844 100%);
-          color: white; border: none; border-radius: 14px;
-          font-size: 13px; font-weight: 900; text-transform: uppercase; font-style: italic;
-          letter-spacing: 0.04em; font-family: 'Plus Jakarta Sans', sans-serif;
-          cursor: pointer; transition: all 0.2s;
-          box-shadow: 0 6px 20px rgba(111, 250, 164, 0.897);
-          width: 100%; height: 50px;
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-          margin-top: 14px;
-      }
-      .qq-submit:hover { background: linear-gradient(135deg, #007a2e 0%, #009C3B 100%); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,156,59,0.48); }
-
-      /* ════════════════════════════════════════════════════
-         DESKTOP (≥768px) — Azul glass, full-width
-         Mobile não é afetado — nenhuma regra mobile aqui
-      ════════════════════════════════════════════════════ */
-      @media(min-width:768px){
-
-        /* Seção ocupa 100% da largura com fundo azul + imagem sutil */
-        #quick-quote {
-          padding: 36px 56px 48px;
-          background:
-            linear-gradient(to bottom, rgba(0,10,35,0.94) 0%, rgba(0,26,79,0.90) 100%),
-            url('img/rio.png') center / cover no-repeat;
+        @keyframes swell {
+            0%,100%{ transform:scale(1); }
+            50%{ transform:scale(1.022); text-shadow:0 0 24px rgba(255,255,255,.35),0 0 40px rgba(255,204,0,.28); }
         }
 
-        /* Card: transparent, sem borda-radius, sem sombra — ocupa 100% */
-        .qq-card {
-          background: transparent;
-          border-radius: 0;
-          box-shadow: none;
-          top: 0;
-          max-width: 100%;
+        /* ══════════════════════════════════════════════
+           FORMULÁRIO FULL-WIDTH
+           Mobile:  campos em 2 cols (e submit linha inteira)
+           Desktop: todos na mesma linha (7 cols: 6 campos + botão)
+        ══════════════════════════════════════════════ */
+        #search-section {
+            /* Sem padding lateral — cola nas bordas */
+            padding: 0;
+            background: #001A4F;
+            position: relative;
+            z-index: 100;
         }
 
-        /* Toggle bar: glass verde sobre o azul */
-        .qq-toggle-bar {
-          background: rgba(0,156,59,0.22);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(0,156,59,0.4);
-          border-bottom: none;
-          border-radius: 16px 16px 0 0;
-          padding: 14px 28px;
+        /* Wrapper interno do form: no desktop aplica padding + bg image */
+        .search-wrap {
+            width: 100%;
         }
 
-        /* Body: glass container azul */
-        .qq-body {
-          background: rgba(255,255,255,0.07);
-          backdrop-filter: blur(18px);
-          -webkit-backdrop-filter: blur(18px);
-          border: 1px solid rgba(255,255,255,0.13);
-          border-radius: 0 0 16px 16px;
-          padding: 24px 28px 28px;
+        /* Barra de tipo de voo */
+        .type-bar {
+            background: linear-gradient(135deg, #009C3B 0%, #00c44a 100%);
+            padding: 12px 20px;
+            display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+        .type-bar-label { color:rgba(255,255,255,.72); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; margin-right:4px; }
+        .type-pill { padding:5px 18px; border-radius:999px; border:2px solid rgba(255,255,255,.5); background:transparent; color:rgba(255,255,255,.85); font-size:11px; font-weight:800; font-family:inherit; cursor:pointer; transition:all .2s; text-transform:uppercase; letter-spacing:.05em; }
+        .type-pill.active { background:#fff; border-color:#fff; color:#009C3B; }
+        .type-pill:not(.active):hover { background:rgba(255,255,255,.18); }
+
+        /* Corpo: mobile claro, desktop glass azul */
+        .search-body {
+            padding: 16px 16px 20px;
+            background: #ffffff;
         }
 
-        /* Grid: 6 colunas horizontais */
-        .qq-grid {
-          grid-template-columns: repeat(6, minmax(0,1fr));
-          gap: 14px;
+        /* ── Grid ──
+           Mobile: 2 cols, botão ocupa as 2
+           ≥768px:  7 colunas (1 por campo + 1 botão)
+        ── */
+        .search-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-items: end;
+        }
+        .search-grid .search-submit { grid-column: 1 / -1; } /* mobile: botão linha inteira */
+
+        @media(min-width:768px){
+            .search-grid {
+                grid-template-columns: repeat(6, minmax(0,1fr)) auto;
+                gap: 14px;
+            }
+            .search-grid .search-submit { grid-column: auto; } /* desktop: coluna normal */
         }
 
-        /* Labels brancas */
-        .qq-field label { color: rgba(255,255,255,0.55); }
+        /* Campo */
+        .sf { display:flex; flex-direction:column; gap:5px; }
+        .sf-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:#94a3b8; }
 
-        /* Inputs: glass branco */
-        .qq-input {
-          background: rgba(255,255,255,0.10);
-          border: 1.5px solid rgba(255,255,255,0.18);
-          color: white;
-          font-size: 13px;
-          padding: 13px 14px;
+        /* Input claro (mobile) */
+        .sf-input {
+            width:100%; background:#f1f5f9; border:2px solid transparent;
+            border-radius:12px; padding:12px 12px; font-size:12px; font-weight:700;
+            font-family:inherit; color:#001A4F; outline:none;
+            transition:border-color .2s, background .2s;
+            -webkit-appearance:none; appearance:none; box-sizing:border-box; min-width:0;
         }
-        .qq-input::placeholder { color: rgba(255,255,255,0.42); }
-        .qq-input:focus {
-          border-color: #009C3B;
-          background: rgba(255,255,255,0.16);
-          box-shadow: 0 0 0 3px rgba(0,156,59,0.22);
+        .sf-input::placeholder { color:#94a3b8; font-weight:600; }
+        .sf-input:focus { border-color:#009C3B; background:#f0fdf4; }
+        input[type="date"].sf-input { color:#001A4F; }
+        input[type="date"].sf-input:not(:valid) { color:#94a3b8; }
+        input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(40%) sepia(80%) saturate(500%) hue-rotate(90deg); cursor:pointer; opacity:.7; }
+
+        /* Dropdown trigger */
+        .drop-wrap { position:relative; }
+        .drop-btn {
+            width:100%; background:#f1f5f9; border:2px solid transparent;
+            border-radius:12px; padding:12px 12px; font-size:12px; font-weight:700;
+            font-family:inherit; color:#001A4F; cursor:pointer;
+            display:flex; justify-content:space-between; align-items:center;
+            transition:border-color .2s, background .2s;
+            box-sizing:border-box; gap:4px; min-width:0; overflow:hidden;
         }
-        input[type="date"].qq-input { color: white; color-scheme: dark; }
-        input[type="date"].qq-input:not(:valid) { color: rgba(255,255,255,0.38); }
-        input[type="date"].qq-input::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.55); }
+        .drop-btn:hover,.drop-btn.open { border-color:#009C3B; background:#f0fdf4; }
+        .drop-btn .lbl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; text-align:left; }
+        .drop-btn .arr { font-size:9px; color:#94a3b8; flex-shrink:0; transition:transform .2s; }
+        .drop-btn.open .arr { transform:rotate(180deg); }
 
-        /* Trigger: glass branco */
-        .qq-drop-trigger {
-          background: rgba(255,255,255,0.10);
-          border: 1.5px solid rgba(255,255,255,0.18);
-          color: white;
-          font-size: 13px;
-          padding: 13px 14px;
+        /* Dropdown menu */
+        .drop-menu {
+            display:none; position:absolute; bottom:calc(100% + 8px);
+            width:244px; background:#001A4F;
+            border:1px solid rgba(255,255,255,.2);
+            border-radius:18px; padding:16px;
+            z-index:9999; box-shadow:0 20px 60px rgba(0,0,0,.5);
         }
-        .qq-drop-trigger:hover, .qq-drop-trigger.open {
-          background: rgba(255,255,255,0.18);
-          border-color: #009C3B;
+        .drop-menu.open { display:block; }
+        #dm-pass { left:0; right:auto; }
+        #dm-bag  { right:0; left:auto; }
+
+        .drop-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-top:1px solid rgba(255,255,255,.08); }
+        .drop-row:first-child { border-top:none; padding-top:0; }
+        .drop-rt { font-size:10px; font-weight:800; text-transform:uppercase; color:#fff; }
+        .drop-rs { font-size:9px; color:rgba(255,255,255,.42); margin-top:2px; }
+        .cnt-wrap { display:flex; align-items:center; gap:10px; }
+        .cnt-btn { width:32px; height:32px; min-width:32px; border-radius:50%; border:1.5px solid rgba(255,255,255,.35); background:transparent; color:#fff; font-size:18px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; touch-action:manipulation; line-height:1; }
+        .cnt-btn:hover  { background:rgba(255,255,255,.2); }
+        .cnt-btn:active { background:rgba(255,255,255,.35); transform:scale(.9); }
+        .cnt-val { color:#fff; font-weight:900; font-size:14px; min-width:22px; text-align:center; }
+        .drop-ok { width:100%; background:#009C3B; color:#fff; padding:9px; border-radius:10px; font-size:10px; font-weight:800; text-transform:uppercase; border:none; cursor:pointer; margin-top:12px; font-family:inherit; transition:background .2s; }
+        .drop-ok:hover { background:#007a2e; }
+
+        /* Botão enviar */
+        .search-submit {
+            background: linear-gradient(135deg, #009C3B 0%, #00c44a 100%);
+            color: #fff; border: none; border-radius: 14px;
+            font-size: 13px; font-weight: 900; text-transform: uppercase; font-style: italic;
+            letter-spacing: .04em; font-family: inherit;
+            cursor: pointer; transition: all .2s;
+            box-shadow: 0 6px 22px rgba(0,156,59,.42);
+            height: 50px; width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            white-space: nowrap;
         }
-        .qq-drop-trigger .arrow { color: rgba(255,255,255,0.45); }
+        .search-submit:hover { background:linear-gradient(135deg,#007a2e,#009C3B); transform:translateY(-2px); box-shadow:0 10px 32px rgba(0,156,59,.52); }
 
-        /* Dropdowns: ambos ancoram à direita no desktop */
-        #qq-menu-pass { right: 0; left: auto; }
-        #qq-menu-bag  { right: 0; left: auto; }
-
-        /* Botão: maior e com mais sombra */
-        .qq-submit {
-          height: 54px;
-          font-size: 15px;
-          margin-top: 18px;
-          box-shadow: 0 8px 32px rgba(0,156,59,0.48);
+        /* ── DESKTOP: glass azul full-width ── */
+        @media(min-width:768px){
+            #search-section {
+                padding: 44px 56px 56px;
+                background:
+                    linear-gradient(170deg, rgba(0,8,28,.96) 0%, rgba(0,26,79,.92) 100%),
+                    url('img/rio.png') center/cover no-repeat;
+            }
+            .type-bar {
+                border-radius: 18px 18px 0 0;
+                background: rgba(0,156,59,.22);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(0,156,59,.38);
+                border-bottom: none;
+                padding: 14px 28px;
+            }
+            .search-body {
+                background: rgba(255,255,255,.08);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(255,255,255,.13);
+                border-radius: 0 0 18px 18px;
+                padding: 24px 28px 28px;
+            }
+            .sf-label { color: rgba(255,255,255,.52); }
+            .sf-input {
+                background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.18);
+                color: #fff; font-size: 13px; padding: 13px 14px;
+            }
+            .sf-input::placeholder { color: rgba(255,255,255,.4); }
+            .sf-input:focus { border-color: #009C3B; background: rgba(255,255,255,.16); box-shadow: 0 0 0 3px rgba(0,156,59,.2); }
+            input[type="date"].sf-input { color: #fff; color-scheme: dark; }
+            input[type="date"].sf-input:not(:valid) { color: rgba(255,255,255,.36); }
+            input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter: invert(1) opacity(.5); }
+            .drop-btn {
+                background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.18);
+                color: #fff; font-size: 13px; padding: 13px 14px;
+            }
+            .drop-btn:hover,.drop-btn.open { background:rgba(255,255,255,.18); border-color:#009C3B; }
+            .drop-btn .arr { color: rgba(255,255,255,.44); }
+            #dm-pass { right:0; left:auto; }
+            #dm-bag  { right:0; left:auto; }
+            .search-submit { height:54px; font-size:15px; box-shadow:0 8px 32px rgba(0,156,59,.5); }
         }
-      }
 
-      /* ══════════════════════════════════════════════════════
-         DEPOIMENTOS COM AUTO-SLIDE
-      ══════════════════════════════════════════════════════ */
-      .testimonials-section { padding: 80px 24px; background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f8fafc 100%); border-top: 1px solid #e2e8f0; }
-      .testimonials-container { max-width: 1280px; margin: 0 auto; }
-      .testimonials-header { text-align: center; margin-bottom: 56px; }
-      .testimonials-header h2 { font-size: clamp(24px,5vw,42px); font-weight: 900; font-style: italic; text-transform: uppercase; color: #001A4F; margin: 0; }
-      .testimonials-header h2 span { color: #009C3B; }
+        /* ══════════════════════════════════════════════
+           SWIPER — CARROSSEL DE DEPOIMENTOS
+        ══════════════════════════════════════════════ */
+        .testi-section {
+            padding: 96px 24px;
+            background: linear-gradient(160deg,#f0fdf4 0%,#e0f2fe 50%,#f0fdf4 100%);
+            border-top: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
 
-      .slider-wrapper { position: relative; overflow: hidden; border-radius: 24px; }
-      .testimonials-track { display: flex; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); gap: 24px; }
+        /* Cabeçalho centralizado */
+        .testi-head { text-align: center; margin-bottom: 64px; }
+        .testi-head .eyebrow { color:#009C3B; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; margin-bottom:12px; }
+        .testi-head h2 { font-size:clamp(26px,5vw,44px); font-weight:900; font-style:italic; text-transform:uppercase; color:#001A4F; margin:0 0 12px; }
+        .testi-head h2 span { color:#009C3B; }
+        .testi-head p { color:#64748b; font-size:clamp(13px,1.8vw,16px); font-weight:500; max-width:480px; margin:0 auto; }
 
-      .testimonial-card-item { flex: 0 0 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; padding: 56px 40px; min-height: 380px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); position: relative; overflow: hidden; }
-      @media(min-width:768px)  { .testimonial-card-item { flex: 0 0 calc(50% - 12px);    padding: 50px 35px; min-height: 360px; } }
-      @media(min-width:1024px) { .testimonial-card-item { flex: 0 0 calc(33.333% - 16px); padding: 48px 32px; } }
+        /* Container do Swiper */
+        .swiper-testi {
+            width: 100%;
+            padding-bottom: 72px !important; /* espaço para os dots */
+        }
 
-      .testimonial-card-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #009C3B, #FFCC00); }
-      .testimonial-quote  { font-size: 48px; color: #009C3B; margin: 0 0 20px 0; line-height: 1; }
-      .testimonial-text   { color: #475569; font-size: clamp(13px,2vw,16px); line-height: 1.8; margin-bottom: 28px; font-style: italic; font-weight: 500; text-align: center; }
-      .testimonial-author { font-weight: 900; color: #001A4F; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-      .testimonial-role   { color: #009C3B; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+        /* Card de depoimento */
+        .testi-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px 32px 36px;
+            box-shadow: 0 8px 40px rgba(0,0,0,.10);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            transition: transform .3s, box-shadow .3s;
+            user-select: none;
+        }
+        .testi-card:hover { transform: translateY(-6px); box-shadow: 0 18px 56px rgba(0,26,79,.14); }
 
-      .slider-controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 36px; }
-      .slider-btn { width: 46px; height: 46px; border-radius: 50%; border: 2px solid #009C3B; background: white; color: #009C3B; font-size: 22px; font-weight: 900; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; }
-      .slider-btn:hover { background: #009C3B; color: white; transform: scale(1.1); }
-      .slider-dots { display: flex; gap: 10px; }
-      .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(0,156,59,0.25); cursor: pointer; transition: all 0.3s; }
-      .dot.active { background: #009C3B; transform: scale(1.35); box-shadow: 0 0 0 4px rgba(0,156,59,0.15); }
-      .slider-progress-bar  { height: 3px; background: rgba(0,156,59,0.15); border-radius: 99px; margin-top: 20px; overflow: hidden; }
-      .slider-progress-fill { height: 100%; background: #009C3B; border-radius: 99px; width: 0%; }
+        /* Faixa de cor no topo */
+        .testi-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg,#009C3B,#FFCC00);
+        }
 
-      /* ══════════════════════════════════════════════════════
-         AGENTE CHAT
-      ══════════════════════════════════════════════════════ */
-      .agent-pulse { animation: pulse-green 2s infinite; }
-      @keyframes pulse-green { 0%{ box-shadow: 0 0 0 0 rgba(0,156,59,0.7); } 70%{ box-shadow: 0 0 0 15px rgba(0,156,59,0); } 100%{ box-shadow: 0 0 0 0 rgba(0,156,59,0); } }
-      #agent-chat-window { max-height: 85vh; display: flex; flex-direction: column; }
-      #agent-messages b  { color: #009c3b; font-weight: 800; }
-      .scrollbar-hide::-webkit-scrollbar { display: none; }
+        /* Avatar circular */
+        .testi-avatar {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; font-weight: 900; color: #fff;
+            margin-bottom: 18px; flex-shrink: 0;
+            box-shadow: 0 4px 18px rgba(0,0,0,.18);
+            border: 3px solid #fff;
+            outline: 2px solid rgba(0,156,59,.28);
+        }
+
+        /* Estrelas */
+        .testi-stars { display:flex; gap:3px; justify-content:center; margin-bottom:16px; }
+        .star { color:#FFCC00; font-size:16px; }
+
+        /* Aspas */
+        .testi-quote { font-size:44px; color:#009C3B; line-height:1; margin-bottom:14px; }
+
+        .testi-text {
+            color: #475569; font-size: clamp(13px,1.6vw,15px);
+            line-height: 1.85; margin-bottom: 28px;
+            font-style: italic; font-weight: 500; flex: 1;
+        }
+        .testi-name { font-weight:900; color:#001A4F; font-size:14px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px; }
+        .testi-role { color:#009C3B; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+
+        /* Swiper bullets customizados */
+        .swiper-testi .swiper-pagination-bullet {
+            width: 10px; height: 10px;
+            background: rgba(0,156,59,.25);
+            opacity: 1;
+            transition: all .3s;
+        }
+        .swiper-testi .swiper-pagination-bullet-active {
+            background: #009C3B;
+            transform: scale(1.4);
+            box-shadow: 0 0 0 4px rgba(0,156,59,.15);
+        }
+
+        /* Swiper navigation arrows */
+        .swiper-testi .swiper-button-prev,
+        .swiper-testi .swiper-button-next {
+            width: 48px; height: 48px;
+            background: #fff;
+            border-radius: 50%;
+            border: 2px solid #009C3B;
+            box-shadow: 0 4px 16px rgba(0,156,59,.2);
+            color: #009C3B;
+            transition: all .25s;
+            top: 50%;
+            transform: translateY(calc(-50% - 36px)); /* sobe para não ficar em cima dos dots */
+        }
+        .swiper-testi .swiper-button-prev:hover,
+        .swiper-testi .swiper-button-next:hover {
+            background: #009C3B; color: #fff;
+            box-shadow: 0 6px 24px rgba(0,156,59,.38);
+        }
+        .swiper-testi .swiper-button-prev::after,
+        .swiper-testi .swiper-button-next::after { font-size: 14px; font-weight: 900; }
+
+        /* Progress bar do autoplay */
+        .swiper-testi .swiper-pagination-progressbar {
+            height: 3px;
+            background: rgba(0,156,59,.15);
+        }
+        .swiper-testi .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+            background: #009C3B;
+        }
+
+        /* ══════════════════════════════════════════════
+           AGENTE CHAT
+        ══════════════════════════════════════════════ */
+        .pulse-g { animation: pg 2s infinite; }
+        @keyframes pg {
+            0%   { box-shadow: 0 0 0 0 rgba(0,156,59,.7); }
+            70%  { box-shadow: 0 0 0 16px rgba(0,156,59,0); }
+            100% { box-shadow: 0 0 0 0 rgba(0,156,59,0); }
+        }
+        #chat-w { max-height:85vh; display:flex; flex-direction:column; }
+        #chat-m b { color:#009c3b; font-weight:800; }
+        .noscroll::-webkit-scrollbar { display:none; }
+
+        /* Premium cards de sucesso */
+        .suc-card { background:#fff; border-radius:24px; border:1px solid #f1f5f9; box-shadow:0 4px 20px rgba(0,0,0,.08); padding:24px; transition:transform .3s; display:flex; flex-direction:column; }
+        .suc-card:hover { transform:translateY(-8px); }
+        .step-c { background:#fff; border-radius:16px; padding:24px; box-shadow:0 4px 20px rgba(0,0,0,.08); border:1px solid #f1f5f9; display:flex; flex-direction:column; align-items:center; text-align:center; transition:all .3s; }
+        .step-c:hover { transform:translateY(-8px); box-shadow:0 8px 40px rgba(0,0,0,.15); }
     </style>
 </head>
-<body style="font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;">
+<body>
 
-<!-- ══ NAVBAR ══ -->
+<!-- ══════════════════════ NAVBAR ══════════════════════ -->
 <header id="navbar">
-    <div id="navbar-inner">
-        <div class="logo-area">
-            <div class="logo-wrapper">
-                <img id="logo-white" src="img/logo.png" alt="Voe F5 Tour">
-                <img id="logo-blue"  src="img/logg.png" alt="Voe F5 Tour">
+    <div style="max-width:1280px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+        <div style="display:flex;align-items:center;flex-shrink:0;min-width:0;gap:0;">
+            <div class="logo-wrap">
+                <img id="logo-w" src="img/logo.png" alt="Voe F5 Tour">
+                <img id="logo-b" src="img/logg.png" alt="Voe F5 Tour">
             </div>
-            <span id="nav-title">
-                <em class="title-white">Atualize a sua forma de <span style="color:#FFCC00;">viajar</span></em>
-                <em class="title-color"><span class="txt-dark">Atualize a sua forma de </span><span class="txt-green">viajar</span></em>
+            <span id="nav-tag">
+                <em class="tw">Atualize a sua forma de <span style="color:#FFCC00;">viajar</span></em>
+                <em class="tc"><span class="nd">Atualize a sua forma de </span><span class="ng">viajar</span></em>
             </span>
         </div>
-        <a href="https://wa.me/5511988908306" target="_blank" id="wpp-pill">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="24" fill="#25D366"/>
-                <path d="M34.6 13.4A14.8 14.8 0 0 0 24 9C16.3 9 10 15.3 10 23c0 2.5.7 4.9 1.9 7L10 38l8.2-1.9c2 1.1 4.2 1.7 6.4 1.7h.1C32.5 37.8 38 31.5 38 24c0-3.9-1.5-7.6-4.2-10.4l.8-.2zM24 35.3h-.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4.1 1 1-4-.3-.4c-1.1-1.8-1.7-3.8-1.7-5.9 0-6.2 5-11.2 11.2-11.2 3 0 5.8 1.2 7.9 3.3 2.1 2.1 3.3 4.9 3.3 7.9-.1 6.2-5.1 11-11.2 11zm6.1-8.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.6-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3 0-.1-.3-.2-.6-.3z" fill="white"/>
-            </svg>
+        <a href="https://wa.me/5511988908306" target="_blank" id="wpp-btn">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#25D366"/><path d="M34.6 13.4A14.8 14.8 0 0 0 24 9C16.3 9 10 15.3 10 23c0 2.5.7 4.9 1.9 7L10 38l8.2-1.9c2 1.1 4.2 1.7 6.4 1.7h.1C32.5 37.8 38 31.5 38 24c0-3.9-1.5-7.6-4.2-10.4l.8-.2zM24 35.3h-.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4.1 1 1-4-.3-.4c-1.1-1.8-1.7-3.8-1.7-5.9 0-6.2 5-11.2 11.2-11.2 3 0 5.8 1.2 7.9 3.3 2.1 2.1 3.3 4.9 3.3 7.9-.1 6.2-5.1 11-11.2 11zm6.1-8.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.6-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3 0-.1-.3-.2-.6-.3z" fill="white"/></svg>
             <span>Fale conosco</span>
         </a>
     </div>
 </header>
 
-<!-- ══ HERO SLIDER ══ -->
-<section class="hero-slider">
-    <div class="slide-item active">
-        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/japao.png') center top/cover no-repeat;"></div>
-        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/jap.png') center center/cover no-repeat;"></div>
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero">
+    <div class="slide active">
+        <div class="slide-bg" style="background-image:url('img/japao.png');"></div>
     </div>
-    <div class="slide-item">
-        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/tor.png') center top/cover no-repeat;"></div>
-        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/torre.jpg') center center/cover no-repeat;"></div>
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('img/tor.png');"></div>
     </div>
-    <div class="slide-item">
-        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/rio.png') center top/cover no-repeat;"></div>
-        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/rj.png') center center/cover no-repeat;"></div>
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('img/rio.png');"></div>
     </div>
-    <div class="slide-item">
-        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/rec.png') center top/cover no-repeat;"></div>
-        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/recife.png') center center/cover no-repeat;"></div>
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('img/rec.png');"></div>
     </div>
-    <div class="slide-item">
-        <div class="hidden-mobile" style="position:absolute;inset:0;background:url('img/eua.png') center top/cover no-repeat;"></div>
-        <div class="show-mobile"   style="position:absolute;inset:0;background:url('img/ame.png') center center/cover no-repeat;"></div>
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('img/eua.png');"></div>
     </div>
+
     <div class="hero-overlay">
-        <div class="hero-content">
-            <h1 class="hero-title">Economize em voos<br><span style="color:#FFCC00;">com inteligência.</span></h1>
-            <p class="hero-sub">Encontramos as melhores opções para sua viagem: voos, rotas e experiências exclusivas.</p>
+        <div style="width:100%;max-width:700px;">
+            <h1 class="hero-title">Economize em voos<br><span style="color:#0e6323e0;">com inteligência.</span></h1>
+            <p class="hero-sub">Encontramos as melhores opções para sua viagem — voos, rotas e experiências exclusivas.</p>
         </div>
     </div>
 </section>
 
-<!-- ══ FORMULÁRIO (logo abaixo do hero) ══ -->
-<section id="quick-quote">
-    <div class="qq-card">
+<!-- ══════════════════════
+     FORMULÁRIO FULL-WIDTH
+     Desktop: horizontal (7 cols)
+     Mobile:  vertical (2 cols + botão linha inteira)
+══════════════════════ -->
+<section id="search-section">
+    <div class="search-wrap">
 
-        <!-- Barra verde: tipo de voo -->
-        <div class="qq-toggle-bar">
-            <span class="bar-label">Tipo de voo</span>
-            <button type="button" class="qq-type-btn active" id="qq-btn-iv" onclick="qqSetTipo('ida-volta')">✈ Ida e Volta</button>
-            <button type="button" class="qq-type-btn"        id="qq-btn-si" onclick="qqSetTipo('somente-ida')">→ Somente Ida</button>
+        <!-- Barra de tipo de voo -->
+        <div class="type-bar">
+            <span class="type-bar-label">Tipo de voo</span>
+            <button type="button" class="type-pill active" id="pill-iv" onclick="setTipo('iv')">✈ Ida e Volta</button>
+            <button type="button" class="type-pill"        id="pill-si" onclick="setTipo('si')">→ Somente Ida</button>
         </div>
 
-        <!-- Campos -->
-        <div class="qq-body">
-            <form id="qq-form" onsubmit="qqEnviar(event)">
-                <div class="qq-grid">
+        <!-- Campos do formulário -->
+        <div class="search-body">
+            <form id="search-form" onsubmit="submitSearch(event)">
+                <div class="search-grid">
 
-                    <div class="qq-field">
-                        <label>✈ Origem</label>
-                        <input type="text" id="qq-origem" class="qq-input" placeholder="Ex: São Paulo">
+                    <!-- Origem -->
+                    <div class="sf">
+                        <label class="sf-label">✈ Origem</label>
+                        <input type="text" id="f-orig" class="sf-input" placeholder="Ex: São Paulo">
                     </div>
 
-                    <div class="qq-field">
-                        <label>📍 Destino</label>
-                        <input type="text" id="qq-destino" class="qq-input" placeholder="Ex: Lisboa">
+                    <!-- Destino -->
+                    <div class="sf">
+                        <label class="sf-label">📍 Destino</label>
+                        <input type="text" id="f-dest" class="sf-input" placeholder="Ex: Lisboa">
                     </div>
 
-                    <div class="qq-field">
-                        <label>📅 Data de Ida</label>
-                        <input type="date" id="qq-ida" class="qq-input">
+                    <!-- Data Ida -->
+                    <div class="sf">
+                        <label class="sf-label">📅 Ida</label>
+                        <input type="date" id="f-ida" class="sf-input">
                     </div>
 
-                    <div class="qq-field" id="qq-volta-field">
-                        <label>📅 Data de Volta</label>
-                        <input type="date" id="qq-volta" class="qq-input">
+                    <!-- Data Volta -->
+                    <div class="sf" id="f-volta-wrap">
+                        <label class="sf-label">📅 Volta</label>
+                        <input type="date" id="f-volta" class="sf-input">
                     </div>
 
-                    <!-- Passageiros com botões +/- -->
-                    <div class="qq-field">
-                        <label>👥 Passageiros</label>
-                        <div class="qq-drop-wrapper">
-                            <button type="button" class="qq-drop-trigger" id="qq-trigger-pass" onclick="qqToggleDrop('qq-menu-pass','qq-trigger-pass')">
-                                <span class="trigger-label" id="qq-label-pass">1 Adulto</span>
-                                <span class="arrow">▾</span>
+                    <!-- Passageiros -->
+                    <div class="sf">
+                        <label class="sf-label">👥 Passageiros</label>
+                        <div class="drop-wrap">
+                            <button type="button" class="drop-btn" id="tb-pass" onclick="toggleDrop('dm-pass','tb-pass')">
+                                <span class="lbl" id="lbl-pass">1 Adulto</span><span class="arr">▾</span>
                             </button>
-                            <div class="qq-drop-menu" id="qq-menu-pass">
-                                <div class="qq-drop-row">
-                                    <div><div class="qq-drop-row-title">Adultos</div></div>
-                                    <div class="qq-cnt-wrap">
-                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('adt',-1)">−</button>
-                                        <span class="qq-cnt-val" id="qq-v-adt">1</span>
-                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('adt',1)">+</button>
+                            <div class="drop-menu" id="dm-pass">
+                                <div class="drop-row">
+                                    <div><div class="drop-rt">Adultos</div></div>
+                                    <div class="cnt-wrap">
+                                        <button type="button" class="cnt-btn" onclick="cnt('adt',-1)">−</button>
+                                        <span class="cnt-val" id="v-adt">1</span>
+                                        <button type="button" class="cnt-btn" onclick="cnt('adt',1)">+</button>
                                     </div>
                                 </div>
-                                <div class="qq-drop-row">
-                                    <div><div class="qq-drop-row-title">Crianças</div><div class="qq-drop-row-sub">2–11 anos</div></div>
-                                    <div class="qq-cnt-wrap">
-                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('chd',-1)">−</button>
-                                        <span class="qq-cnt-val" id="qq-v-chd">0</span>
-                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('chd',1)">+</button>
+                                <div class="drop-row">
+                                    <div><div class="drop-rt">Crianças</div><div class="drop-rs">2–11 anos</div></div>
+                                    <div class="cnt-wrap">
+                                        <button type="button" class="cnt-btn" onclick="cnt('chd',-1)">−</button>
+                                        <span class="cnt-val" id="v-chd">0</span>
+                                        <button type="button" class="cnt-btn" onclick="cnt('chd',1)">+</button>
                                     </div>
                                 </div>
-                                <div class="qq-drop-row">
-                                    <div><div class="qq-drop-row-title">Bebês</div><div class="qq-drop-row-sub">Até 2 anos</div></div>
-                                    <div class="qq-cnt-wrap">
-                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('inf',-1)">−</button>
-                                        <span class="qq-cnt-val" id="qq-v-inf">0</span>
-                                        <button type="button" class="qq-cnt-btn" onclick="qqCount('inf',1)">+</button>
+                                <div class="drop-row">
+                                    <div><div class="drop-rt">Bebês</div><div class="drop-rs">Até 2 anos</div></div>
+                                    <div class="cnt-wrap">
+                                        <button type="button" class="cnt-btn" onclick="cnt('inf',-1)">−</button>
+                                        <span class="cnt-val" id="v-inf">0</span>
+                                        <button type="button" class="cnt-btn" onclick="cnt('inf',1)">+</button>
                                     </div>
                                 </div>
-                                <button type="button" class="qq-drop-confirm" onclick="qqCloseDrop('qq-menu-pass','qq-trigger-pass')">Confirmar ✓</button>
+                                <button type="button" class="drop-ok" onclick="closeDrop('dm-pass','tb-pass')">Confirmar ✓</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Bagagem com botões +/- -->
-                    <div class="qq-field">
-                        <label>💼 Bagagem</label>
-                        <div class="qq-drop-wrapper">
-                            <button type="button" class="qq-drop-trigger" id="qq-trigger-bag" onclick="qqToggleDrop('qq-menu-bag','qq-trigger-bag')">
-                                <span class="trigger-label" id="qq-label-bag">Sem despachada</span>
-                                <span class="arrow">▾</span>
+                    <!-- Bagagem -->
+                    <div class="sf">
+                        <label class="sf-label">💼 Bagagem</label>
+                        <div class="drop-wrap">
+                            <button type="button" class="drop-btn" id="tb-bag" onclick="toggleDrop('dm-bag','tb-bag')">
+                                <span class="lbl" id="lbl-bag">Sem despachada</span><span class="arr">▾</span>
                             </button>
-                            <div class="qq-drop-menu" id="qq-menu-bag">
-                                <div class="qq-drop-row">
-                                    <div><div class="qq-drop-row-title">Mão</div><div class="qq-drop-row-sub">Até 10 kg</div></div>
-                                    <div class="qq-cnt-wrap">
-                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('mao',-1)">−</button>
-                                        <span class="qq-cnt-val" id="qq-v-mao">0</span>
-                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('mao',1)">+</button>
+                            <div class="drop-menu" id="dm-bag">
+                                <div class="drop-row">
+                                    <div><div class="drop-rt">Mão</div><div class="drop-rs">Até 10 kg</div></div>
+                                    <div class="cnt-wrap">
+                                        <button type="button" class="cnt-btn" onclick="bag('mao',-1)">−</button>
+                                        <span class="cnt-val" id="v-mao">0</span>
+                                        <button type="button" class="cnt-btn" onclick="bag('mao',1)">+</button>
                                     </div>
                                 </div>
-                                <div class="qq-drop-row">
-                                    <div><div class="qq-drop-row-title">Despachada</div><div class="qq-drop-row-sub">Até 23 kg</div></div>
-                                    <div class="qq-cnt-wrap">
-                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('desp',-1)">−</button>
-                                        <span class="qq-cnt-val" id="qq-v-desp">0</span>
-                                        <button type="button" class="qq-cnt-btn" onclick="qqBag('desp',1)">+</button>
+                                <div class="drop-row">
+                                    <div><div class="drop-rt">Despachada</div><div class="drop-rs">Até 23 kg</div></div>
+                                    <div class="cnt-wrap">
+                                        <button type="button" class="cnt-btn" onclick="bag('desp',-1)">−</button>
+                                        <span class="cnt-val" id="v-desp">0</span>
+                                        <button type="button" class="cnt-btn" onclick="bag('desp',1)">+</button>
                                     </div>
                                 </div>
-                                <button type="button" class="qq-drop-confirm" onclick="qqCloseDrop('qq-menu-bag','qq-trigger-bag')">Confirmar ✓</button>
+                                <button type="button" class="drop-ok" onclick="closeDrop('dm-bag','tb-bag')">Confirmar ✓</button>
                             </div>
                         </div>
                     </div>
 
-                </div><!-- /qq-grid -->
+                    <!-- Botão de busca -->
+                    <button type="submit" class="search-submit">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                        Buscar voos
+                    </button>
 
-                <button type="submit" class="qq-submit">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
-                    Analisar Melhores Tarifas Agora
-                </button>
+                </div><!-- /search-grid -->
             </form>
+        </div><!-- /search-body -->
+    </div><!-- /search-wrap -->
+</section>
+
+<!-- ══════════════════════ CASOS DE SUCESSO ══════════════════════ -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
+            <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
+                Transformando eficiência em <span class="text-brand-green">economia real</span>
+            </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="suc-card border-b-4 border-brand-green">
+                <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 18%</div>
+                <h3 class="font-extrabold text-lg italic uppercase mb-1">SÃO PAULO → LISBOA</h3>
+                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span class="relative inline-block px-1">R$ 4.642,00<span class="absolute left-0 right-0" style="top:50%;height:2px;background:rgba(239,68,68,.6);transform:rotate(-2deg);"></span></span></p>
+                <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                    <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 3.760,19</span></div>
+                    <span class="text-3xl">📉</span>
+                </div>
+            </div>
+            <div class="suc-card border-b-4 border-brand-green">
+                <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 28%</div>
+                <h3 class="font-extrabold text-lg italic uppercase mb-1">SÃO PAULO → ORLANDO</h3>
+                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span class="relative inline-block px-1">R$ 3.620,00<span class="absolute left-0 right-0" style="top:50%;height:2px;background:rgba(239,68,68,.6);transform:rotate(-2deg);"></span></span></p>
+                <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                    <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 2.419,00</span></div>
+                    <span class="text-3xl">📉</span>
+                </div>
+            </div>
+            <div class="suc-card border-b-4 border-brand-green">
+                <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 17%</div>
+                <h3 class="font-extrabold text-lg italic uppercase mb-1">ROMA → LISBOA</h3>
+                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span class="relative inline-block px-1">R$ 679,50<span class="absolute left-0 right-0" style="top:50%;height:2px;background:rgba(239,68,68,.6);transform:rotate(-2deg);"></span></span></p>
+                <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
+                    <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 564,00</span></div>
+                    <span class="text-3xl">📉</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- ══ CASOS DE SUCESSO ══ -->
-<section style="padding:64px 24px;background:white;">
+<!-- ══════════════════════ COMO FUNCIONA ══════════════════════ -->
+<section class="py-12 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-center font-black uppercase tracking-widest text-brand-blue mb-10 text-lg">COMO FUNCIONA</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="step-c">
+                <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-black text-base mb-4">1</div>
+                <h3 class="font-black text-sm uppercase italic text-brand-blue mb-3">Você envia sua viagem</h3>
+                <div class="mb-3"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="24" rx="3" stroke="#009C3B" stroke-width="3" fill="none"/><rect x="12" y="16" width="24" height="14" rx="1" fill="#009C3B" fill-opacity="0.15"/><rect x="10" y="34" width="28" height="3" rx="1.5" fill="#009C3B"/><rect x="20" y="37" width="8" height="2" rx="1" fill="#009C3B"/></svg></div>
+                <p class="text-slate-500 text-xs font-medium leading-relaxed">Origem, destino, datas e quantidade de passageiros.</p>
+            </div>
+            <div class="step-c">
+                <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-black text-base mb-4">2</div>
+                <h3 class="font-black text-sm uppercase italic text-brand-blue mb-3">Análise estratégica</h3>
+                <div class="mb-3"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="22" cy="22" r="14" stroke="#009C3B" stroke-width="3" fill="none"/><ellipse cx="22" cy="22" rx="6" ry="14" stroke="#009C3B" stroke-width="2" fill="none"/><line x1="8" y1="22" x2="36" y2="22" stroke="#009C3B" stroke-width="2"/><line x1="10" y1="16" x2="34" y2="16" stroke="#009C3B" stroke-width="1.5"/><line x1="10" y1="28" x2="34" y2="28" stroke="#009C3B" stroke-width="1.5"/><line x1="33" y1="33" x2="42" y2="42" stroke="#009C3B" stroke-width="3" stroke-linecap="round"/></svg></div>
+                <p class="text-slate-500 text-xs font-medium leading-relaxed">Buscamos as melhores opções com inteligência de milhas.</p>
+            </div>
+            <div class="step-c">
+                <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-black text-base mb-4">3</div>
+                <h3 class="font-black text-sm uppercase italic text-brand-blue mb-3">Receba a melhor opção</h3>
+                <div class="mb-3"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="20" rx="4" stroke="#009C3B" stroke-width="3" fill="none"/><line x1="6" y1="24" x2="42" y2="24" stroke="#009C3B" stroke-width="2" stroke-dasharray="3 3"/><circle cx="6" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><circle cx="42" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><polyline points="17,23 21,27 31,19" stroke="#009C3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+                <p class="text-slate-500 text-xs font-medium leading-relaxed">Com economia real e suporte completo na emissão.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════
+     CARROSSEL DE DEPOIMENTOS
+     Swiper.js — autoplay 4.5s, loop, slide + fade
+══════════════════════ -->
+<section id="depoimentos" class="testi-section">
     <div style="max-width:1280px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:48px;">
-            <p style="color:#1d4ed8;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Casos de Sucesso da Voe F5</p>
-            <h2 style="font-size:clamp(20px,4vw,36px);font-weight:900;font-style:italic;text-transform:uppercase;color:#001A4F;">Transformando eficiência em <span style="color:#009C3B;">economia real</span></h2>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
-            <div class="premium-card" style="border-bottom:4px solid #009C3B;">
-                <div style="background:#d1fae5;color:#009C3B;font-size:10px;font-weight:900;padding:4px 16px;border-radius:999px;width:fit-content;margin-bottom:20px;text-transform:uppercase;">Economia de 18%</div>
-                <h3 style="font-weight:800;font-size:18px;font-style:italic;text-transform:uppercase;margin-bottom:4px;">SÃO PAULO → LISBOA</h3>
-                <p style="font-size:13px;color:#94a3b8;font-weight:500;">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 4px;">R$ 4.642,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,0.6);transform:rotate(-2deg);"></span></span></p>
-                <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f8fafc;display:flex;justify-content:space-between;align-items:flex-end;">
-                    <div><span style="color:#2563eb;font-weight:700;font-size:10px;background:#eff6ff;padding:2px 8px;border-radius:4px;text-transform:uppercase;display:block;margin-bottom:4px;">Com a Voe F5</span><span style="font-size:28px;font-weight:900;color:#001A4F;">R$ 3.760,19</span></div>
-                    <div style="font-size:28px;">📉</div>
-                </div>
-            </div>
-            <div class="premium-card" style="border-bottom:4px solid #009C3B;">
-                <div style="background:#d1fae5;color:#009C3B;font-size:10px;font-weight:900;padding:4px 16px;border-radius:999px;width:fit-content;margin-bottom:20px;text-transform:uppercase;">Economia de 28%</div>
-                <h3 style="font-weight:800;font-size:18px;font-style:italic;text-transform:uppercase;margin-bottom:4px;">SÃO PAULO → ORLANDO</h3>
-                <p style="font-size:13px;color:#94a3b8;font-weight:500;">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 4px;">R$ 3.620,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,0.6);transform:rotate(-2deg);"></span></span></p>
-                <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f8fafc;display:flex;justify-content:space-between;align-items:flex-end;">
-                    <div><span style="color:#2563eb;font-weight:700;font-size:10px;background:#eff6ff;padding:2px 8px;border-radius:4px;text-transform:uppercase;display:block;margin-bottom:4px;">Com a Voe F5</span><span style="font-size:28px;font-weight:900;color:#001A4F;">R$ 2.419,00</span></div>
-                    <div style="font-size:28px;">📉</div>
-                </div>
-            </div>
-            <div class="premium-card" style="border-bottom:4px solid #009C3B;">
-                <div style="background:#d1fae5;color:#009C3B;font-size:10px;font-weight:900;padding:4px 16px;border-radius:999px;width:fit-content;margin-bottom:20px;text-transform:uppercase;">Economia de 17%</div>
-                <h3 style="font-weight:800;font-size:18px;font-style:italic;text-transform:uppercase;margin-bottom:4px;">ROMA → LISBOA</h3>
-                <p style="font-size:13px;color:#94a3b8;font-weight:500;">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 4px;">R$ 679,50<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,0.6);transform:rotate(-2deg);"></span></span></p>
-                <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f8fafc;display:flex;justify-content:space-between;align-items:flex-end;">
-                    <div><span style="color:#2563eb;font-weight:700;font-size:10px;background:#eff6ff;padding:2px 8px;border-radius:4px;text-transform:uppercase;display:block;margin-bottom:4px;">Com a Voe F5</span><span style="font-size:28px;font-weight:900;color:#001A4F;">R$ 564,00</span></div>
-                    <div style="font-size:28px;">📉</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- ══ COMO FUNCIONA ══ -->
-<section style="padding:48px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;">
-    <div style="max-width:1000px;margin:0 auto;">
-        <h2 style="text-align:center;font-size:clamp(16px,3vw,20px);font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:#001A4F;margin-bottom:40px;">COMO FUNCIONA</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;">
-            <div class="step-card">
-                <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">1</div>
-                <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Você envia sua viagem</h3>
-                <div style="margin-bottom:12px;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="24" rx="3" stroke="#009C3B" stroke-width="3" fill="none"/><rect x="12" y="16" width="24" height="14" rx="1" fill="#009C3B" fill-opacity="0.15"/><rect x="10" y="34" width="28" height="3" rx="1.5" fill="#009C3B"/><rect x="20" y="37" width="8" height="2" rx="1" fill="#009C3B"/></svg></div>
-                <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Origem, destino, datas e quantidade de passageiros.</p>
-            </div>
-            <div class="step-card">
-                <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">2</div>
-                <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Análise estratégica</h3>
-                <div style="margin-bottom:12px;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="22" cy="22" r="14" stroke="#009C3B" stroke-width="3" fill="none"/><ellipse cx="22" cy="22" rx="6" ry="14" stroke="#009C3B" stroke-width="2" fill="none"/><line x1="8" y1="22" x2="36" y2="22" stroke="#009C3B" stroke-width="2"/><line x1="10" y1="16" x2="34" y2="16" stroke="#009C3B" stroke-width="1.5"/><line x1="10" y1="28" x2="34" y2="28" stroke="#009C3B" stroke-width="1.5"/><line x1="33" y1="33" x2="42" y2="42" stroke="#009C3B" stroke-width="3" stroke-linecap="round"/></svg></div>
-                <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Buscamos as melhores opções com inteligência de milhas.</p>
-            </div>
-            <div class="step-card">
-                <div style="width:40px;height:40px;background:#001A4F;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:16px;">3</div>
-                <h3 style="font-weight:900;font-size:13px;text-transform:uppercase;font-style:italic;color:#001A4F;margin-bottom:12px;">Receba a melhor opção</h3>
-                <div style="margin-bottom:12px;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="20" rx="4" stroke="#009C3B" stroke-width="3" fill="none"/><line x1="6" y1="24" x2="42" y2="24" stroke="#009C3B" stroke-width="2" stroke-dasharray="3 3"/><circle cx="6" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><circle cx="42" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><polyline points="17,23 21,27 31,19" stroke="#009C3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
-                <p style="color:#64748b;font-size:11px;font-weight:500;line-height:1.6;">Com economia real e suporte completo na emissão.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ══ DEPOIMENTOS COM AUTO-SLIDE ══ -->
-<section id="depoimentos" class="testimonials-section">
-    <div class="testimonials-container">
-        <div class="testimonials-header">
+        <!-- Cabeçalho -->
+        <div class="testi-head">
+            <p class="eyebrow">O que dizem sobre nós</p>
             <h2>O que nossos <span>Viajantes</span> dizem</h2>
+            <p>Mais de 3.000 clientes satisfeitos que economizaram viajando com a Voe F5.</p>
         </div>
-        <div class="slider-wrapper">
-            <div class="testimonials-track" id="testimonialsTrack">
-                <div class="testimonial-card-item">
-                    <div class="testimonial-quote">❝</div>
-                    <p class="testimonial-text">"Conseguimos reduzir significativamente os custos das nossas viagens. A plataforma encontra oportunidades que nunca teríamos descoberto sozinhos."</p>
-                    <div class="testimonial-author">Marcelo R.</div>
-                    <div class="testimonial-role">Viajante Frequente</div>
+
+        <!-- Swiper container -->
+        <div class="swiper swiper-testi">
+            <div class="swiper-wrapper">
+
+                <!-- Slide 1 -->
+                <div class="swiper-slide" style="height:auto;">
+                    <div class="testi-card">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#009C3B,#001A4F);">M</div>
+                        <div class="testi-stars">
+                            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                        </div>
+                        <div class="testi-quote">❝</div>
+                        <p class="testi-text">"Conseguimos reduzir significativamente os custos das nossas viagens. A plataforma encontra oportunidades que nunca teríamos descoberto sozinhos."</p>
+                        <div class="testi-name">Marcelo R.</div>
+                    </div>
                 </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-quote">❝</div>
-                    <p class="testimonial-text">"Já comparei com buscadores tradicionais e os valores encontrados aqui foram surpreendentes. Hoje sempre consulto a Voe F5."</p>
-                    <div class="testimonial-author">Fernanda L.</div>
-                    <div class="testimonial-role">Executiva</div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide" style="height:auto;">
+                    <div class="testi-card">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#001A4F,#009C3B);">F</div>
+                        <div class="testi-stars">
+                            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                        </div>
+                        <div class="testi-quote">❝</div>
+                        <p class="testi-text">"Já comparei com buscadores tradicionais e os valores encontrados aqui foram surpreendentes. Hoje sempre consulto a Voe F5."</p>
+                        <div class="testi-name">Fernanda L.</div>
+                    </div>
                 </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-quote">❝</div>
-                    <p class="testimonial-text">"Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e dedicada."</p>
-                    <div class="testimonial-author">Daniela S.</div>
-                    <div class="testimonial-role">Gerente de Projetos</div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide" style="height:auto;">
+                    <div class="testi-card">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#FFCC00,#f59e0b);color:#001A4F;">D</div>
+                        <div class="testi-stars">
+                            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                        </div>
+                        <div class="testi-quote">❝</div>
+                        <p class="testi-text">"Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e dedicada."</p>
+                        <div class="testi-name">Daniela S.</div>
+                    </div>
                 </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-quote">❝</div>
-                    <p class="testimonial-text">"Minha família viaja bastante e a Voe F5 tem sido essencial para encontrar as melhores tarifas. Recomendo para todos!"</p>
-                    <div class="testimonial-author">Roberto C.</div>
-                    <div class="testimonial-role">Pai de Família</div>
+
+                <!-- Slide 4 -->
+                <div class="swiper-slide" style="height:auto;">
+                    <div class="testi-card">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#90ed3a,#001A4F);">R</div>
+                        <div class="testi-stars">
+                            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                        </div>
+                        <div class="testi-quote">❝</div>
+                        <p class="testi-text">"Minha família viaja bastante e a Voe F5 tem sido essencial para encontrar as melhores tarifas. Recomendo para todos!"</p>
+                        <div class="testi-name">Roberto C.</div>
+                    </div>
                 </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-quote">❝</div>
-                    <p class="testimonial-text">"A experiência é intuitiva e os resultados falam por si. Economizei R$1200 na minha última viagem para o exterior."</p>
-                    <div class="testimonial-author">Juliana M.</div>
-                    <div class="testimonial-role">Turista</div>
+
+                <!-- Slide 5 -->
+                <div class="swiper-slide" style="height:auto;">
+                    <div class="testi-card">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#0ea5e9,#001A4F);">J</div>
+                        <div class="testi-stars">
+                            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                        </div>
+                        <div class="testi-quote">❝</div>
+                        <p class="testi-text">"A experiência é intuitiva e os resultados falam por si. Economizei R$1.200 na minha última viagem para o exterior."</p>
+                        <div class="testi-name">Juliana M.</div>
+                    </div>
                 </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-quote">❝</div>
-                    <p class="testimonial-text">"Serviço impecável do início ao fim. Conseguiram encontrar uma rota que nenhum outro site oferecia. Muito obrigado!"</p>
-                    <div class="testimonial-author">André F.</div>
-                    <div class="testimonial-role">Consultor</div>
+
+                <!-- Slide 6 -->
+                <div class="swiper-slide" style="height:auto;">
+                    <div class="testi-card">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#009C3B,#065f46);">A</div>
+                        <div class="testi-stars">
+                            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                        </div>
+                        <div class="testi-quote">❝</div>
+                        <p class="testi-text">"Serviço impecável do início ao fim. Conseguiram encontrar uma rota que nenhum outro site oferecia. Muito obrigado!"</p>
+                        <div class="testi-name">André F.</div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="slider-controls">
-            <button class="slider-btn" onclick="slideTestimonials('prev')">‹</button>
-            <div class="slider-dots" id="sliderDots"></div>
-            <button class="slider-btn" onclick="slideTestimonials('next')">›</button>
-        </div>
-        <div class="slider-progress-bar">
-            <div class="slider-progress-fill" id="sliderProgressFill"></div>
-        </div>
+
+            </div><!-- /swiper-wrapper -->
+
+            <!-- Navegação e paginação -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
+
+        </div><!-- /swiper -->
     </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
-<footer style="padding:48px 24px;background:#001A4F;text-align:center;color:rgba(255,255,255,0.4);font-size:10px;font-weight:700;text-transform:uppercase;font-style:italic;letter-spacing:0.2em;border-top:1px solid rgba(255,255,255,0.05);">
-    &copy; Voe F5 tour | Atualize a sua forma de viajar
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer style="padding:48px 24px;background:#001A4F;text-align:center;color:rgba(255,255,255,.38);font-size:10px;font-weight:700;text-transform:uppercase;font-style:italic;letter-spacing:.2em;border-top:1px solid rgba(255,255,255,.05);">
+    &copy; Voe F5 Tour | Atualize a sua forma de viajar
 </footer>
 
-<!-- ══ AGENTE CHAT ══ -->
+<!-- ══════════════════════ AGENTE CHAT ══════════════════════ -->
 <div id="agent-widget" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;align-items:flex-end;font-family:'Plus Jakarta Sans',sans-serif;">
-    <div id="agent-chat-window" style="display:none;width:320px;background:white;border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,0.4);border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px;opacity:0;transform:scale(0.95);transition:all 0.3s;">
+    <div id="chat-w" style="display:none;width:320px;background:white;border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,.4);border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px;opacity:0;transform:scale(.95);transition:all .3s;">
         <div style="background:#001f3f;padding:16px 20px;display:flex;align-items:center;gap:12px;">
             <div style="width:40px;height:40px;background:#009c3b;border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-style:italic;font-size:13px;">F5</div>
             <div style="flex:1;"><h4 style="color:white;font-weight:900;font-size:12px;text-transform:uppercase;font-style:italic;margin:0;">Agente Voe F5</h4><p style="color:#34d399;font-size:9px;font-weight:700;text-transform:uppercase;margin:0;">Online</p></div>
-            <button onclick="toggleChat()" style="color:rgba(255,255,255,0.7);background:none;border:none;cursor:pointer;font-size:20px;line-height:1;">✕</button>
+            <button onclick="toggleChat()" style="color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-size:20px;line-height:1;">✕</button>
         </div>
-        <div id="agent-messages" class="scrollbar-hide" style="overflow-y:auto;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:380px;">
-            <div style="background:white;padding:14px;border-radius:16px 16px 16px 4px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid #e2e8f0;max-width:90%;font-size:12px;font-weight:600;color:#334155;">Olá! Como posso te ajudar hoje? 👋</div>
+        <div id="chat-m" class="noscroll" style="overflow-y:auto;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:380px;">
+            <div style="background:white;padding:14px;border-radius:16px 16px 16px 4px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #e2e8f0;max-width:90%;font-size:12px;font-weight:600;color:#334155;">Olá! Como posso te ajudar hoje? 👋</div>
         </div>
         <div style="padding:16px;background:white;border-top:1px solid #e2e8f0;">
             <div style="display:flex;gap:8px;">
-                <input type="text" id="agent-input" placeholder="Digite aqui..." style="flex:1;background:#f1f5f9;border:2px solid transparent;border-radius:12px;padding:12px 16px;font-size:12px;font-weight:700;outline:none;font-family:'Plus Jakarta Sans',sans-serif;" onfocus="this.style.borderColor='#009c3b'" onblur="this.style.borderColor='transparent'">
-                <button onclick="enviarMensagem()" style="background:#009c3b;color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;font-size:18px;line-height:1;">➤</button>
+                <input type="text" id="chat-inp" placeholder="Digite aqui..." style="flex:1;background:#f1f5f9;border:2px solid transparent;border-radius:12px;padding:12px 16px;font-size:12px;font-weight:700;outline:none;font-family:inherit;" onfocus="this.style.borderColor='#009c3b'" onblur="this.style.borderColor='transparent'">
+                <button onclick="chatSend()" style="background:#009c3b;color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;font-size:18px;line-height:1;">➤</button>
             </div>
         </div>
     </div>
-    <button onclick="toggleChat()" class="agent-pulse" style="background:linear-gradient(135deg,#009c3b,#00b844);width:60px;height:60px;border-radius:20px;box-shadow:0 8px 30px rgba(0,156,59,0.45);border:none;cursor:pointer;border-bottom:4px solid #007a2e;display:flex;align-items:center;justify-content:center;">
+    <button onclick="toggleChat()" class="pulse-g" style="background:linear-gradient(135deg,#009c3b,#00c44a);width:60px;height:60px;border-radius:20px;box-shadow:0 8px 30px rgba(0,156,59,.45);border:none;cursor:pointer;border-bottom:4px solid #007a2e;display:flex;align-items:center;justify-content:center;">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect x="6" y="9" width="20" height="15" rx="4" fill="white" fill-opacity="0.95"/>
+            <rect x="6" y="9" width="20" height="15" rx="4" fill="white" fill-opacity=".95"/>
             <line x1="16" y1="4" x2="16" y2="9" stroke="white" stroke-width="2" stroke-linecap="round"/>
             <circle cx="16" cy="3.5" r="2" fill="white"/>
-            <circle cx="11.5" cy="15" r="2.5" fill="#009c3b"/>
-            <circle cx="20.5" cy="15" r="2.5" fill="#009c3b"/>
-            <circle cx="12" cy="14.5" r="1" fill="white"/>
-            <circle cx="21" cy="14.5" r="1" fill="white"/>
-            <rect x="11" y="19.5" width="10" height="2" rx="1" fill="#009c3b" fill-opacity="0.7"/>
-            <rect x="3" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity="0.8"/>
-            <rect x="26" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity="0.8"/>
+            <circle cx="11.5" cy="15" r="2.5" fill="#009c3b"/><circle cx="20.5" cy="15" r="2.5" fill="#009c3b"/>
+            <circle cx="12" cy="14.5" r="1" fill="white"/><circle cx="21" cy="14.5" r="1" fill="white"/>
+            <rect x="11" y="19.5" width="10" height="2" rx="1" fill="#009c3b" fill-opacity=".7"/>
+            <rect x="3" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity=".8"/>
+            <rect x="26" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity=".8"/>
         </svg>
     </button>
 </div>
 
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
 <script>
-/* ══ NAVBAR ══ */
+/* ── Navbar scroll ── */
 (function(){
     window.addEventListener('scroll',function(){
-        var nav=document.getElementById('navbar');
-        if(window.scrollY>50)nav.classList.add('scrolled');
-        else nav.classList.remove('scrolled');
+        var n=document.getElementById('navbar');
+        window.scrollY>60?n.classList.add('scrolled'):n.classList.remove('scrolled');
     });
 })();
 
-/* ══ HERO SLIDER ══ */
+/* ── Hero auto-slide ── */
 (function(){
-    var slides=document.querySelectorAll('.slide-item'), atual=0;
+    var sl=document.querySelectorAll('.slide'), i=0;
     setInterval(function(){
-        slides[atual].classList.remove('active');
-        atual=(atual+1)%slides.length;
-        slides[atual].classList.add('active');
+        sl[i].classList.remove('active');
+        i=(i+1)%sl.length;
+        sl[i].classList.add('active');
     },5000);
 })();
 
-/* ══ FORMULÁRIO RÁPIDO ══ */
-var qqTipo='ida-volta', qqPass={adt:1,chd:0,inf:0}, qqBagData={mao:0,desp:0};
+/* ════════════════════════════════════════════
+   SWIPER — Carrossel de depoimentos com autoplay
+   • Loop infinito
+   • Autoplay a cada 4.5 s
+   • Slide lateral com transição suave
+   • 1 card mobile / 2 tablet / 3 desktop
+   • Pausa ao passar o mouse
+════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function(){
+    new Swiper('.swiper-testi', {
 
-function qqSetTipo(tipo){
-    qqTipo=tipo;
-    var bIV=document.getElementById('qq-btn-iv'), bSI=document.getElementById('qq-btn-si');
-    var vF=document.getElementById('qq-volta-field'), vI=document.getElementById('qq-volta');
-    if(tipo==='ida-volta'){ bIV.classList.add('active'); bSI.classList.remove('active'); vF.style.opacity='1'; vF.style.pointerEvents='auto'; vI.disabled=false; }
-    else{ bSI.classList.add('active'); bIV.classList.remove('active'); vF.style.opacity='0.38'; vF.style.pointerEvents='none'; vI.disabled=true; vI.value=''; }
-}
-function qqToggleDrop(mId,tId){
-    var m=document.getElementById(mId), t=document.getElementById(tId), open=m.classList.contains('open');
-    document.querySelectorAll('.qq-drop-menu').forEach(function(x){x.classList.remove('open');});
-    document.querySelectorAll('.qq-drop-trigger').forEach(function(x){x.classList.remove('open');});
-    if(!open){m.classList.add('open');t.classList.add('open');}
-}
-function qqCloseDrop(mId,tId){ document.getElementById(mId).classList.remove('open'); document.getElementById(tId).classList.remove('open'); }
-document.addEventListener('click',function(e){ if(!e.target.closest('.qq-drop-wrapper')){ document.querySelectorAll('.qq-drop-menu,.qq-drop-trigger').forEach(function(x){x.classList.remove('open');}); } });
+        /* Layout responsivo */
+        slidesPerView: 1,
+        spaceBetween: 28,
+        centeredSlides: false,
 
-function qqCount(tipo,delta){
-    if(tipo==='adt'&&qqPass.adt+delta<1)return;
-    if(qqPass[tipo]+delta<0)return;
-    qqPass[tipo]+=delta;
-    document.getElementById('qq-v-'+tipo).textContent=qqPass[tipo];
-    var l=qqPass.adt+' Adult'+(qqPass.adt>1?'os':'o');
-    if(qqPass.chd>0)l+=', '+qqPass.chd+' Crian'+(qqPass.chd>1?'ças':'ça');
-    if(qqPass.inf>0)l+=', '+qqPass.inf+' Bebê'+(qqPass.inf>1?'s':'');
-    document.getElementById('qq-label-pass').textContent=l;
+        breakpoints: {
+            640:  { slidesPerView: 2, spaceBetween: 28 },
+            1024: { slidesPerView: 3, spaceBetween: 28 }
+        },
+
+        /* Slides de altura igual */
+        equalHeight: true,
+
+        /* Loop infinito */
+        loop: true,
+
+        /* Autoplay: 4.5 s, pausa no hover */
+        autoplay: {
+            delay: 4500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+
+        /* Transição suave */
+        speed: 700,
+        effect: 'slide',
+
+        /* Paginação (bullets) */
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+
+        /* Navegação (setas) */
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        /* Swipe mobile */
+        grabCursor: true,
+        touchRatio: 1,
+        touchAngle: 45,
+    });
+});
+
+/* ════════════════════════════════════════════
+   FORMULÁRIO DE BUSCA
+════════════════════════════════════════════ */
+var tipo = 'iv';
+var passData = { adt:1, chd:0, inf:0 };
+var bagData  = { mao:0, desp:0 };
+
+function setTipo(t){
+    tipo = t;
+    document.getElementById('pill-iv').classList.toggle('active', t==='iv');
+    document.getElementById('pill-si').classList.toggle('active', t==='si');
+    var vw = document.getElementById('f-volta-wrap');
+    var vi = document.getElementById('f-volta');
+    if(t==='iv'){ vw.style.opacity='1'; vw.style.pointerEvents='auto'; vi.disabled=false; }
+    else{ vw.style.opacity='.38'; vw.style.pointerEvents='none'; vi.disabled=true; vi.value=''; }
 }
-function qqBag(tipo,delta){
-    if(qqBagData[tipo]+delta<0)return;
-    qqBagData[tipo]+=delta;
-    document.getElementById('qq-v-'+tipo).textContent=qqBagData[tipo];
-    var t=qqBagData.mao+qqBagData.desp;
-    document.getElementById('qq-label-bag').textContent=t>0?qqBagData.mao+' mão, '+qqBagData.desp+' desp.':'Sem despachada';
+
+function toggleDrop(mId, tId){
+    var m=document.getElementById(mId), t=document.getElementById(tId);
+    var isOpen=m.classList.contains('open');
+    document.querySelectorAll('.drop-menu').forEach(function(x){x.classList.remove('open');});
+    document.querySelectorAll('.drop-btn').forEach(function(x){x.classList.remove('open');});
+    if(!isOpen){ m.classList.add('open'); t.classList.add('open'); }
 }
-function qqFmt(v){ if(!v)return''; var p=v.split('-'); return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:v; }
-function qqEnviar(e){
+function closeDrop(mId, tId){
+    document.getElementById(mId).classList.remove('open');
+    document.getElementById(tId).classList.remove('open');
+}
+document.addEventListener('click',function(e){
+    if(!e.target.closest('.drop-wrap')){
+        document.querySelectorAll('.drop-menu,.drop-btn').forEach(function(x){x.classList.remove('open');});
+    }
+});
+
+function cnt(k, d){
+    if(k==='adt' && passData.adt+d<1) return;
+    if(passData[k]+d<0) return;
+    passData[k]+=d;
+    document.getElementById('v-'+k).textContent=passData[k];
+    var l=passData.adt+' Adult'+(passData.adt>1?'os':'o');
+    if(passData.chd>0) l+=', '+passData.chd+' Crian'+(passData.chd>1?'ças':'ça');
+    if(passData.inf>0) l+=', '+passData.inf+' Bebê'+(passData.inf>1?'s':'');
+    document.getElementById('lbl-pass').textContent=l;
+}
+function bag(k, d){
+    if(bagData[k]+d<0) return;
+    bagData[k]+=d;
+    document.getElementById('v-'+k).textContent=bagData[k];
+    var t=bagData.mao+bagData.desp;
+    document.getElementById('lbl-bag').textContent = t>0 ? bagData.mao+' mão, '+bagData.desp+' desp.' : 'Sem despachada';
+}
+function fmtDate(v){
+    if(!v) return '';
+    var p=v.split('-');
+    return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : v;
+}
+function submitSearch(e){
     e.preventDefault();
-    var ori=(document.getElementById('qq-origem').value||'').trim();
-    var des=(document.getElementById('qq-destino').value||'').trim();
-    var ida=qqFmt(document.getElementById('qq-ida').value);
-    var volta=qqFmt(document.getElementById('qq-volta').value);
-    if(!ori||!des){alert('Por favor, informe a origem e o destino.');return;}
-    if(!ida){alert('Por favor, informe a data de ida.');return;}
-    var msg='Olá! Gostaria de uma cotação:\n\n✈ *Origem:* '+ori+'\n📍 *Destino:* '+des+'\n📅 *Ida:* '+ida+(volta&&qqTipo==='ida-volta'?'\n📅 *Volta:* '+volta:'')+'\n👥 *Passageiros:* '+qqPass.adt+' Adulto(s)'+(qqPass.chd>0?', '+qqPass.chd+' Criança(s)':'')+(qqPass.inf>0?', '+qqPass.inf+' Bebê(s)':'')+'\n💼 *Bagagem:* '+qqBagData.mao+' de mão, '+qqBagData.desp+' despachada(s)';
+    var ori=(document.getElementById('f-orig').value||'').trim();
+    var des=(document.getElementById('f-dest').value||'').trim();
+    var ida=fmtDate(document.getElementById('f-ida').value);
+    var vlt=fmtDate(document.getElementById('f-volta').value);
+    if(!ori||!des){ alert('Por favor, informe a origem e o destino.'); return; }
+    if(!ida)       { alert('Por favor, informe a data de ida.'); return; }
+    var msg='Olá! Gostaria de uma cotação:\n\n✈ *Origem:* '+ori
+        +'\n📍 *Destino:* '+des
+        +'\n📅 *Ida:* '+ida
+        +(vlt && tipo==='iv' ? '\n📅 *Volta:* '+vlt : '')
+        +'\n👥 *Passageiros:* '+passData.adt+' Adulto(s)'
+        +(passData.chd>0?', '+passData.chd+' Criança(s)':'')
+        +(passData.inf>0?', '+passData.inf+' Bebê(s)':'')
+        +'\n💼 *Bagagem:* '+bagData.mao+' de mão, '+bagData.desp+' despachada(s)';
     window.open('https://wa.me/5511988908306?text='+encodeURIComponent(msg),'_blank');
 }
 
-/* ══ DEPOIMENTOS AUTO-SLIDE ══ */
-(function(){
-    var cur=0, perView=1, AUTO=4500;
-    var track=document.getElementById('testimonialsTrack');
-    var dotsWrap=document.getElementById('sliderDots');
-    var fill=document.getElementById('sliderProgressFill');
-    var total=document.querySelectorAll('.testimonial-card-item').length;
-    var timer=null;
-
-    function calcPer(){ return window.innerWidth>=1024?3:window.innerWidth>=768?2:1; }
-    function maxSlide(){ return Math.max(0,total-perView); }
-
-    function renderDots(){
-        dotsWrap.innerHTML='';
-        for(var i=0;i<=maxSlide();i++){
-            (function(idx){
-                var d=document.createElement('span');
-                d.className='dot'+(idx===cur?' active':'');
-                d.addEventListener('click',function(){ goTo(idx); resetTimer(); });
-                dotsWrap.appendChild(d);
-            })(i);
-        }
-    }
-    function updateView(){
-        track.style.transform='translateX('+(-(cur*(100/perView)))+'%)';
-        document.querySelectorAll('#sliderDots .dot').forEach(function(d,i){ d.classList.toggle('active',i===cur); });
-    }
-    function goTo(idx){ cur=Math.max(0,Math.min(idx,maxSlide())); updateView(); }
-
-    window.slideTestimonials=function(dir){
-        goTo(dir==='next'?(cur+1>maxSlide()?0:cur+1):(cur-1<0?maxSlide():cur-1));
-        resetTimer();
-    };
-    window.goToTestimonial=function(idx){ goTo(idx); resetTimer(); };
-
-    function startFill(){
-        if(!fill)return;
-        fill.style.transition='none'; fill.style.width='0%';
-        void fill.offsetWidth;
-        fill.style.transition='width '+AUTO+'ms linear'; fill.style.width='100%';
-    }
-    function startTimer(){
-        clearInterval(timer); startFill();
-        timer=setInterval(function(){ goTo(cur+1>maxSlide()?0:cur+1); startFill(); },AUTO);
-    }
-    function resetTimer(){ startTimer(); }
-
-    var wrap=document.querySelector('.slider-wrapper');
-    if(wrap){
-        wrap.addEventListener('mouseenter',function(){ clearInterval(timer); if(fill){fill.style.transition='none';} });
-        wrap.addEventListener('mouseleave',function(){ startTimer(); });
-    }
-    var sx=0;
-    if(track){
-        track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
-        track.addEventListener('touchend',function(e){ var d=sx-e.changedTouches[0].clientX; if(Math.abs(d)>40){window.slideTestimonials(d>0?'next':'prev');} },{passive:true});
-    }
-    function init(){ perView=calcPer(); renderDots(); updateView(); startTimer(); }
-    window.addEventListener('resize',function(){ var n=calcPer(); if(n!==perView){perView=n;cur=0;renderDots();updateView();} });
-    init();
-})();
-
-/* ══ AGENTE CHAT ══ */
-var chatStep=-1, chatData={destino:'',tipo:'',datas:'',passageiros:'',classe:'',bagagem:''};
+/* ════════════════════════════════════════════
+   AGENTE CHAT
+════════════════════════════════════════════ */
+var chatStep=-1, chatD={destino:'',tipo:'',datas:'',passageiros:'',classe:'',bagagem:''};
 
 function toggleChat(){
-    var win=document.getElementById('agent-chat-window');
-    if(win.style.display==='none'||win.style.display===''){
-        win.style.display='flex';win.style.flexDirection='column';
-        setTimeout(function(){win.style.opacity='1';win.style.transform='scale(1)';},10);
+    var w=document.getElementById('chat-w');
+    if(w.style.display==='none'||w.style.display===''){
+        w.style.display='flex'; w.style.flexDirection='column';
+        setTimeout(function(){w.style.opacity='1'; w.style.transform='scale(1)';},10);
     }else{
-        win.style.opacity='0';win.style.transform='scale(0.95)';
-        setTimeout(function(){win.style.display='none';},300);
+        w.style.opacity='0'; w.style.transform='scale(.95)';
+        setTimeout(function(){w.style.display='none';},300);
     }
 }
-function addMsgChat(texto,isUser){
-    var c=document.getElementById('agent-messages'), d=document.createElement('div');
-    d.style.cssText=isUser?'background:#009c3b;color:white;padding:14px;border-radius:16px 16px 4px 16px;margin-left:auto;max-width:85%;font-size:11px;font-weight:700;':'background:white;padding:14px;border-radius:16px 16px 16px 4px;border:1px solid #e2e8f0;max-width:85%;font-size:11px;color:#334155;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
-    d.innerHTML=texto; c.appendChild(d); c.scrollTop=c.scrollHeight;
+function chatMsg(txt,isUser){
+    var c=document.getElementById('chat-m'), d=document.createElement('div');
+    d.style.cssText=isUser
+        ?'background:#009c3b;color:white;padding:14px;border-radius:16px 16px 4px 16px;margin-left:auto;max-width:85%;font-size:11px;font-weight:700;'
+        :'background:white;padding:14px;border-radius:16px 16px 16px 4px;border:1px solid #e2e8f0;max-width:85%;font-size:11px;color:#334155;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.06);';
+    d.innerHTML=txt; c.appendChild(d); c.scrollTop=c.scrollHeight;
 }
-function escolherOpcao(tipo,valor){
-    addMsgChat(valor+' ✅',true);
+function escolherOpcao(tipo,val){
+    chatMsg(val+' ✅',true);
     if(tipo==='classe'){
-        chatData.classe=valor;
-        addMsgChat('<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).');
-        setTimeout(function(){ addMsgChat('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><p style="font-size:10px;color:#64748b;font-weight:600;">Deseja adicionar mala despachada de 23kg?</p><button onclick="escolherOpcao(\'bagagem\',\'Sim - Mala despachada de 23kg\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Sim</button><button onclick="escolherOpcao(\'bagagem\',\'Não - Apenas mala de mão\')" style="background:#94a3b8;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Não</button></div>'); },800);
+        chatD.classe=val;
+        chatMsg('<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).');
+        setTimeout(function(){ chatMsg('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><p style="font-size:10px;color:#64748b;font-weight:600;">Deseja adicionar mala despachada de 23kg?</p><button onclick="escolherOpcao(\'bagagem\',\'Sim - Mala despachada de 23kg\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Sim</button><button onclick="escolherOpcao(\'bagagem\',\'Não - Apenas mala de mão\')" style="background:#94a3b8;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Não</button></div>'); },800);
         chatStep=5;
-    }else if(tipo==='bagagem'){ chatData.bagagem=valor; finalizarChat(); }
+    }else if(tipo==='bagagem'){ chatD.bagagem=val; chatFinal(); }
 }
-function finalizarChat(){
-    addMsgChat('Gerando sua cotação exclusiva com milhas... ✨');
+function chatFinal(){
+    chatMsg('Gerando sua cotação exclusiva com milhas... ✨');
     setTimeout(function(){
-        var t='Olá Voe F5! Quero uma cotação:%0A📍 Destino: '+chatData.destino+'%0A✈️ Tipo: '+chatData.tipo+'%0A📅 Datas: '+chatData.datas+'%0A👥 Passageiros: '+chatData.passageiros+'%0A🎫 Classe: '+chatData.classe+'%0A💼 Bagagem: '+chatData.bagagem;
-        addMsgChat('<a href="https://wa.me/5511988908306?text='+t+'" target="_blank" style="display:block;background:#009c3b;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:700;margin-top:8px;font-size:11px;text-decoration:none;">📲 Enviar Cotação via WhatsApp</a>');
+        var t='Olá Voe F5! Quero uma cotação:%0A📍 Destino: '+chatD.destino+'%0A✈️ Tipo: '+chatD.tipo+'%0A📅 Datas: '+chatD.datas+'%0A👥 Passageiros: '+chatD.passageiros+'%0A🎫 Classe: '+chatD.classe+'%0A💼 Bagagem: '+chatD.bagagem;
+        chatMsg('<a href="https://wa.me/5511988908306?text='+t+'" target="_blank" style="display:block;background:#009c3b;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:700;margin-top:8px;font-size:11px;text-decoration:none;">📲 Enviar Cotação via WhatsApp</a>');
     },1000);
 }
-function enviarMensagem(){
-    var input=document.getElementById('agent-input'), msg=input.value.trim();
-    if(!msg)return; addMsgChat(msg,true); input.value='';
+function chatSend(){
+    var inp=document.getElementById('chat-inp'), msg=inp.value.trim();
+    if(!msg)return; chatMsg(msg,true); inp.value='';
     setTimeout(function(){
-        var lower=msg.toLowerCase();
+        var lo=msg.toLowerCase();
         if(chatStep===-1){
-            var s=['ola','olá','oi','bom dia','boa tarde','boa noite','blz','tudo bem'];
-            if(s.some(function(x){return lower.includes(x);})){addMsgChat('Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?');chatStep=0;}
-            else{chatData.destino=msg;addMsgChat('Perfeito! Destino: <b>'+msg+'</b>.<br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');chatStep=1;}
-        }else if(chatStep===0){chatData.destino=msg;addMsgChat('Excelente! ✈️<br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');chatStep=1;}
-        else if(chatStep===1){chatData.tipo=lower.includes('volta')?'Ida e Volta':'Somente Ida';addMsgChat(chatData.tipo==='Ida e Volta'?'Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>.':'Entendido! Qual a <b>data de embarque</b>?');chatStep=2;}
-        else if(chatStep===2){chatData.datas=msg;addMsgChat('Para <b>quantas pessoas</b>? Informe a idade se houver crianças.');chatStep=3;}
-        else if(chatStep===3){chatData.passageiros=msg;addMsgChat('Qual classe você prefere?');setTimeout(function(){addMsgChat('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><button onclick="escolherOpcao(\'classe\',\'Econômica\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Econômica</button><button onclick="escolherOpcao(\'classe\',\'Executiva\')" style="background:#2563eb;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Executiva</button></div>');},800);chatStep=4;}
+            var g=['ola','olá','oi','bom dia','boa tarde','boa noite','blz','tudo bem'];
+            if(g.some(function(s){return lo.includes(s);})){chatMsg('Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?');chatStep=0;}
+            else{chatD.destino=msg;chatMsg('Perfeito! Destino: <b>'+msg+'</b>.<br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');chatStep=1;}
+        }else if(chatStep===0){chatD.destino=msg;chatMsg('Excelente! ✈️<br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');chatStep=1;}
+        else if(chatStep===1){chatD.tipo=lo.includes('volta')?'Ida e Volta':'Somente Ida';chatMsg(chatD.tipo==='Ida e Volta'?'Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>.':'Entendido! Qual a <b>data de embarque</b>?');chatStep=2;}
+        else if(chatStep===2){chatD.datas=msg;chatMsg('Para <b>quantas pessoas</b>? Informe a idade se houver crianças.');chatStep=3;}
+        else if(chatStep===3){
+            chatD.passageiros=msg;chatMsg('Qual classe você prefere?');
+            setTimeout(function(){chatMsg('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><button onclick="escolherOpcao(\'classe\',\'Econômica\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Econômica</button><button onclick="escolherOpcao(\'classe\',\'Executiva\')" style="background:#2563eb;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Executiva</button></div>');},800);
+            chatStep=4;
+        }
     },800);
 }
-document.getElementById('agent-input').addEventListener('keypress',function(e){if(e.key==='Enter')enviarMensagem();});
+document.getElementById('chat-inp').addEventListener('keypress',function(e){if(e.key==='Enter')chatSend();});
 </script>
 </body>
 </html>
