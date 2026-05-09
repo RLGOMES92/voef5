@@ -2,7 +2,7 @@
 <html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1280">
     <title>Voe F5 Tour | Atualize a sua forma de viajar</title>
 
     <!-- Tailwind CDN -->
@@ -115,8 +115,7 @@
         .hero-title {
             font-weight: 900; font-style: italic; text-transform: uppercase; color: #fff;
             line-height: 1.12; margin: 0 0 10px;
-            /* Reduzido para caber em 1 linha mesmo no mobile */
-            font-size: clamp(15px, 4.8vw, 58px);
+            font-size: clamp(20px, 1.8vw, 42px);
             white-space: nowrap;
             text-shadow: 0 2px 18px rgba(0,0,0,.45), 0 0 32px rgba(255,204,0,.15);
             animation: swell 3.5s ease-in-out infinite;
@@ -144,7 +143,7 @@
         .search-wrap {
             width: 100%;
             border-radius: 18px;
-            overflow: hidden;
+            overflow: visible;
             /* Glass escuro semitransparente */
             background: rgba(0, 8, 24, 0.42);
             backdrop-filter: blur(14px);
@@ -160,6 +159,7 @@
             padding: 10px 16px;
             display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
             border-bottom: 1px solid rgba(255,255,255,.10);
+            border-radius: 18px 18px 0 0;
         }
         .type-bar-label { color:rgba(255,255,255,.72); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; margin-right:4px; }
         .type-pill { padding:5px 18px; border-radius:999px; border:2px solid rgba(255,255,255,.5); background:transparent; color:rgba(255,255,255,.85); font-size:11px; font-weight:800; font-family:inherit; cursor:pointer; transition:all .2s; text-transform:uppercase; letter-spacing:.05em; }
@@ -168,7 +168,7 @@
 
         /* Corpo do form — totalmente transparente */
         .search-body {
-            padding: 14px 14px 16px;
+            padding: 18px 18px 20px;
             background: transparent;
         }
 
@@ -179,7 +179,7 @@
         .search-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 12px;
             align-items: end;
         }
         .search-grid .search-submit { grid-column: 1 / -1; }
@@ -193,15 +193,15 @@
         }
 
         /* Campo */
-        .sf { display:flex; flex-direction:column; gap:5px; }
-        .sf-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.55); }
+        .sf { display:flex; flex-direction:column; gap:6px; }
+        .sf-label { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.55); }
 
         /* Inputs — glass claro sobre fundo escuro */
         .sf-input {
             width:100%;
             background: rgba(255,255,255,.12);
             border: 1.5px solid rgba(255,255,255,.20);
-            border-radius:12px; padding:11px 12px; font-size:12px; font-weight:700;
+            border-radius:12px; padding:14px 14px; font-size:14px; font-weight:700;
             font-family:inherit; color:#fff; outline:none;
             transition:border-color .2s, background .2s;
             -webkit-appearance:none; appearance:none; box-sizing:border-box; min-width:0;
@@ -218,11 +218,11 @@
             width:100%;
             background: rgba(255,255,255,.12);
             border: 1.5px solid rgba(255,255,255,.20);
-            border-radius:12px; padding:11px 12px; font-size:12px; font-weight:700;
+            border-radius:12px; padding:14px 14px; font-size:14px; font-weight:700;
             font-family:inherit; color:#fff; cursor:pointer;
             display:flex; justify-content:space-between; align-items:center;
             transition:border-color .2s, background .2s;
-            box-sizing:border-box; gap:4px; min-width:0; overflow:hidden;
+            box-sizing:border-box; gap:6px; min-width:0; overflow:visible;
         }
         .drop-btn:hover,.drop-btn.open { border-color:#009C3B; background:rgba(255,255,255,.20); }
         .drop-btn .lbl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; text-align:left; }
@@ -257,11 +257,11 @@
         .search-submit {
             background: linear-gradient(135deg, #009C3B 0%, #00c44a 100%);
             color: #fff; border: none; border-radius: 14px;
-            font-size: 13px; font-weight: 900; text-transform: uppercase; font-style: italic;
+            font-size: 15px; font-weight: 900; text-transform: uppercase; font-style: italic;
             letter-spacing: .04em; font-family: inherit;
             cursor: pointer; transition: all .2s;
             box-shadow: 0 6px 22px rgba(0,156,59,.42);
-            height: 46px; width: 100%;
+            height: 52px; width: 100%;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             white-space: nowrap;
         }
@@ -597,7 +597,7 @@
             <div class="suc-card border-b-4 border-brand-green">
                 <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 18%</div>
                 <h3 class="font-extrabold text-lg italic uppercase mb-1">SÃO PAULO → LISBOA</h3>
-                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span class="relative inline-block px-1">R$ 4.642,00<span class="absolute left-0 right-0" style="top:50%;height:2px;background:rgba(239,68,68,.6);transform:rotate(-2deg);"></span></span></p>
+                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 2px;">R$ 4.642,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,.75);transform:translateY(-50%) rotate(-2deg);display:block;"></span></span></p>
                 <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
                     <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 3.760,19</span></div>
                     <span class="text-3xl">📉</span>
@@ -606,7 +606,7 @@
             <div class="suc-card border-b-4 border-brand-green">
                 <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 28%</div>
                 <h3 class="font-extrabold text-lg italic uppercase mb-1">SÃO PAULO → ORLANDO</h3>
-                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span class="relative inline-block px-1">R$ 3.620,00<span class="absolute left-0 right-0" style="top:50%;height:2px;background:rgba(239,68,68,.6);transform:rotate(-2deg);"></span></span></p>
+                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 2px;">R$ 3.620,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,.75);transform:translateY(-50%) rotate(-2deg);display:block;"></span></span></p>
                 <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
                     <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 2.419,00</span></div>
                     <span class="text-3xl">📉</span>
@@ -615,7 +615,7 @@
             <div class="suc-card border-b-4 border-brand-green">
                 <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 17%</div>
                 <h3 class="font-extrabold text-lg italic uppercase mb-1">ROMA → LISBOA</h3>
-                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span class="relative inline-block px-1">R$ 679,50<span class="absolute left-0 right-0" style="top:50%;height:2px;background:rgba(239,68,68,.6);transform:rotate(-2deg);"></span></span></p>
+                <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 2px;">R$ 679,50<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,.75);transform:translateY(-50%) rotate(-2deg);display:block;"></span></span></p>
                 <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
                     <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 564,00</span></div>
                     <span class="text-3xl">📉</span>
