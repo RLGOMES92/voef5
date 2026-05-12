@@ -96,9 +96,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 80px 24px 20px;
+        padding: 80px 8px 20px;
     }
-    @media(min-width:768px){ .hero-overlay { padding: 100px 56px 28px; } }
+    @media(min-width:768px){ .hero-overlay { padding: 100px 24px 28px; } }
 
     .hero-text-block { padding-bottom: 22px; width: 100%; }
     @media(min-width:768px){ .hero-text-block { padding-bottom: 28px; } }
@@ -282,7 +282,7 @@
 </head>
 <body>
 
-<!-- ══════════════════════ NAVBAR ══════════════════════ -->
+<!-- ════════ NAVBAR ════════ -->
 <header id="navbar">
   <div style="max-width:1280px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;">
     <div style="display:flex;align-items:center;flex-shrink:0;min-width:0;gap:0;">
@@ -316,7 +316,7 @@
 
     <!-- Texto -->
     <div class="hero-text-block">
-      <h1 class="hero-title">Economize em voos <span style="color:#FFCC00;"> com inteligência.</span></h1>
+      <h1 class="hero-title">Economize em voos com <span style="color:#FFCC00;">inteligência.</span></h1>
     </div>
 
     <!-- Formulário -->
@@ -325,7 +325,7 @@
 
         <div class="type-bar">
           <span class="type-bar-label">Tipo de voo</span>
-          <button type="button" class="type-pill active" id="pill-iv" onclick="setTipo('iv')">✈️ Ida e Volta</button>
+          <button type="button" class="type-pill active" id="pill-iv" onclick="setTipo('iv')">✈ Ida e Volta</button>
           <button type="button" class="type-pill" id="pill-si" onclick="setTipo('si')">→ Somente Ida</button>
         </div>
 
@@ -334,7 +334,7 @@
             <div class="search-grid">
 
               <div class="sf">
-                <label class="sf-label">✈️ Origem</label>
+                <label class="sf-label">✈ Origem</label>
                 <input type="text" id="f-orig" class="sf-input" placeholder="Ex: São Paulo">
               </div>
 
@@ -432,7 +432,6 @@
 
   </div>
 </section>
-<!-- ══ fim HERO ══ -->
 
 <!-- ════════ CASOS DE SUCESSO ════════ -->
 <section class="py-16 bg-white">
@@ -571,7 +570,7 @@
   </div>
 </section>
 
-<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<!-- ════════ FOOTER ════════ -->
 <footer style="padding:48px 24px;background:#001A4F;text-align:center;color:rgba(255,255,255,.38);font-size:10px;font-weight:700;text-transform:uppercase;font-style:italic;letter-spacing:.2em;border-top:1px solid rgba(255,255,255,.05);">
   &copy; Voe F5 Tour | Atualize a sua forma de viajar
 </footer>
@@ -619,7 +618,6 @@
   });
 })();
 
-/* ── Hero auto-slide ── */
 /* ── Hero auto-slide ── */
 (function(){
   var sl=document.querySelectorAll('.slide'), i=0;
@@ -706,14 +704,14 @@ function submitSearch(e){
   var vlt=fmtDate(document.getElementById('f-volta').value);
   if(!ori||!des){alert('Por favor, informe a origem e o destino.');return;}
   if(!ida){alert('Por favor, informe a data de ida.');return;}
-  var msg='Olá! Gostaria de uma cotação:\n\n✈️ Origem: '+ori
-    +'\n📍 Destino: '+des
-    +'\n📅 Ida: '+ida
-    +(vlt&&tipo==='iv'?'\n📅 Volta: '+vlt:'')
-    +'\n👥 Passageiros: '+passData.adt+' Adulto(s)'
+  var msg='Olá! Gostaria de uma cotação:\n\n✈ *Origem:* '+ori
+    +'\n📍 *Destino:* '+des
+    +'\n📅 *Ida:* '+ida
+    +(vlt&&tipo==='iv'?'\n📅 *Volta:* '+vlt:'')
+    +'\n👥 *Passageiros:* '+passData.adt+' Adulto(s)'
     +(passData.chd>0?', '+passData.chd+' Criança(s)':'')
     +(passData.inf>0?', '+passData.inf+' Bebê(s)':'')
-    +'\n💼 Bagagem: '+bagData.mao+' de mão, '+bagData.desp+' despachada(s)';
+    +'\n💼 *Bagagem:* '+bagData.mao+' de mão, '+bagData.desp+' despachada(s)';
   window.open('https://wa.me/5511988908306?text='+encodeURIComponent(msg),'_blank');
 }
 
