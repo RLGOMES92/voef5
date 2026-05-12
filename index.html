@@ -2,7 +2,7 @@
 <html lang="pt-br" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=1280">
 <title>Voe F5 Tour | Atualize a sua forma de viajar</title>
 
 <!-- Tailwind CDN -->
@@ -70,7 +70,7 @@
     #navbar.scrolled #wpp-btn { background:rgba(0,156,59,.1); border-color:#009C3B; }
     #navbar.scrolled #wpp-btn span { color:#001A4F; font-weight:800; text-shadow:none; }
 
-    /* ══ HERO — AJUSTE 1: ALTURA REDUZIDA ══ */
+    /* ══ HERO ══ */
     .hero {
         position: relative;
         width: 100%;
@@ -86,7 +86,7 @@
     .slide-bg { position:absolute; inset:0; background-size:cover; background-position:center top; }
     @media(max-width:767px){ .slide-bg { background-position:center center; } }
 
-    /* ══ AJUSTE 2: OVERLAY CENTRALIZADO ══ */
+    /* ══ OVERLAY CENTRALIZADO ══ */
     .hero-overlay {
         position: absolute; inset: 0; z-index: 10;
         background: linear-gradient(to top,
@@ -118,7 +118,7 @@
         50%{ transform:scale(1.022); text-shadow:0 0 24px rgba(255,255,255,.35),0 0 40px rgba(255,204,0,.28); }
     }
 
-    /* ══ FORMULÁRIO — AJUSTE 3: GLASS IGUAL mobile e desktop ══ */
+    /* ══ FORMULÁRIO ══ */
     #search-section {
         position: relative;
         z-index: 20;
@@ -311,15 +311,12 @@
   <div class="slide"><div class="slide-bg" style="background-image:url('img/rec.png');"></div></div>
   <div class="slide"><div class="slide-bg" style="background-image:url('img/eua.png');"></div></div>
 
-  <!-- Overlay: frase + formulário centralizados verticalmente -->
   <div class="hero-overlay">
 
-    <!-- Texto -->
     <div class="hero-text-block">
       <h1 class="hero-title">Economize em voos com <span style="color:#FFCC00;">inteligência.</span></h1>
     </div>
 
-    <!-- Formulário -->
     <section id="search-section">
       <div class="search-wrap">
 
@@ -439,6 +436,7 @@
     <div class="text-center mb-12">
       <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
+        Transformando eficiência em <span class="text-brand-green">economia real</span>
       </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -610,7 +608,6 @@
 <!-- ════════ JAVASCRIPT ════════ -->
 <script>
 
-/* ── Navbar scroll ── */
 (function(){
   window.addEventListener('scroll',function(){
     var n=document.getElementById('navbar');
@@ -618,7 +615,6 @@
   });
 })();
 
-/* ── Hero auto-slide ── */
 (function(){
   var sl=document.querySelectorAll('.slide'), i=0;
   setInterval(function(){
@@ -628,7 +624,6 @@
   },5000);
 })();
 
-/* ── Swiper ── */
 document.addEventListener('DOMContentLoaded', function(){
   new Swiper('.swiper-testi', {
     slidesPerView: 1, spaceBetween: 28, centeredSlides: false,
@@ -642,7 +637,6 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-/* ── Formulário ── */
 var tipo = 'iv';
 var passData = { adt:1, chd:0, inf:0 };
 var bagData  = { mao:0, desp:0 };
@@ -715,7 +709,6 @@ function submitSearch(e){
   window.open('https://wa.me/5511988908306?text='+encodeURIComponent(msg),'_blank');
 }
 
-/* ── Chat ── */
 var chatStep=-1, chatD={destino:'',tipo:'',datas:'',passageiros:'',classe:'',bagagem:''};
 
 function toggleChat(){
