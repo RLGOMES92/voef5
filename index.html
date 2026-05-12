@@ -268,6 +268,69 @@
     .swiper-testi .swiper-pagination-progressbar { height: 3px; background: rgba(0,156,59,.15); }
     .swiper-testi .swiper-pagination-progressbar .swiper-pagination-progressbar-fill { background: #009C3B; }
 
+    /* ══ ESCALA MOBILE — viewport width=1280 ══
+       Em telas físicas menores que 768px o site renderiza
+       em 1280px lógicos, então usamos transform:scale para
+       aumentar os elementos-chave sem mexer na estrutura.
+    ══ */
+    @media(max-width:767px){
+
+        /* Logo maior */
+        .logo-wrap { height:90px !important; width:100px !important; }
+
+        /* Frase maior */
+        .hero-title { font-size: 38px !important; }
+        .hero-sub   { font-size: 20px !important; }
+
+        /* Navbar tag maior */
+        #nav-tag { font-size: 18px !important; }
+
+        /* Botão WhatsApp navbar */
+        #wpp-btn { padding: 10px 22px !important; }
+        #wpp-btn svg { width: 32px !important; height: 32px !important; }
+        #wpp-btn span { font-size: 18px !important; }
+
+        /* Formulário — labels, inputs, pills maiores */
+        .type-bar { padding: 16px 22px !important; gap: 14px !important; }
+        .type-bar-label { font-size: 16px !important; }
+        .type-pill { font-size: 17px !important; padding: 9px 28px !important; border-width: 3px !important; }
+
+        .search-body { padding: 22px 22px 26px !important; }
+        .sf-label { font-size: 17px !important; }
+        .sf-input {
+            font-size: 20px !important;
+            padding: 18px 18px !important;
+            border-radius: 16px !important;
+        }
+        .drop-btn {
+            font-size: 20px !important;
+            padding: 18px 18px !important;
+            border-radius: 16px !important;
+        }
+        .search-grid { gap: 16px !important; }
+        .search-wrap { border-radius: 24px !important; }
+        .search-submit {
+            height: 72px !important;
+            font-size: 22px !important;
+            border-radius: 18px !important;
+        }
+
+        /* Botão do agente chat — muito maior */
+        #agent-widget > button {
+            width: 96px !important;
+            height: 96px !important;
+            border-radius: 28px !important;
+            border-bottom-width: 6px !important;
+        }
+        #agent-widget > button svg {
+            width: 52px !important;
+            height: 52px !important;
+        }
+
+        /* Chat widget maior */
+        #chat-w { width: 520px !important; }
+    }
+
     /* ══ CHAT ══ */
     .pulse-g { animation: pg 2s infinite; }
     @keyframes pg { 0%{ box-shadow:0 0 0 0 rgba(0,156,59,.7); } 70%{ box-shadow:0 0 0 16px rgba(0,156,59,0); } 100%{ box-shadow:0 0 0 0 rgba(0,156,59,0); } }
