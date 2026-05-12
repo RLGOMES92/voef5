@@ -70,23 +70,23 @@
     #navbar.scrolled #wpp-btn { background:rgba(0,156,59,.1); border-color:#009C3B; }
     #navbar.scrolled #wpp-btn span { color:#001A4F; font-weight:800; text-shadow:none; }
 
-    /* ══ HERO ══ */
+    /* ══ HERO — AJUSTE 1: ALTURA REDUZIDA ══ */
     .hero {
         position: relative;
         width: 100%;
-        height: 85vh;
-        min-height: 620px;
+        height: 75vh;
+        min-height: 560px;
         overflow: hidden;
         background: #000;
     }
-    @media(min-width:1024px){ .hero { height: 80vh; min-height: 640px; } }
+    @media(min-width:1024px){ .hero { height: 72vh; min-height: 580px; } }
 
     .slide { position:absolute; inset:0; opacity:0; transition:opacity 2s ease-in-out; z-index:1; }
     .slide.active { opacity:1; z-index:2; }
     .slide-bg { position:absolute; inset:0; background-size:cover; background-position:center top; }
     @media(max-width:767px){ .slide-bg { background-position:center center; } }
 
-    /* ══ OVERLAY CENTRALIZADO ══ */
+    /* ══ AJUSTE 2: OVERLAY CENTRALIZADO ══ */
     .hero-overlay {
         position: absolute; inset: 0; z-index: 10;
         background: linear-gradient(to top,
@@ -96,9 +96,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 80px 8px 20px;
+        padding: 80px 24px 20px;
     }
-    @media(min-width:768px){ .hero-overlay { padding: 100px 24px 28px; } }
+    @media(min-width:768px){ .hero-overlay { padding: 100px 56px 28px; } }
 
     .hero-text-block { padding-bottom: 22px; width: 100%; }
     @media(min-width:768px){ .hero-text-block { padding-bottom: 28px; } }
@@ -118,7 +118,7 @@
         50%{ transform:scale(1.022); text-shadow:0 0 24px rgba(255,255,255,.35),0 0 40px rgba(255,204,0,.28); }
     }
 
-    /* ══ FORMULÁRIO ══ */
+    /* ══ FORMULÁRIO — AJUSTE 3: GLASS IGUAL mobile e desktop ══ */
     #search-section {
         position: relative;
         z-index: 20;
@@ -268,69 +268,6 @@
     .swiper-testi .swiper-pagination-progressbar { height: 3px; background: rgba(0,156,59,.15); }
     .swiper-testi .swiper-pagination-progressbar .swiper-pagination-progressbar-fill { background: #009C3B; }
 
-    /* ══ ESCALA MOBILE — viewport width=1280 ══
-       Em telas físicas menores que 768px o site renderiza
-       em 1280px lógicos, então usamos transform:scale para
-       aumentar os elementos-chave sem mexer na estrutura.
-    ══ */
-    @media(max-width:767px){
-
-        /* Logo maior */
-        .logo-wrap { height:90px !important; width:100px !important; }
-
-        /* Frase maior */
-        .hero-title { font-size: 38px !important; }
-        .hero-sub   { font-size: 20px !important; }
-
-        /* Navbar tag maior */
-        #nav-tag { font-size: 18px !important; }
-
-        /* Botão WhatsApp navbar */
-        #wpp-btn { padding: 10px 22px !important; }
-        #wpp-btn svg { width: 32px !important; height: 32px !important; }
-        #wpp-btn span { font-size: 18px !important; }
-
-        /* Formulário — labels, inputs, pills maiores */
-        .type-bar { padding: 16px 22px !important; gap: 14px !important; }
-        .type-bar-label { font-size: 16px !important; }
-        .type-pill { font-size: 17px !important; padding: 9px 28px !important; border-width: 3px !important; }
-
-        .search-body { padding: 22px 22px 26px !important; }
-        .sf-label { font-size: 17px !important; }
-        .sf-input {
-            font-size: 20px !important;
-            padding: 18px 18px !important;
-            border-radius: 16px !important;
-        }
-        .drop-btn {
-            font-size: 20px !important;
-            padding: 18px 18px !important;
-            border-radius: 16px !important;
-        }
-        .search-grid { gap: 16px !important; }
-        .search-wrap { border-radius: 24px !important; }
-        .search-submit {
-            height: 72px !important;
-            font-size: 22px !important;
-            border-radius: 18px !important;
-        }
-
-        /* Botão do agente chat — muito maior */
-        #agent-widget > button {
-            width: 96px !important;
-            height: 96px !important;
-            border-radius: 28px !important;
-            border-bottom-width: 6px !important;
-        }
-        #agent-widget > button svg {
-            width: 52px !important;
-            height: 52px !important;
-        }
-
-        /* Chat widget maior */
-        #chat-w { width: 520px !important; }
-    }
-
     /* ══ CHAT ══ */
     .pulse-g { animation: pg 2s infinite; }
     @keyframes pg { 0%{ box-shadow:0 0 0 0 rgba(0,156,59,.7); } 70%{ box-shadow:0 0 0 16px rgba(0,156,59,0); } 100%{ box-shadow:0 0 0 0 rgba(0,156,59,0); } }
@@ -374,12 +311,16 @@
   <div class="slide"><div class="slide-bg" style="background-image:url('img/rec.png');"></div></div>
   <div class="slide"><div class="slide-bg" style="background-image:url('img/eua.png');"></div></div>
 
+  <!-- Overlay: frase + formulário centralizados verticalmente -->
   <div class="hero-overlay">
 
+    <!-- Texto -->
     <div class="hero-text-block">
       <h1 class="hero-title">Economize em voos com <span style="color:#FFCC00;">inteligência.</span></h1>
+      <p class="hero-sub">Encontramos as melhores opções para sua viagem — voos, rotas e experiências exclusivas.</p>
     </div>
 
+    <!-- Formulário -->
     <section id="search-section">
       <div class="search-wrap">
 
@@ -566,6 +507,8 @@
   <div style="max-width:1280px;margin:0 auto;">
     <div class="testi-head">
       <p class="eyebrow">O que dizem sobre nós</p>
+      <h2>O que nossos <span>Viajantes</span> dizem</h2>
+      <p>Mais de 3.000 clientes satisfeitos que economizaram viajando com a Voe F5.</p>
     </div>
     <div class="swiper swiper-testi">
       <div class="swiper-wrapper">
@@ -671,6 +614,7 @@
 <!-- ════════ JAVASCRIPT ════════ -->
 <script>
 
+/* ── Navbar scroll ── */
 (function(){
   window.addEventListener('scroll',function(){
     var n=document.getElementById('navbar');
@@ -678,6 +622,7 @@
   });
 })();
 
+/* ── Hero auto-slide ── */
 (function(){
   var sl=document.querySelectorAll('.slide'), i=0;
   setInterval(function(){
@@ -687,6 +632,7 @@
   },5000);
 })();
 
+/* ── Swiper ── */
 document.addEventListener('DOMContentLoaded', function(){
   new Swiper('.swiper-testi', {
     slidesPerView: 1, spaceBetween: 28, centeredSlides: false,
@@ -700,6 +646,7 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
+/* ── Formulário ── */
 var tipo = 'iv';
 var passData = { adt:1, chd:0, inf:0 };
 var bagData  = { mao:0, desp:0 };
@@ -772,6 +719,7 @@ function submitSearch(e){
   window.open('https://wa.me/5511988908306?text='+encodeURIComponent(msg),'_blank');
 }
 
+/* ── Chat ── */
 var chatStep=-1, chatD={destino:'',tipo:'',datas:'',passageiros:'',classe:'',bagagem:''};
 
 function toggleChat(){
