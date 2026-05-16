@@ -25,12 +25,6 @@
     }
 </script>
 
-<script>
-/* Roda ANTES do CSS — evita flash e garante classe mobile no primeiro paint */
-if(window.screen.width <= 767){
-  document.documentElement.className += ' is-mobile';
-}
-</script>
 <style>
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin: 0; }
@@ -38,7 +32,7 @@ if(window.screen.width <= 767){
     /* ══ NAVBAR ══ */
     #navbar {
         position: fixed; inset: 0 0 auto; z-index: 200;
-        padding: 6px 18px;
+        padding: 6px 16px;
         display: flex; align-items: center;
         transition: background .4s, box-shadow .4s;
     }
@@ -213,129 +207,7 @@ if(window.screen.width <= 767){
     .is-mobile #wpp-btn svg { width:28px !important; height:28px !important; }
     .is-mobile #wpp-btn span { font-size:14px !important; }
 
-    /* ══ MOBILE: HERO ══ */
-    .is-mobile .hero { height:48vh !important; min-height:480px !important; overflow:hidden !important; }
-    .is-mobile .slide-bg { background-position:center center !important; }
-    .is-mobile .hero-overlay {
-        justify-content:center !important;
-        align-items:center !important;
-        padding:90px 16px 24px !important;
-        flex-direction:column !important;
-    }
-    .is-mobile .hero-text-block {
-        display:flex !important;
-        justify-content:center !important;
-        align-items:center !important;
-        padding-bottom:20px !important;
-        width:100% !important;
-    }
-    .is-mobile .hero-title {
-        text-align:center !important;
-        white-space:normal !important;
-        font-size:22px !important;
-        line-height:1.2 !important;
-        margin:0 !important;
-    }
-
-    /* ══ MOBILE: FORMULÁRIO ══ */
-    .is-mobile #search-section { width:100% !important; }
-    .is-mobile .search-wrap {
-        background:rgba(0,4,16,.88) !important;
-        border-radius:16px !important;
-        border:1px solid rgba(255,255,255,.15) !important;
-        overflow:hidden !important;
-        width:100% !important;
-    }
-
-    /* Pills */
-    .is-mobile .type-bar {
-        justify-content:center !important;
-        padding:10px 12px !important;
-        gap:8px !important;
-        background:#009C3B !important;
-        border-radius:0 !important;
-        border-bottom:none !important;
-    }
-    .is-mobile .type-bar-label { display:none !important; }
-    .is-mobile .type-pill {
-        flex:1 !important;
-        text-align:center !important;
-        padding:9px 8px !important;
-        font-size:12px !important;
-        border-color:rgba(255,255,255,.6) !important;
-        border-radius:999px !important;
-        background:transparent !important;
-        color:#fff !important;
-    }
-    .is-mobile .type-pill.active {
-        background:#fff !important;
-        border-color:#fff !important;
-        color:#009C3B !important;
-    }
-
-    /* Body do formulário */
-    .is-mobile .search-body { padding:14px 12px 16px !important; }
-
-    /* Grid: força flex coluna, ignora o grid desktop */
-    .is-mobile .search-grid {
-        display:flex !important;
-        flex-direction:column !important;
-        gap:10px !important;
-        width:100% !important;
-    }
-
-    /* Row 1: Origem + Destino */
-    .is-mobile .sf-row-1 {
-        display:grid !important;
-        grid-template-columns:1fr 1fr !important;
-        gap:8px !important;
-        width:100% !important;
-    }
-
-    /* Row 2: Ida + Volta + Passag + Bag em 2x2 */
-    .is-mobile .sf-row-2 {
-        display:grid !important;
-        grid-template-columns:1fr 1fr !important;
-        gap:8px !important;
-        width:100% !important;
-    }
-
-    /* Botão */
-    .is-mobile .sf-row-btn {
-        display:block !important;
-        width:100% !important;
-    }
-
-    /* Campos */
-    .is-mobile .sf { display:flex !important; flex-direction:column !important; gap:5px !important; min-width:0 !important; }
-    .is-mobile .sf-label { font-size:9px !important; letter-spacing:.08em !important; }
-    .is-mobile .sf-input {
-        width:100% !important;
-        font-size:13px !important;
-        padding:11px 10px !important;
-        border-radius:10px !important;
-        min-width:0 !important;
-        box-sizing:border-box !important;
-    }
-    .is-mobile .drop-btn {
-        width:100% !important;
-        font-size:12px !important;
-        padding:11px 10px !important;
-        border-radius:10px !important;
-        min-width:0 !important;
-        box-sizing:border-box !important;
-    }
-    .is-mobile .drop-btn .lbl { font-size:12px !important; }
-    .is-mobile .search-submit {
-        height:52px !important;
-        font-size:14px !important;
-        font-style:normal !important;
-        letter-spacing:.08em !important;
-        border-radius:12px !important;
-        width:100% !important;
-    }
-
-    /* ══ DEPOIMENTOS ══ */
+        /* ══ DEPOIMENTOS ══ */
     .testi-section { padding:96px 24px; background:linear-gradient(160deg,#f0fdf4 0%,#e0f2fe 50%,#f0fdf4 100%); border-top:1px solid #e2e8f0; overflow:hidden; }
     .testi-head { text-align:center; margin-bottom:64px; }
     .testi-head .eyebrow { color:#009C3B; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; margin-bottom:12px; }
@@ -530,6 +402,7 @@ if(window.screen.width <= 767){
     <div class="text-center mb-12">
       <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
+        Transformando eficiência em <span class="text-brand-green">economia real</span>
       </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -653,23 +526,7 @@ if(window.screen.width <= 767){
 <!-- ════════ JAVASCRIPT ════════ -->
 <script>
 
-/* ══ DETECÇÃO MOBILE via screen.width (ignora viewport=1280) ══ */
-(function(){
-  function applyMobile(){
-    if(window.screen.width <= 767){
-      document.documentElement.classList.add('is-mobile');
-      document.body.classList.add('is-mobile');
-    } else {
-      document.documentElement.classList.remove('is-mobile');
-      document.body.classList.remove('is-mobile');
-    }
-  }
-  // Roda imediatamente no <html> para evitar flash
-  applyMobile();
-  // Roda novamente após DOM pronto
-  document.addEventListener('DOMContentLoaded', applyMobile);
-  window.addEventListener('resize', applyMobile);
-})();
+
 
 /* ══ NAVBAR SCROLL ══ */
 (function(){
@@ -843,23 +700,7 @@ function chatSend(){
 
 document.getElementById('chat-inp').addEventListener('keypress',function(e){if(e.key==='Enter')chatSend();});
 
-/* ══ AGENTE MOBILE: escala o botão do chat ══ */
-(function(){
-  function scaleAgent(){
-    var isMobile = window.screen.width <= 767;
-    var agentBtn = document.querySelector('#agent-widget > button');
-    var agentSvg = document.querySelector('#agent-widget > button svg');
-    if(isMobile){
-      if(agentBtn){ agentBtn.style.width='88px'; agentBtn.style.height='88px'; agentBtn.style.borderRadius='26px'; agentBtn.style.borderBottom='6px solid #007a2e'; }
-      if(agentSvg){ agentSvg.style.width='48px'; agentSvg.style.height='48px'; }
-    } else {
-      if(agentBtn){ agentBtn.style.width=''; agentBtn.style.height=''; agentBtn.style.borderRadius=''; agentBtn.style.borderBottom=''; }
-      if(agentSvg){ agentSvg.style.width=''; agentSvg.style.height=''; }
-    }
-  }
-  scaleAgent();
-  window.addEventListener('resize', scaleAgent);
-})();
+
 
 </script>
 </body>
