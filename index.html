@@ -51,6 +51,10 @@
 
     .logo-wrap { position:relative; height:60px; width:66px; flex-shrink:0; display:flex; align-items:center; }
     @media(min-width:768px){ .logo-wrap { height:108px; width:94px; } }
+
+    /* MOBILE: logo maior */
+    @media(max-width:767px){ .logo-wrap { height:78px; width:86px; } }
+
     #logo-w,#logo-b { position:absolute; height:115%; width:auto; transition:opacity .4s; }
     #logo-b { opacity:0; }
     #navbar.scrolled #logo-w { opacity:0; }
@@ -64,11 +68,21 @@
     #navbar.scrolled #nav-tag .tw { opacity:0; }
     #navbar.scrolled #nav-tag .tc { opacity:1; }
 
+    /* MOBILE: frase maior */
+    @media(max-width:767px){ #nav-tag { font-size: clamp(11px, 3.8vw, 15px); } }
+
     #wpp-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,.12); border:2px solid rgba(255,255,255,.55); border-radius:999px; padding:7px 16px; text-decoration:none; backdrop-filter:blur(6px); transition:background .35s, border-color .35s; margin-left:auto; flex-shrink:0; }
     #wpp-btn svg { width:22px; height:22px; }
     #wpp-btn span { color:#fff; font-size:clamp(10px,1.8vw,13px); font-weight:700; text-shadow:0 1px 4px rgba(0,0,0,.3); transition:color .35s, text-shadow .35s; }
     #navbar.scrolled #wpp-btn { background:rgba(0,156,59,.1); border-color:#009C3B; }
     #navbar.scrolled #wpp-btn span { color:#001A4F; font-weight:800; text-shadow:none; }
+
+    /* MOBILE: botão WhatsApp maior */
+    @media(max-width:767px){
+        #wpp-btn { padding: 9px 14px; gap: 7px; }
+        #wpp-btn svg { width: 24px; height: 24px; }
+        #wpp-btn span { font-size: 12px; }
+    }
 
     /* ══ HERO ══ */
     .hero {
@@ -81,12 +95,15 @@
     }
     @media(min-width:1024px){ .hero { height: 80vh; min-height: 640px; } }
 
+    /* MOBILE: hero menor */
+    @media(max-width:767px){ .hero { height: 68vh; min-height: 520px; } }
+
     .slide { position:absolute; inset:0; opacity:0; transition:opacity 2s ease-in-out; z-index:1; }
     .slide.active { opacity:1; z-index:2; }
     .slide-bg { position:absolute; inset:0; background-size:cover; background-position:center top; }
     @media(max-width:767px){ .slide-bg { background-position:center center; } }
 
-    /* ══ OVERLAY CENTRALIZADO ══ */
+    /* ══ OVERLAY ══ */
     .hero-overlay {
         position: absolute; inset: 0; z-index: 10;
         background: linear-gradient(to top,
@@ -100,8 +117,25 @@
     }
     @media(min-width:768px){ .hero-overlay { padding: 100px 24px 28px; } }
 
+    /* MOBILE: overlay empurra conteúdo para baixo */
+    @media(max-width:767px){
+        .hero-overlay {
+            justify-content: flex-end;
+            padding: 80px 12px 16px;
+        }
+    }
+
     .hero-text-block { padding-bottom: 22px; width: 100%; }
     @media(min-width:768px){ .hero-text-block { padding-bottom: 28px; } }
+
+    /* MOBILE: título centralizado */
+    @media(max-width:767px){
+        .hero-text-block {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 14px;
+        }
+    }
 
     .hero-title {
         font-weight: 900; font-style: italic; text-transform: uppercase; color: #fff;
@@ -111,6 +145,16 @@
         text-shadow: 0 2px 18px rgba(0,0,0,.45), 0 0 32px rgba(255,204,0,.15);
         animation: swell 3.5s ease-in-out infinite;
     }
+
+    /* MOBILE: título centralizado e quebra linha */
+    @media(max-width:767px){
+        .hero-title {
+            text-align: center;
+            white-space: normal;
+            font-size: clamp(18px, 5.5vw, 26px);
+        }
+    }
+
     .hero-sub { color:rgba(255,255,255,.88); font-weight:500; font-style:italic; margin:0; line-height:1.6; font-size:clamp(11px,1.8vw,17px); }
 
     @keyframes swell {
@@ -138,6 +182,11 @@
         box-shadow: 0 8px 40px rgba(0,0,0,.35);
     }
 
+    /* MOBILE: fundo mais sólido */
+    @media(max-width:767px){
+        .search-wrap { background: rgba(0,0,0,.72); border-color: rgba(255,255,255,.10); }
+    }
+
     .type-bar {
         background: rgba(0,156,59,.40);
         backdrop-filter: blur(8px);
@@ -151,7 +200,18 @@
     .type-pill.active { background:#fff; border-color:#fff; color:#009C3B; }
     .type-pill:not(.active):hover { background:rgba(255,255,255,.18); }
 
+    /* MOBILE: pills centralizados, label oculto, pill ativo verde */
+    @media(max-width:767px){
+        .type-bar { justify-content: center; padding: 10px 12px; gap: 8px; }
+        .type-bar-label { display: none; }
+        .type-pill { flex: 1; text-align: center; padding: 8px 10px; font-size: 12px; }
+        .type-pill.active { background: #009C3B; border-color: #009C3B; color: #fff; }
+    }
+
     .search-body { padding: 18px 18px 20px; background: transparent; }
+
+    /* MOBILE: padding menor */
+    @media(max-width:767px){ .search-body { padding: 12px 12px 14px; } }
 
     .search-grid {
         display: grid;
@@ -172,8 +232,41 @@
         .search-submit { height:54px; font-size:15px; box-shadow:0 8px 32px rgba(0,156,59,.5); }
     }
 
+    /* MOBILE: grid em coluna com rows agrupadas */
+    @media(max-width:767px){
+        .search-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        /* Row 1: Origem + Destino lado a lado */
+        .sf-row-1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        /* Row 2: Ida + Volta + Passageiros + Bagagem em 4 colunas */
+        .sf-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 6px;
+        }
+    }
+
+    /* Desktop: rows se comportam normalmente */
+    @media(min-width:768px){
+        .sf-row-1 { display: contents; }
+        .sf-row-2 { display: contents; }
+        .search-submit-wrap { display: contents; }
+    }
+
     .sf { display:flex; flex-direction:column; gap:6px; }
     .sf-label { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.55); }
+
+    /* MOBILE: label e input menores */
+    @media(max-width:767px){
+        .sf-label { font-size: 9px; }
+    }
 
     .sf-input {
         width:100%;
@@ -190,6 +283,11 @@
     input[type="date"].sf-input:not(:valid) { color:rgba(255,255,255,.38); }
     input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1) opacity(.55); cursor:pointer; }
 
+    /* MOBILE: inputs menores */
+    @media(max-width:767px){
+        .sf-input { font-size: 12px; padding: 10px 8px; border-radius: 10px; }
+    }
+
     .drop-wrap { position:relative; }
     .drop-btn {
         width:100%;
@@ -205,6 +303,11 @@
     .drop-btn .lbl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; text-align:left; }
     .drop-btn .arr { font-size:9px; color:rgba(255,255,255,.45); flex-shrink:0; transition:transform .2s; }
     .drop-btn.open .arr { transform:rotate(180deg); }
+
+    /* MOBILE: drop-btn menor */
+    @media(max-width:767px){
+        .drop-btn { font-size: 12px; padding: 10px 8px; border-radius: 10px; }
+    }
 
     .drop-menu {
         display:none; position:absolute; bottom:calc(100% + 8px);
@@ -242,6 +345,19 @@
     }
     .search-submit:hover { background:linear-gradient(135deg,#007a2e,#009C3B); transform:translateY(-2px); box-shadow:0 10px 32px rgba(0,156,59,.52); }
 
+    /* MOBILE: botão submit */
+    @media(max-width:767px){
+        .search-submit {
+            height: 52px;
+            font-size: 14px;
+            border-radius: 12px;
+            font-style: normal;
+            letter-spacing: .06em;
+            box-shadow: 0 6px 24px rgba(0,156,59,.5);
+        }
+        .search-submit-wrap { width: 100%; }
+    }
+
     /* ══ DEPOIMENTOS ══ */
     .testi-section { padding: 96px 24px; background: linear-gradient(160deg,#f0fdf4 0%,#e0f2fe 50%,#f0fdf4 100%); border-top: 1px solid #e2e8f0; overflow: hidden; }
     .testi-head { text-align: center; margin-bottom: 64px; }
@@ -269,7 +385,6 @@
     .swiper-testi .swiper-pagination-progressbar .swiper-pagination-progressbar-fill { background: #009C3B; }
 
     /* ══ ESCALA MOBILE via JS ══ */
-    /* Estilos base do agente para garantir posição fixa */
     #agent-widget { position: fixed; bottom: 24px; right: 24px; z-index: 99999; }
 
     /* ══ CHAT ══ */
@@ -334,494 +449,100 @@
           <form id="search-form" onsubmit="submitSearch(event)">
             <div class="search-grid">
 
-              <div class="sf">
-                <label class="sf-label">✈ Origem</label>
-                <input type="text" id="f-orig" class="sf-input" placeholder="Ex: São Paulo">
+              <!-- ROW 1: Origem + Destino -->
+              <div class="sf-row-1">
+                <div class="sf">
+                  <label class="sf-label">✈ Origem</label>
+                  <input type="text" id="f-orig" class="sf-input" placeholder="Ex: São Paulo">
+                </div>
+                <div class="sf">
+                  <label class="sf-label">📍 Destino</label>
+                  <input type="text" id="f-dest" class="sf-input" placeholder="Ex: Lisboa">
+                </div>
               </div>
 
-              <div class="sf">
-                <label class="sf-label">📍 Destino</label>
-                <input type="text" id="f-dest" class="sf-input" placeholder="Ex: Lisboa">
-              </div>
-
-              <div class="sf">
-                <label class="sf-label">📅 Ida</label>
-                <input type="date" id="f-ida" class="sf-input">
-              </div>
-
-              <div class="sf" id="f-volta-wrap">
-                <label class="sf-label">📅 Volta</label>
-                <input type="date" id="f-volta" class="sf-input">
-              </div>
-
-              <div class="sf">
-                <label class="sf-label">👥 Passageiros</label>
-                <div class="drop-wrap">
-                  <button type="button" class="drop-btn" id="tb-pass" onclick="toggleDrop('dm-pass','tb-pass')">
-                    <span class="lbl" id="lbl-pass">1 Adulto</span><span class="arr">▾</span>
-                  </button>
-                  <div class="drop-menu" id="dm-pass">
-                    <div class="drop-row">
-                      <div><div class="drop-rt">Adultos</div></div>
-                      <div class="cnt-wrap">
-                        <button type="button" class="cnt-btn" onclick="cnt('adt',-1)">−</button>
-                        <span class="cnt-val" id="v-adt">1</span>
-                        <button type="button" class="cnt-btn" onclick="cnt('adt',1)">+</button>
+              <!-- ROW 2: Ida + Volta + Passageiros + Bagagem -->
+              <div class="sf-row-2">
+                <div class="sf">
+                  <label class="sf-label">📅 Ida</label>
+                  <input type="date" id="f-ida" class="sf-input">
+                </div>
+                <div class="sf" id="f-volta-wrap">
+                  <label class="sf-label">📅 Volta</label>
+                  <input type="date" id="f-volta" class="sf-input">
+                </div>
+                <div class="sf">
+                  <label class="sf-label">👥 Passag.</label>
+                  <div class="drop-wrap">
+                    <button type="button" class="drop-btn" id="btn-pass" onclick="toggleDrop('dm-pass','btn-pass')">
+                      <span class="lbl" id="lbl-pass">1 Adulto</span>
+                      <span class="arr">▼</span>
+                    </button>
+                    <div class="drop-menu" id="dm-pass">
+                      <div class="drop-row">
+                        <div><div class="drop-rt">Adultos</div><div class="drop-rs">+12 anos</div></div>
+                        <div class="cnt-wrap">
+                          <button type="button" class="cnt-btn" onclick="chg('adt',-1)">−</button>
+                          <span class="cnt-val" id="v-adt">1</span>
+                          <button type="button" class="cnt-btn" onclick="chg('adt',1)">+</button>
+                        </div>
                       </div>
-                    </div>
-                    <div class="drop-row">
-                      <div><div class="drop-rt">Crianças</div><div class="drop-rs">2–11 anos</div></div>
-                      <div class="cnt-wrap">
-                        <button type="button" class="cnt-btn" onclick="cnt('chd',-1)">−</button>
-                        <span class="cnt-val" id="v-chd">0</span>
-                        <button type="button" class="cnt-btn" onclick="cnt('chd',1)">+</button>
+                      <div class="drop-row">
+                        <div><div class="drop-rt">Crianças</div><div class="drop-rs">2–11 anos</div></div>
+                        <div class="cnt-wrap">
+                          <button type="button" class="cnt-btn" onclick="chg('chd',-1)">−</button>
+                          <span class="cnt-val" id="v-chd">0</span>
+                          <button type="button" class="cnt-btn" onclick="chg('chd',1)">+</button>
+                        </div>
                       </div>
-                    </div>
-                    <div class="drop-row">
-                      <div><div class="drop-rt">Bebês</div><div class="drop-rs">Até 2 anos</div></div>
-                      <div class="cnt-wrap">
-                        <button type="button" class="cnt-btn" onclick="cnt('inf',-1)">−</button>
-                        <span class="cnt-val" id="v-inf">0</span>
-                        <button type="button" class="cnt-btn" onclick="cnt('inf',1)">+</button>
+                      <div class="drop-row">
+                        <div><div class="drop-rt">Bebês</div><div class="drop-rs">0–23 meses</div></div>
+                        <div class="cnt-wrap">
+                          <button type="button" class="cnt-btn" onclick="chg('inf',-1)">−</button>
+                          <span class="cnt-val" id="v-inf">0</span>
+                          <button type="button" class="cnt-btn" onclick="chg('inf',1)">+</button>
+                        </div>
                       </div>
+                      <button type="button" class="drop-ok" onclick="closeDrop('dm-pass','btn-pass')">Confirmar</button>
                     </div>
-                    <button type="button" class="drop-ok" onclick="closeDrop('dm-pass','tb-pass')">Confirmar ✓</button>
+                  </div>
+                </div>
+                <div class="sf">
+                  <label class="sf-label">🧳 Bagagem</label>
+                  <div class="drop-wrap">
+                    <button type="button" class="drop-btn" id="btn-bag" onclick="toggleDrop('dm-bag','btn-bag')">
+                      <span class="lbl" id="lbl-bag">Sem despachada</span>
+                      <span class="arr">▼</span>
+                    </button>
+                    <div class="drop-menu" id="dm-bag">
+                      <div class="drop-row">
+                        <div><div class="drop-rt">Bagagem</div><div class="drop-rs">Despachada</div></div>
+                        <div class="cnt-wrap">
+                          <button type="button" class="cnt-btn" onclick="chgBag(-1)">−</button>
+                          <span class="cnt-val" id="v-bag">0</span>
+                          <button type="button" class="cnt-btn" onclick="chgBag(1)">+</button>
+                        </div>
+                      </div>
+                      <button type="button" class="drop-ok" onclick="closeDrop('dm-bag','btn-bag')">Confirmar</button>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="sf">
-                <label class="sf-label">💼 Bagagem</label>
-                <div class="drop-wrap">
-                  <button type="button" class="drop-btn" id="tb-bag" onclick="toggleDrop('dm-bag','tb-bag')">
-                    <span class="lbl" id="lbl-bag">Sem despachada</span><span class="arr">▾</span>
-                  </button>
-                  <div class="drop-menu" id="dm-bag">
-                    <div class="drop-row">
-                      <div><div class="drop-rt">Mão</div><div class="drop-rs">Até 10 kg</div></div>
-                      <div class="cnt-wrap">
-                        <button type="button" class="cnt-btn" onclick="bag('mao',-1)">−</button>
-                        <span class="cnt-val" id="v-mao">0</span>
-                        <button type="button" class="cnt-btn" onclick="bag('mao',1)">+</button>
-                      </div>
-                    </div>
-                    <div class="drop-row">
-                      <div><div class="drop-rt">Despachada</div><div class="drop-rs">Até 23 kg</div></div>
-                      <div class="cnt-wrap">
-                        <button type="button" class="cnt-btn" onclick="bag('desp',-1)">−</button>
-                        <span class="cnt-val" id="v-desp">0</span>
-                        <button type="button" class="cnt-btn" onclick="bag('desp',1)">+</button>
-                      </div>
-                    </div>
-                    <button type="button" class="drop-ok" onclick="closeDrop('dm-bag','tb-bag')">Confirmar ✓</button>
-                  </div>
-                </div>
+              <!-- BOTÃO -->
+              <div class="search-submit-wrap">
+                <button type="submit" class="search-submit">🔍 Analisar Melhores Tarifas</button>
               </div>
-
-              <button type="submit" class="search-submit">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-                Buscar voos
-              </button>
 
             </div>
           </form>
         </div>
+
       </div>
     </section>
 
   </div>
 </section>
 
-<!-- ════════ CASOS DE SUCESSO ════════ -->
-<section class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
-      <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
-      </h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="suc-card border-b-4 border-brand-green">
-        <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 18%</div>
-        <h3 class="font-extrabold text-lg italic uppercase mb-1">SÃO PAULO → LISBOA</h3>
-        <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 2px;">R$ 4.642,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,.75);transform:translateY(-50%) rotate(-2deg);display:block;"></span></span></p>
-        <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-          <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 3.760,19</span></div>
-          <span class="text-3xl">📉</span>
-        </div>
-      </div>
-      <div class="suc-card border-b-4 border-brand-green">
-        <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 28%</div>
-        <h3 class="font-extrabold text-lg italic uppercase mb-1">SÃO PAULO → ORLANDO</h3>
-        <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 2px;">R$ 3.620,00<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,.75);transform:translateY(-50%) rotate(-2deg);display:block;"></span></span></p>
-        <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-          <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 2.419,00</span></div>
-          <span class="text-3xl">📉</span>
-        </div>
-      </div>
-      <div class="suc-card border-b-4 border-brand-green">
-        <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Economia de 17%</div>
-        <h3 class="font-extrabold text-lg italic uppercase mb-1">ROMA → LISBOA</h3>
-        <p class="text-sm text-slate-400 font-medium">Preço de Mercado: <span style="position:relative;display:inline-block;padding:0 2px;">R$ 679,50<span style="position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(239,68,68,.75);transform:translateY(-50%) rotate(-2deg);display:block;"></span></span></p>
-        <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-end">
-          <div><span class="text-blue-600 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded block mb-1 uppercase">Com a Voe F5</span><span class="text-3xl font-black text-brand-blue">R$ 564,00</span></div>
-          <span class="text-3xl">📉</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════ COMO FUNCIONA ════════ -->
-<section class="py-12 bg-slate-50 border-t border-slate-200">
-  <div class="max-w-4xl mx-auto px-6">
-    <h2 class="text-center font-black uppercase tracking-widest text-brand-blue mb-10 text-lg">COMO FUNCIONA</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="step-c">
-        <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-black text-base mb-4">1</div>
-        <h3 class="font-black text-sm uppercase italic text-brand-blue mb-3">Você envia sua viagem</h3>
-        <div class="mb-3"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="24" rx="3" stroke="#009C3B" stroke-width="3" fill="none"/><rect x="12" y="16" width="24" height="14" rx="1" fill="#009C3B" fill-opacity="0.15"/><rect x="10" y="34" width="28" height="3" rx="1.5" fill="#009C3B"/><rect x="20" y="37" width="8" height="2" rx="1" fill="#009C3B"/></svg></div>
-        <p class="text-slate-500 text-xs font-medium leading-relaxed">Origem, destino, datas e quantidade de passageiros.</p>
-      </div>
-      <div class="step-c">
-        <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-black text-base mb-4">2</div>
-        <h3 class="font-black text-sm uppercase italic text-brand-blue mb-3">Análise estratégica</h3>
-        <div class="mb-3"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="22" cy="22" r="14" stroke="#009C3B" stroke-width="3" fill="none"/><ellipse cx="22" cy="22" rx="6" ry="14" stroke="#009C3B" stroke-width="2" fill="none"/><line x1="8" y1="22" x2="36" y2="22" stroke="#009C3B" stroke-width="2"/><line x1="10" y1="16" x2="34" y2="16" stroke="#009C3B" stroke-width="1.5"/><line x1="10" y1="28" x2="34" y2="28" stroke="#009C3B" stroke-width="1.5"/><line x1="33" y1="33" x2="42" y2="42" stroke="#009C3B" stroke-width="3" stroke-linecap="round"/></svg></div>
-        <p class="text-slate-500 text-xs font-medium leading-relaxed">Buscamos as melhores opções com inteligência de milhas.</p>
-      </div>
-      <div class="step-c">
-        <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-black text-base mb-4">3</div>
-        <h3 class="font-black text-sm uppercase italic text-brand-blue mb-3">Receba a melhor opção</h3>
-        <div class="mb-3"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="20" rx="4" stroke="#009C3B" stroke-width="3" fill="none"/><line x1="6" y1="24" x2="42" y2="24" stroke="#009C3B" stroke-width="2" stroke-dasharray="3 3"/><circle cx="6" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><circle cx="42" cy="24" r="4" fill="#f8fafc" stroke="#009C3B" stroke-width="2"/><polyline points="17,23 21,27 31,19" stroke="#009C3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
-        <p class="text-slate-500 text-xs font-medium leading-relaxed">Com economia real e suporte completo na emissão.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════ DEPOIMENTOS ════════ -->
-<section id="depoimentos" class="testi-section">
-  <div style="max-width:1280px;margin:0 auto;">
-    <div class="testi-head">
-      <p class="eyebrow">O que dizem sobre nós</p>
-    </div>
-    <div class="swiper swiper-testi">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" style="height:auto;">
-          <div class="testi-card">
-            <div class="testi-avatar" style="background:linear-gradient(135deg,#009C3B,#001A4F);">M</div>
-            <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-            <div class="testi-quote">❝</div>
-            <p class="testi-text">"Conseguimos reduzir significativamente os custos das nossas viagens. A plataforma encontra oportunidades que nunca teríamos descoberto sozinhos."</p>
-            <div class="testi-name">Marcelo R.</div>
-          </div>
-        </div>
-        <div class="swiper-slide" style="height:auto;">
-          <div class="testi-card">
-            <div class="testi-avatar" style="background:linear-gradient(135deg,#001A4F,#009C3B);">F</div>
-            <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-            <div class="testi-quote">❝</div>
-            <p class="testi-text">"Já comparei com buscadores tradicionais e os valores encontrados aqui foram surpreendentes. Hoje sempre consulto a Voe F5."</p>
-            <div class="testi-name">Fernanda L.</div>
-          </div>
-        </div>
-        <div class="swiper-slide" style="height:auto;">
-          <div class="testi-card">
-            <div class="testi-avatar" style="background:linear-gradient(135deg,#FFCC00,#f59e0b);color:#001A4F;">D</div>
-            <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-            <div class="testi-quote">❝</div>
-            <p class="testi-text">"Além da economia, o que mais nos impressionou foi o atendimento. A equipe é ágil, extremamente profissional e dedicada."</p>
-            <div class="testi-name">Daniela S.</div>
-          </div>
-        </div>
-        <div class="swiper-slide" style="height:auto;">
-          <div class="testi-card">
-            <div class="testi-avatar" style="background:linear-gradient(135deg,#90ed3a,#001A4F);">R</div>
-            <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-            <div class="testi-quote">❝</div>
-            <p class="testi-text">"Minha família viaja bastante e a Voe F5 tem sido essencial para encontrar as melhores tarifas. Recomendo para todos!"</p>
-            <div class="testi-name">Roberto C.</div>
-          </div>
-        </div>
-        <div class="swiper-slide" style="height:auto;">
-          <div class="testi-card">
-            <div class="testi-avatar" style="background:linear-gradient(135deg,#0ea5e9,#001A4F);">J</div>
-            <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-            <div class="testi-quote">❝</div>
-            <p class="testi-text">"A experiência é intuitiva e os resultados falam por si. Economizei R$1.200 na minha última viagem para o exterior."</p>
-            <div class="testi-name">Juliana M.</div>
-          </div>
-        </div>
-        <div class="swiper-slide" style="height:auto;">
-          <div class="testi-card">
-            <div class="testi-avatar" style="background:linear-gradient(135deg,#009C3B,#065f46);">A</div>
-            <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-            <div class="testi-quote">❝</div>
-            <p class="testi-text">"Serviço impecável do início ao fim. Conseguiram encontrar uma rota que nenhum outro site oferecia. Muito obrigado!"</p>
-            <div class="testi-name">André F.</div>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════ FOOTER ════════ -->
-<footer style="padding:48px 24px;background:#001A4F;text-align:center;color:rgba(255,255,255,.38);font-size:10px;font-weight:700;text-transform:uppercase;font-style:italic;letter-spacing:.2em;border-top:1px solid rgba(255,255,255,.05);">
-  &copy; Voe F5 Tour | Atualize a sua forma de viajar
-</footer>
-
-<!-- ════════ AGENTE CHAT ════════ -->
-<div id="agent-widget" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;align-items:flex-end;font-family:'Plus Jakarta Sans',sans-serif;">
-  <div id="chat-w" style="display:none;width:320px;background:white;border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,.4);border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px;opacity:0;transform:scale(.95);transition:all .3s;">
-    <div style="background:#001f3f;padding:16px 20px;display:flex;align-items:center;gap:12px;">
-      <div style="width:40px;height:40px;background:#009c3b;border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-style:italic;font-size:13px;">F5</div>
-      <div style="flex:1;"><h4 style="color:white;font-weight:900;font-size:12px;text-transform:uppercase;font-style:italic;margin:0;">Agente Voe F5</h4><p style="color:#34d399;font-size:9px;font-weight:700;text-transform:uppercase;margin:0;">Online</p></div>
-      <button onclick="toggleChat()" style="color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-size:20px;line-height:1;">✕</button>
-    </div>
-    <div id="chat-m" class="noscroll" style="overflow-y:auto;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:380px;">
-      <div style="background:white;padding:14px;border-radius:16px 16px 16px 4px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #e2e8f0;max-width:90%;font-size:12px;font-weight:600;color:#334155;">Olá! Como posso te ajudar hoje? 👋</div>
-    </div>
-    <div style="padding:16px;background:white;border-top:1px solid #e2e8f0;">
-      <div style="display:flex;gap:8px;">
-        <input type="text" id="chat-inp" placeholder="Digite aqui..." style="flex:1;background:#f1f5f9;border:2px solid transparent;border-radius:12px;padding:12px 16px;font-size:12px;font-weight:700;outline:none;font-family:inherit;" onfocus="this.style.borderColor='#009c3b'" onblur="this.style.borderColor='transparent'">
-        <button onclick="chatSend()" style="background:#009c3b;color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;font-size:18px;line-height:1;">➤</button>
-      </div>
-    </div>
-  </div>
-  <button onclick="toggleChat()" class="pulse-g" style="background:linear-gradient(135deg,#009c3b,#00c44a);width:60px;height:60px;border-radius:20px;box-shadow:0 8px 30px rgba(0,156,59,.45);border:none;cursor:pointer;border-bottom:4px solid #007a2e;display:flex;align-items:center;justify-content:center;">
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-      <rect x="6" y="9" width="20" height="15" rx="4" fill="white" fill-opacity=".95"/>
-      <line x1="16" y1="4" x2="16" y2="9" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="16" cy="3.5" r="2" fill="white"/>
-      <circle cx="11.5" cy="15" r="2.5" fill="#009c3b"/><circle cx="20.5" cy="15" r="2.5" fill="#009c3b"/>
-      <circle cx="12" cy="14.5" r="1" fill="white"/><circle cx="21" cy="14.5" r="1" fill="white"/>
-      <rect x="11" y="19.5" width="10" height="2" rx="1" fill="#009c3b" fill-opacity=".7"/>
-      <rect x="3" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity=".8"/>
-      <rect x="26" y="13" width="3" height="5" rx="1.5" fill="white" fill-opacity=".8"/>
-    </svg>
-  </button>
-</div>
-
-<!-- ════════ JAVASCRIPT ════════ -->
-<script>
-
-(function(){
-  window.addEventListener('scroll',function(){
-    var n=document.getElementById('navbar');
-    window.scrollY>60?n.classList.add('scrolled'):n.classList.remove('scrolled');
-  });
-})();
-
-(function(){
-  var sl=document.querySelectorAll('.slide'), i=0;
-  setInterval(function(){
-    sl[i].classList.remove('active');
-    i=(i+1)%sl.length;
-    sl[i].classList.add('active');
-  },5000);
-})();
-
-document.addEventListener('DOMContentLoaded', function(){
-  new Swiper('.swiper-testi', {
-    slidesPerView: 1, spaceBetween: 28, centeredSlides: false,
-    breakpoints: { 640:{slidesPerView:2,spaceBetween:28}, 1024:{slidesPerView:3,spaceBetween:28} },
-    loop: true,
-    autoplay: { delay:4500, disableOnInteraction:false, pauseOnMouseEnter:true },
-    speed: 700,
-    pagination: { el:'.swiper-pagination', clickable:true },
-    navigation: { nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev' },
-    grabCursor: true,
-  });
-});
-
-var tipo = 'iv';
-var passData = { adt:1, chd:0, inf:0 };
-var bagData  = { mao:0, desp:0 };
-
-function setTipo(t){
-  tipo=t;
-  document.getElementById('pill-iv').classList.toggle('active',t==='iv');
-  document.getElementById('pill-si').classList.toggle('active',t==='si');
-  var vw=document.getElementById('f-volta-wrap'), vi=document.getElementById('f-volta');
-  if(t==='iv'){vw.style.opacity='1';vw.style.pointerEvents='auto';vi.disabled=false;}
-  else{vw.style.opacity='.38';vw.style.pointerEvents='none';vi.disabled=true;vi.value='';}
-}
-
-function toggleDrop(mId,tId){
-  var m=document.getElementById(mId),t=document.getElementById(tId),isOpen=m.classList.contains('open');
-  document.querySelectorAll('.drop-menu').forEach(function(x){x.classList.remove('open');});
-  document.querySelectorAll('.drop-btn').forEach(function(x){x.classList.remove('open');});
-  if(!isOpen){m.classList.add('open');t.classList.add('open');}
-}
-function closeDrop(mId,tId){
-  document.getElementById(mId).classList.remove('open');
-  document.getElementById(tId).classList.remove('open');
-}
-document.addEventListener('click',function(e){
-  if(!e.target.closest('.drop-wrap'))
-    document.querySelectorAll('.drop-menu,.drop-btn').forEach(function(x){x.classList.remove('open');});
-});
-
-function cnt(k,d){
-  if(k==='adt'&&passData.adt+d<1)return;
-  if(passData[k]+d<0)return;
-  passData[k]+=d;
-  document.getElementById('v-'+k).textContent=passData[k];
-  var l=passData.adt+' Adult'+(passData.adt>1?'os':'o');
-  if(passData.chd>0)l+=', '+passData.chd+' Crian'+(passData.chd>1?'ças':'ça');
-  if(passData.inf>0)l+=', '+passData.inf+' Bebê'+(passData.inf>1?'s':'');
-  document.getElementById('lbl-pass').textContent=l;
-}
-
-function bag(k,d){
-  if(bagData[k]+d<0)return;
-  bagData[k]+=d;
-  document.getElementById('v-'+k).textContent=bagData[k];
-  var t=bagData.mao+bagData.desp;
-  document.getElementById('lbl-bag').textContent=t>0?bagData.mao+' mão, '+bagData.desp+' desp.':'Sem despachada';
-}
-
-function fmtDate(v){
-  if(!v)return'';
-  var p=v.split('-');
-  return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:v;
-}
-
-function submitSearch(e){
-  e.preventDefault();
-  var ori=(document.getElementById('f-orig').value||'').trim();
-  var des=(document.getElementById('f-dest').value||'').trim();
-  var ida=fmtDate(document.getElementById('f-ida').value);
-  var vlt=fmtDate(document.getElementById('f-volta').value);
-  if(!ori||!des){alert('Por favor, informe a origem e o destino.');return;}
-  if(!ida){alert('Por favor, informe a data de ida.');return;}
-  var msg='Olá! Gostaria de uma cotação:\n\n✈ *Origem:* '+ori
-    +'\n📍 *Destino:* '+des
-    +'\n📅 *Ida:* '+ida
-    +(vlt&&tipo==='iv'?'\n📅 *Volta:* '+vlt:'')
-    +'\n👥 *Passageiros:* '+passData.adt+' Adulto(s)'
-    +(passData.chd>0?', '+passData.chd+' Criança(s)':'')
-    +(passData.inf>0?', '+passData.inf+' Bebê(s)':'')
-    +'\n💼 *Bagagem:* '+bagData.mao+' de mão, '+bagData.desp+' despachada(s)';
-  window.open('https://wa.me/5511988908306?text='+encodeURIComponent(msg),'_blank');
-}
-
-var chatStep=-1, chatD={destino:'',tipo:'',datas:'',passageiros:'',classe:'',bagagem:''};
-
-function toggleChat(){
-  var w=document.getElementById('chat-w');
-  if(w.style.display==='none'||w.style.display===''){
-    w.style.display='flex';w.style.flexDirection='column';
-    setTimeout(function(){w.style.opacity='1';w.style.transform='scale(1)';},10);
-  }else{
-    w.style.opacity='0';w.style.transform='scale(.95)';
-    setTimeout(function(){w.style.display='none';},300);
-  }
-}
-
-function chatMsg(txt,isUser){
-  var c=document.getElementById('chat-m'),d=document.createElement('div');
-  d.style.cssText=isUser
-    ?'background:#009c3b;color:white;padding:14px;border-radius:16px 16px 4px 16px;margin-left:auto;max-width:85%;font-size:11px;font-weight:700;'
-    :'background:white;padding:14px;border-radius:16px 16px 16px 4px;border:1px solid #e2e8f0;max-width:85%;font-size:11px;color:#334155;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.06);';
-  d.innerHTML=txt;c.appendChild(d);c.scrollTop=c.scrollHeight;
-}
-
-function escolherOpcao(tipo,val){
-  chatMsg(val+' ✅',true);
-  if(tipo==='classe'){
-    chatD.classe=val;
-    chatMsg('<b>Sobre Bagagem:</b><br>Incluso: Mochila + Mala de mão (10kg).');
-    setTimeout(function(){chatMsg('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><p style="font-size:10px;color:#64748b;font-weight:600;">Deseja adicionar mala despachada de 23kg?</p><button onclick="escolherOpcao(\'bagagem\',\'Sim - Mala despachada de 23kg\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Sim</button><button onclick="escolherOpcao(\'bagagem\',\'Não - Apenas mala de mão\')" style="background:#94a3b8;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Não</button></div>');},800);
-    chatStep=5;
-  }else if(tipo==='bagagem'){chatD.bagagem=val;chatFinal();}
-}
-
-function chatFinal(){
-  chatMsg('Gerando sua cotação exclusiva com milhas... ✨');
-  setTimeout(function(){
-    var t='Olá Voe F5! Quero uma cotação:%0A📍 Destino: '+chatD.destino+'%0A✈️ Tipo: '+chatD.tipo+'%0A📅 Datas: '+chatD.datas+'%0A👥 Passageiros: '+chatD.passageiros+'%0A🎫 Classe: '+chatD.classe+'%0A💼 Bagagem: '+chatD.bagagem;
-    chatMsg('<a href="https://wa.me/5511988908306?text='+t+'" target="_blank" style="display:block;background:#009c3b;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:700;margin-top:8px;font-size:11px;text-decoration:none;">📲 Enviar Cotação via WhatsApp</a>');
-  },1000);
-}
-
-function chatSend(){
-  var inp=document.getElementById('chat-inp'),msg=inp.value.trim();
-  if(!msg)return;chatMsg(msg,true);inp.value='';
-  setTimeout(function(){
-    var lo=msg.toLowerCase();
-    if(chatStep===-1){
-      var g=['ola','olá','oi','bom dia','boa tarde','boa noite','blz','tudo bem'];
-      if(g.some(function(s){return lo.includes(s);})){chatMsg('Olá! Tudo ótimo por aqui. 😊<br><br>Qual o <b>destino</b> da sua próxima viagem?');chatStep=0;}
-      else{chatD.destino=msg;chatMsg('Perfeito! Destino: <b>'+msg+'</b>.<br><br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');chatStep=1;}
-    }else if(chatStep===0){chatD.destino=msg;chatMsg('Excelente! ✈️<br>Sua viagem será <b>Somente Ida</b> ou <b>Ida e Volta</b>?');chatStep=1;}
-    else if(chatStep===1){chatD.tipo=lo.includes('volta')?'Ida e Volta':'Somente Ida';chatMsg(chatD.tipo==='Ida e Volta'?'Ótimo! Informe a <b>data de IDA e a data de RETORNO</b>.':'Entendido! Qual a <b>data de embarque</b>?');chatStep=2;}
-    else if(chatStep===2){chatD.datas=msg;chatMsg('Para <b>quantas pessoas</b>? Informe a idade se houver crianças.');chatStep=3;}
-    else if(chatStep===3){
-      chatD.passageiros=msg;chatMsg('Qual classe você prefere?');
-      setTimeout(function(){chatMsg('<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><button onclick="escolherOpcao(\'classe\',\'Econômica\')" style="background:#009c3b;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Econômica</button><button onclick="escolherOpcao(\'classe\',\'Executiva\')" style="background:#2563eb;color:white;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:11px;">Executiva</button></div>');},800);
-      chatStep=4;
-    }
-  },800);
-}
-
-document.getElementById('chat-inp').addEventListener('keypress',function(e){if(e.key==='Enter')chatSend();});
-
-/* ══ ESCALA MOBILE: detecta largura física da tela ══ */
-(function(){
-  function applyMobileScale(){
-    var physW = window.screen.width;
-    var isMobile = physW < 768;
-
-    var logoWrap  = document.querySelector('.logo-wrap');
-    var navTag    = document.getElementById('nav-tag');
-    var wppBtn    = document.getElementById('wpp-btn');
-    var heroTitle = document.querySelector('.hero-title');
-    var agentBtn  = document.querySelector('#agent-widget > button');
-    var agentSvg  = document.querySelector('#agent-widget > button svg');
-
-    if(isMobile){
-      if(logoWrap){ logoWrap.style.height='110px'; logoWrap.style.width='122px'; }
-      if(navTag)  { navTag.style.fontSize='22px'; }
-      if(wppBtn){
-        wppBtn.style.padding='12px 26px';
-        var s=wppBtn.querySelector('svg'), sp=wppBtn.querySelector('span');
-        if(s){s.style.width='34px';s.style.height='34px';}
-        if(sp){sp.style.fontSize='20px';}
-      }
-      if(heroTitle){ heroTitle.style.fontSize='46px'; }
-      if(agentBtn){
-        agentBtn.style.width='120px';
-        agentBtn.style.height='120px';
-        agentBtn.style.borderRadius='32px';
-        agentBtn.style.borderBottom='8px solid #007a2e';
-      }
-      if(agentSvg){ agentSvg.style.width='64px'; agentSvg.style.height='64px'; }
-    } else {
-      if(logoWrap){ logoWrap.style.height=''; logoWrap.style.width=''; }
-      if(navTag)  { navTag.style.fontSize=''; }
-      if(wppBtn){
-        wppBtn.style.padding='';
-        var s=wppBtn.querySelector('svg'), sp=wppBtn.querySelector('span');
-        if(s){s.style.width='';s.style.height='';}
-        if(sp){sp.style.fontSize='';}
-      }
-      if(heroTitle){ heroTitle.style.fontSize=''; }
-      if(agentBtn){ agentBtn.style.width='';agentBtn.style.height='';agentBtn.style.borderRadius='';agentBtn.style.borderBottom=''; }
-      if(agentSvg){ agentSvg.style.width='';agentSvg.style.height=''; }
-    }
-  }
-
-  applyMobileScale();
-  window.addEventListener('resize', applyMobileScale);
-})();
-
-</script>
 </body>
 </html>
