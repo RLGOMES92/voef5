@@ -214,29 +214,126 @@ if(window.screen.width <= 767){
     .is-mobile #wpp-btn span { font-size:12px !important; }
 
     /* ══ MOBILE: HERO ══ */
-    .is-mobile .hero { height:75vh !important; min-height:560px !important; overflow:hidden !important; }
+    .is-mobile .hero { height:100vh !important; min-height:600px !important; overflow:hidden !important; }
     .is-mobile .slide-bg { background-position:center center !important; }
-    .is-mobile .hero-overlay { justify-content:flex-end !important; padding:80px 10px 16px !important; }
-    .is-mobile .hero-text-block { display:flex !important; justify-content:center !important; padding-bottom:12px !important; }
-    .is-mobile .hero-title { text-align:center !important; white-space:normal !important; font-size:20px !important; }
+    .is-mobile .hero-overlay {
+        justify-content:center !important;
+        align-items:center !important;
+        padding:90px 16px 24px !important;
+        flex-direction:column !important;
+    }
+    .is-mobile .hero-text-block {
+        display:flex !important;
+        justify-content:center !important;
+        align-items:center !important;
+        padding-bottom:20px !important;
+        width:100% !important;
+    }
+    .is-mobile .hero-title {
+        text-align:center !important;
+        white-space:normal !important;
+        font-size:22px !important;
+        line-height:1.2 !important;
+        margin:0 !important;
+    }
 
     /* ══ MOBILE: FORMULÁRIO ══ */
-    .is-mobile .search-wrap { background:rgba(0,0,0,.82) !important; border-radius:14px !important; }
-    .is-mobile .type-bar { justify-content:center !important; padding:10px !important; gap:6px !important; background:#009C3B !important; border-radius:14px 14px 0 0 !important; }
-    .is-mobile .type-bar-label { display:none !important; }
-    .is-mobile .type-pill { flex:1 !important; text-align:center !important; padding:9px 6px !important; font-size:12px !important; border-color:rgba(255,255,255,.5) !important; border-radius:999px !important; }
-    .is-mobile .type-pill.active { background:#fff !important; border-color:#fff !important; color:#009C3B !important; }
-    .is-mobile .search-body { padding:12px 10px 14px !important; }
+    .is-mobile #search-section { width:100% !important; }
+    .is-mobile .search-wrap {
+        background:rgba(0,4,16,.88) !important;
+        border-radius:16px !important;
+        border:1px solid rgba(255,255,255,.15) !important;
+        overflow:hidden !important;
+        width:100% !important;
+    }
 
-    /* Grid mobile: coluna com rows */
-    .is-mobile .search-grid { display:flex !important; flex-direction:column !important; gap:8px !important; }
-    .is-mobile .sf-row-1 { display:grid !important; grid-template-columns:1fr 1fr !important; gap:8px !important; }
-    .is-mobile .sf-row-2 { display:grid !important; grid-template-columns:1fr 1fr !important; gap:8px !important; }
-    .is-mobile .sf-row-btn { display:block !important; width:100% !important; }
-    .is-mobile .sf-label { font-size:10px !important; }
-    .is-mobile .sf-input { font-size:13px !important; padding:12px 10px !important; border-radius:10px !important; }
-    .is-mobile .drop-btn { font-size:12px !important; padding:12px 10px !important; border-radius:10px !important; }
-    .is-mobile .search-submit { height:52px !important; font-size:14px !important; font-style:normal !important; letter-spacing:.06em !important; border-radius:10px !important; }
+    /* Pills */
+    .is-mobile .type-bar {
+        justify-content:center !important;
+        padding:10px 12px !important;
+        gap:8px !important;
+        background:#009C3B !important;
+        border-radius:0 !important;
+        border-bottom:none !important;
+    }
+    .is-mobile .type-bar-label { display:none !important; }
+    .is-mobile .type-pill {
+        flex:1 !important;
+        text-align:center !important;
+        padding:9px 8px !important;
+        font-size:12px !important;
+        border-color:rgba(255,255,255,.6) !important;
+        border-radius:999px !important;
+        background:transparent !important;
+        color:#fff !important;
+    }
+    .is-mobile .type-pill.active {
+        background:#fff !important;
+        border-color:#fff !important;
+        color:#009C3B !important;
+    }
+
+    /* Body do formulário */
+    .is-mobile .search-body { padding:14px 12px 16px !important; }
+
+    /* Grid: força flex coluna, ignora o grid desktop */
+    .is-mobile .search-grid {
+        display:flex !important;
+        flex-direction:column !important;
+        gap:10px !important;
+        width:100% !important;
+    }
+
+    /* Row 1: Origem + Destino */
+    .is-mobile .sf-row-1 {
+        display:grid !important;
+        grid-template-columns:1fr 1fr !important;
+        gap:8px !important;
+        width:100% !important;
+    }
+
+    /* Row 2: Ida + Volta + Passag + Bag em 2x2 */
+    .is-mobile .sf-row-2 {
+        display:grid !important;
+        grid-template-columns:1fr 1fr !important;
+        gap:8px !important;
+        width:100% !important;
+    }
+
+    /* Botão */
+    .is-mobile .sf-row-btn {
+        display:block !important;
+        width:100% !important;
+    }
+
+    /* Campos */
+    .is-mobile .sf { display:flex !important; flex-direction:column !important; gap:5px !important; min-width:0 !important; }
+    .is-mobile .sf-label { font-size:9px !important; letter-spacing:.08em !important; }
+    .is-mobile .sf-input {
+        width:100% !important;
+        font-size:13px !important;
+        padding:11px 10px !important;
+        border-radius:10px !important;
+        min-width:0 !important;
+        box-sizing:border-box !important;
+    }
+    .is-mobile .drop-btn {
+        width:100% !important;
+        font-size:12px !important;
+        padding:11px 10px !important;
+        border-radius:10px !important;
+        min-width:0 !important;
+        box-sizing:border-box !important;
+    }
+    .is-mobile .drop-btn .lbl { font-size:12px !important; }
+    .is-mobile .search-submit {
+        height:52px !important;
+        font-size:14px !important;
+        font-style:normal !important;
+        letter-spacing:.08em !important;
+        border-radius:12px !important;
+        width:100% !important;
+    }
 
     /* ══ DEPOIMENTOS ══ */
     .testi-section { padding:96px 24px; background:linear-gradient(160deg,#f0fdf4 0%,#e0f2fe 50%,#f0fdf4 100%); border-top:1px solid #e2e8f0; overflow:hidden; }
@@ -433,6 +530,7 @@ if(window.screen.width <= 767){
     <div class="text-center mb-12">
       <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
+        Transformando eficiência em <span class="text-brand-green">economia real</span>
       </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
