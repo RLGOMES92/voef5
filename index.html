@@ -123,6 +123,9 @@
 
     .search-grid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)) auto; gap:12px; align-items:end; }
 
+    /* Desktop: sf-row-* viram display:contents para manter o grid horizontal */
+    .sf-row-1, .sf-row-2, .sf-row-btn { display:contents; }
+
     @media(min-width:768px){
         .search-body { padding:22px 26px 26px; }
         .sf-input, .drop-btn { font-size:13px; padding:13px 14px; }
@@ -431,6 +434,7 @@
     <div class="text-center mb-12">
       <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
+        Transformando eficiência em <span class="text-brand-green">economia real</span>
       </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
