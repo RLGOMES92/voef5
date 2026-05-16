@@ -207,14 +207,14 @@ if(window.screen.width <= 767){
     .search-submit:hover { background:linear-gradient(135deg,#007a2e,#009C3B); transform:translateY(-2px); box-shadow:0 10px 32px rgba(0,156,59,.52); }
 
     /* ══ MOBILE via .is-mobile (contorna viewport=1280) ══ */
-    .is-mobile .logo-wrap { height:78px !important; width:86px !important; }
-    .is-mobile #nav-tag { font-size:15px !important; }
-    .is-mobile #wpp-btn { padding:9px 14px !important; gap:7px !important; }
-    .is-mobile #wpp-btn svg { width:24px !important; height:24px !important; }
-    .is-mobile #wpp-btn span { font-size:12px !important; }
+    .is-mobile .logo-wrap { height:92px !important; width:102px !important; }
+    .is-mobile #nav-tag { font-size:18px !important; }
+    .is-mobile #wpp-btn { padding:11px 18px !important; gap:8px !important; }
+    .is-mobile #wpp-btn svg { width:28px !important; height:28px !important; }
+    .is-mobile #wpp-btn span { font-size:14px !important; }
 
     /* ══ MOBILE: HERO ══ */
-    .is-mobile .hero { height:78vh !important; min-height:520px !important; overflow:hidden !important; }
+    .is-mobile .hero { height:68vh !important; min-height:480px !important; overflow:hidden !important; }
     .is-mobile .slide-bg { background-position:center center !important; }
     .is-mobile .hero-overlay {
         justify-content:center !important;
@@ -530,7 +530,6 @@ if(window.screen.width <= 767){
     <div class="text-center mb-12">
       <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
-        Transformando eficiência em <span class="text-brand-green">economia real</span>
       </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -851,8 +850,8 @@ document.getElementById('chat-inp').addEventListener('keypress',function(e){if(e
     var agentBtn = document.querySelector('#agent-widget > button');
     var agentSvg = document.querySelector('#agent-widget > button svg');
     if(isMobile){
-      if(agentBtn){ agentBtn.style.width='72px'; agentBtn.style.height='72px'; agentBtn.style.borderRadius='22px'; agentBtn.style.borderBottom='5px solid #007a2e'; }
-      if(agentSvg){ agentSvg.style.width='38px'; agentSvg.style.height='38px'; }
+      if(agentBtn){ agentBtn.style.width='88px'; agentBtn.style.height='88px'; agentBtn.style.borderRadius='26px'; agentBtn.style.borderBottom='6px solid #007a2e'; }
+      if(agentSvg){ agentSvg.style.width='48px'; agentSvg.style.height='48px'; }
     } else {
       if(agentBtn){ agentBtn.style.width=''; agentBtn.style.height=''; agentBtn.style.borderRadius=''; agentBtn.style.borderBottom=''; }
       if(agentSvg){ agentSvg.style.width=''; agentSvg.style.height=''; }
