@@ -344,84 +344,79 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 
 /* ── NAVBAR MOBILE ── */
 .is-mobile .logo-wrap {
-    height: 110px !important;  /* ← MOBILE: altura do logo — aumente para logo maior */
-    width: 122px !important;   /* ← MOBILE: largura do logo */
+    height: 85px !important;   /* ← MOBILE: altura do logo */
+    width: 100px !important;   /* ← MOBILE: largura do logo */
 }
 .is-mobile #nav-tag {
-    font-size: 22px !important; /* ← MOBILE: tamanho da tagline "Atualize a sua forma de viajar" */
+    font-size: 16px !important; /* ← MOBILE: tamanho da tagline */
+    max-width: 180px;
 }
 .is-mobile #wpp-btn {
-    padding: 11px 18px !important; /* ← MOBILE: padding do botão WhatsApp */
-    gap: 8px !important;
-}
-.is-mobile #wpp-btn svg {
-    width: 28px !important;  /* ← MOBILE: tamanho do ícone WhatsApp */
-    height: 28px !important;
-}
-.is-mobile #wpp-btn span {
-    font-size: 14px !important; /* ← MOBILE: texto "Fale conosco" */
+    padding: 9px 15px !important; /* ← MOBILE: padding do botão WhatsApp */
 }
 
 /* ── HERO MOBILE ── */
 .is-mobile .hero {
-    height: 38vh !important;      /* ← MOBILE: altura do hero — como na foto */
-    min-height: 360px !important; /* ← MOBILE: altura mínima */
+    height: 45vh !important;       /* ← MOBILE: altura do hero */
+    min-height: 420px !important;  /* ← MOBILE: altura mínima */
     overflow: hidden !important;
 }
 .is-mobile .slide-bg {
-    background-position: center center !important; /* ← MOBILE: posição das imagens */
+    background-position: center center !important;
 }
 .is-mobile .hero-overlay {
-    justify-content: flex-end !important;  /* ← MOBILE: frase+form no FUNDO do hero */
-    align-items: stretch !important;
-    padding: 70px 12px 14px !important;   /* ← MOBILE: espaçamento interno do overlay */
+    justify-content: center !important; /* ← MOBILE: frase+form CENTRALIZADOS */
+    align-items: center !important;
+    padding: 20px 15px !important;      /* ← MOBILE: padding interno do overlay */
 }
 
 /* ── FRASE HERO MOBILE ── */
 .is-mobile .hero-text-block {
-    padding-bottom: 14px !important;
+    padding-bottom: 20px !important;
     width: 100% !important;
-    text-align: center !important;
 }
 .is-mobile .hero-title {
-    font-size: 48px !important;   /* ← MOBILE: tamanho da frase principal */
+    font-size: 32px !important;    /* ← MOBILE: tamanho da frase */
     white-space: normal !important;
     text-align: center !important;
-    line-height: 1.2 !important;
+    line-height: 1.1 !important;
     margin: 0 !important;
 }
 
 /* ── FORMULÁRIO MOBILE ── */
 .is-mobile #search-section {
     width: 100% !important;
+    display: flex;
+    justify-content: center;
 }
 .is-mobile .search-wrap {
-    background: rgba(0,4,16,.88) !important; /* ← MOBILE: fundo do form (mais escuro) */
-    border-radius: 16px !important;
-    border: 1px solid rgba(255,255,255,.15) !important;
-    overflow: hidden !important;
+    background: rgba(0,8,24,0.90) !important; /* ← MOBILE: fundo escuro do form */
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border-radius: 20px !important;
     width: 100% !important;
+    max-width: 440px !important;   /* ← MOBILE: largura máx do card form */
+    margin: 0 auto !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255,255,255,.15) !important;
 }
 
 /* Pills tipo de voo — mobile */
 .is-mobile .type-bar {
     justify-content: center !important;
-    padding: 10px 12px !important;
+    padding: 12px !important;
     gap: 8px !important;
-    background: #009C3B !important;  /* ← MOBILE: cor da barra de tipo de voo */
+    background: rgba(255,255,255,0.05) !important; /* ← MOBILE: fundo sutil dos pills */
     border-radius: 0 !important;
-    border-bottom: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
 }
-.is-mobile .type-bar-label { display: none !important; } /* Oculta label "Tipo de voo" */
+.is-mobile .type-bar-label { display: none !important; }
 .is-mobile .type-pill {
     flex: 1 !important;
     text-align: center !important;
-    padding: 12px 8px !important;
-    font-size: 18px !important;      /* ← MOBILE: tamanho dos pills */
-    border-color: rgba(255,255,255,.6) !important;
-    border-radius: 999px !important;
-    background: transparent !important;
-    color: #fff !important;
+    padding: 10px 5px !important;
+    font-size: 13px !important;    /* ← MOBILE: tamanho dos pills */
+    border-radius: 50px !important;
 }
 .is-mobile .type-pill.active {
     background: #fff !important;
@@ -431,28 +426,28 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 
 /* Corpo do form mobile */
 .is-mobile .search-body {
-    padding: 14px 12px 16px !important; /* ← MOBILE: espaçamento interno do form */
+    padding: 20px 15px !important; /* ← MOBILE: espaçamento interno */
 }
 
-/* Grid mobile: flex coluna com 2 colunas nas linhas */
+/* Grid mobile */
 .is-mobile .search-grid {
     display: flex !important;
     flex-direction: column !important;
-    gap: 10px !important;             /* ← MOBILE: espaço entre linhas do form */
+    gap: 12px !important;
     width: 100% !important;
 }
-/* Linha 1: Origem + Destino lado a lado */
+/* Linha 1: Origem + Destino */
 .is-mobile .sf-row-1 {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
+    gap: 10px !important;
     width: 100% !important;
 }
-/* Linha 2: Ida + Volta + Passageiros + Bagagem (2 colunas) */
+/* Linha 2: Ida + Volta + Passageiros + Bagagem */
 .is-mobile .sf-row-2 {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
+    gap: 10px !important;
     width: 100% !important;
 }
 /* Botão ocupa linha inteira */
@@ -464,33 +459,31 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 /* Labels e inputs mobile */
 .is-mobile .sf { display:flex !important; flex-direction:column !important; gap:5px !important; min-width:0 !important; }
 .is-mobile .sf-label {
-    font-size: 14px !important;      /* ← MOBILE: tamanho dos labels */
-    letter-spacing: .06em !important;
+    font-size: 11px !important;    /* ← MOBILE: tamanho dos labels */
 }
 .is-mobile .sf-input {
     width: 100% !important;
-    font-size: 18px !important;      /* ← MOBILE: tamanho do texto nos inputs */
-    padding: 14px 12px !important;   /* ← MOBILE: padding interno dos inputs */
-    border-radius: 10px !important;
+    font-size: 14px !important;    /* ← MOBILE: tamanho do texto nos inputs */
+    padding: 12px 10px !important; /* ← MOBILE: padding dos inputs */
+    border-radius: 12px !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
 }
 .is-mobile .drop-btn {
     width: 100% !important;
-    font-size: 16px !important;      /* ← MOBILE: tamanho do texto nos dropdowns */
-    padding: 14px 10px !important;
-    border-radius: 10px !important;
+    font-size: 14px !important;    /* ← MOBILE: tamanho dos dropdowns */
+    padding: 12px 10px !important;
+    border-radius: 12px !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
 }
-.is-mobile .drop-btn .lbl { font-size: 16px !important; }
 .is-mobile .search-submit {
-    height: 64px !important;         /* ← MOBILE: altura do botão buscar */
-    font-size: 20px !important;      /* ← MOBILE: tamanho do texto do botão */
+    height: 58px !important;       /* ← MOBILE: altura do botão buscar */
+    font-size: 18px !important;    /* ← MOBILE: tamanho do texto do botão */
     font-style: normal !important;
-    letter-spacing: .08em !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     width: 100% !important;
+    background: linear-gradient(135deg, #009C3B 0%, #00c44a 100%) !important;
 }
 
 /* ── AGENTE CHAT MOBILE ── */
@@ -753,6 +746,7 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
     <div class="text-center mb-12">
       <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">
+        Transformando eficiência em <span class="text-brand-green">economia real</span>
       </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
