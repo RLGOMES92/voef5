@@ -134,7 +134,6 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin:
 
 .search-wrap {
     width: 100%; border-radius: 18px; overflow: visible;
-    /* ✅ GRADIENTE AZUL → VERDE */
     background: linear-gradient(135deg, rgba(0,26,79,0.82) 0%, rgba(0,156,59,0.65) 100%);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -244,12 +243,8 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 
 /* ── MOBILE ── */
 .is-mobile .logo-wrap { height: 140px !important; width: 115px !important; }
-
-/* ✅ TAGLINE MAIOR NO MOBILE */
 .is-mobile #nav-tag { font-size: 34px !important; max-width: none !important; }
-
 .is-mobile #wpp-btn { padding: 9px 19px !important; }
-
 .is-mobile .hero { height: 38vh !important; min-height: 360px !important; overflow: hidden !important; }
 .is-mobile .slide-bg { background-position: center center !important; }
 .is-mobile .hero-overlay {
@@ -265,8 +260,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
     line-height: 1.1 !important;
     margin: 0 !important;
 }
-
-/* ✅ FORMULÁRIO MOBILE — tamanho da foto, largura total */
 .is-mobile #search-section { width: 100% !important; display: flex; justify-content: center; }
 .is-mobile .search-wrap {
     background: linear-gradient(135deg, rgba(0,26,79,0.95) 0%, rgba(31, 150, 76, 0.85) 100%) !important;
@@ -279,7 +272,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
     overflow: hidden !important;
     border: 1px solid rgba(255,255,255,.18) !important;
 }
-
 .is-mobile .type-bar {
     justify-content: center !important;
     padding: 12px !important;
@@ -297,14 +289,11 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
     border-radius: 50px !important;
 }
 .is-mobile .type-pill.active { background: #fff !important; border-color: #fff !important; color: #009C3B !important; }
-
 .is-mobile .search-body { padding: 20px 15px !important; }
-
 .is-mobile .search-grid { display: flex !important; flex-direction: column !important; gap: 12px !important; width: 100% !important; }
 .is-mobile .sf-row-1 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; width: 100% !important; }
 .is-mobile .sf-row-2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; width: 100% !important; }
 .is-mobile .sf-row-btn { display: block !important; width: 100% !important; }
-
 .is-mobile .sf { display:flex !important; flex-direction:column !important; gap:5px !important; min-width:0 !important; }
 .is-mobile .sf-label { font-size: 11px !important; }
 .is-mobile .sf-input { width: 100% !important; font-size: 14px !important; padding: 12px 10px !important; border-radius: 12px !important; min-width: 0 !important; box-sizing: border-box !important; }
@@ -353,7 +342,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 .suc-card { background:#fff; border-radius:24px; border:1px solid #f1f5f9; box-shadow:0 4px 20px rgba(0,0,0,.08); padding:24px; transition:transform .3s; display:flex; flex-direction:column; }
 .suc-card:hover { transform:translateY(-8px); }
 
-/* ✅ COMO FUNCIONA — mesmo estilo/tamanho dos Casos de Sucesso */
 .step-c {
     background:#fff;
     border-radius:24px;
@@ -520,7 +508,8 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <section class="py-16 bg-white">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <p class="text-blue-700 font-bold text-xs uppercase tracking-widest mb-2">Casos de Sucesso da Voe F5</p>
+      <!-- ✅ TÍTULO MAIOR — mesmo tamanho do "Como Funciona" -->
+      <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">Casos de Sucesso da Voe F5</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="suc-card border-b-4 border-brand-green">
@@ -554,7 +543,7 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
   </div>
 </section>
 
-<!-- ✅ COMO FUNCIONA — mesmo tamanho/estilo dos Casos de Sucesso -->
+<!-- COMO FUNCIONA -->
 <section class="py-16 bg-slate-50 border-t border-slate-200">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
@@ -600,20 +589,12 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <section id="depoimentos" class="testi-section">
   <div style="max-width:1280px;margin:0 auto;">
     <div class="testi-head">
-      <p class="eyebrow">O que dizem sobre nós</p>
+      <!-- ✅ TÍTULO MAIOR — mesmo tamanho do "Como Funciona" -->
+      <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">O que dizem sobre nós</h2>
     </div>
     <div class="swiper swiper-testi">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="height:auto;">
-          <div class="testi-card">
-            <div class="testi-avatar" style="background:linear-gradient(135deg,#009C3B,#001A4F);">M</div>
-            <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-            <div class="testi-quote">❝</div>
-            <p class="testi-text">Economizei quase R$ 900 na minha passagem para Lisboa! A equipe encontrou uma combinação de milhas que eu nunca teria achado sozinha. Atendimento impecável do início ao fim.</p>
-            <div class="testi-name">Mariana C.</div>
-            <div class="testi-role">São Paulo → Lisboa</div>
-          </div>
-        </div>
+        <!-- ✅ Mariana C. REMOVIDA — apenas os 3 restantes -->
         <div class="swiper-slide" style="height:auto;">
           <div class="testi-card">
             <div class="testi-avatar" style="background:linear-gradient(135deg,#001A4F,#009C3B);">D</div>
@@ -869,7 +850,6 @@ document.getElementById('chat-inp').addEventListener('keypress', function(e){ if
         var lw = document.querySelector('.logo-wrap');
         if(lw){ lw.style.height = css(58)+'px'; lw.style.width = css(68)+'px'; }
 
-        /* ✅ TAGLINE MAIOR */
         var nt = document.getElementById('nav-tag');
         if(nt){ nt.style.fontSize = css(16)+'px'; nt.style.maxWidth = 'none'; }
 
