@@ -2,7 +2,7 @@
 <html lang="pt-br" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1280">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Voe F5 Tour | Atualize a sua forma de viajar</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -23,7 +23,10 @@
     }
 </script>
 <script>
-if(window.screen.width <= 767){
+function isMobileDevice(){
+    return window.innerWidth <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+if(isMobileDevice()){
     document.documentElement.className += ' is-mobile';
 }
 </script>
@@ -374,7 +377,7 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
         <em class="tc"><span class="nd">Atualize a sua forma de </span><span class="ng">viajar</span></em>
       </span>
     </div>
-    <a href="https://wa.me/5511 994169706" target="_blank" id="wpp-btn">
+    <a href="https://wa.me/5511988908306" target="_blank" id="wpp-btn">
       <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#25D366"/><path d="M34.6 13.4A14.8 14.8 0 0 0 24 9C16.3 9 10 15.3 10 23c0 2.5.7 4.9 1.9 7L10 38l8.2-1.9c2 1.1 4.2 1.7 6.4 1.7h.1C32.5 37.8 38 31.5 38 24c0-3.9-1.5-7.6-4.2-10.4l.8-.2zM24 35.3h-.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4.1 1 1-4-.3-.4c-1.1-1.8-1.7-3.8-1.7-5.9 0-6.2 5-11.2 11.2-11.2 3 0 5.8 1.2 7.9 3.3 2.1 2.1 3.3 4.9 3.3 7.9-.1 6.2-5.1 11-11.2 11zm6.1-8.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.6-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3 0-.1-.3-.2-.6-.3z" fill="white"/></svg>
       <span>Fale conosco</span>
     </a>
@@ -508,7 +511,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <section class="py-16 bg-white">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <!-- ✅ TÍTULO MAIOR — mesmo tamanho do "Como Funciona" -->
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">Casos de Sucesso da Voe F5</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -589,12 +591,10 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <section id="depoimentos" class="testi-section">
   <div style="max-width:1280px;margin:0 auto;">
     <div class="testi-head">
-      <!-- ✅ TÍTULO MAIOR — mesmo tamanho do "Como Funciona" -->
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">O que dizem sobre nós</h2>
     </div>
     <div class="swiper swiper-testi">
       <div class="swiper-wrapper">
-        <!-- ✅ Mariana C. REMOVIDA — apenas os 3 restantes -->
         <div class="swiper-slide" style="height:auto;">
           <div class="testi-card">
             <div class="testi-avatar" style="background:linear-gradient(135deg,#001A4F,#009C3B);">D</div>
@@ -674,8 +674,11 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 
 <script>
 (function(){
+    function isMobileDevice(){
+        return window.innerWidth <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
     function applyMobile(){
-        var isMobile = window.screen.width <= 767;
+        var isMobile = isMobileDevice();
         document.documentElement.classList.toggle('is-mobile', isMobile);
         document.body.classList.toggle('is-mobile', isMobile);
     }
@@ -832,50 +835,53 @@ document.getElementById('chat-inp').addEventListener('keypress', function(e){ if
 
 /* ESCALA MOBILE */
 (function(){
+    function isMobileDevice(){
+        return window.innerWidth <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
     function scaleMobileUI(){
-        var isMobile = window.screen.width <= 767;
+        var isMobile = isMobileDevice();
         if(!isMobile) return;
-        var S = window.screen.width;
-        function css(physPx){ return Math.round(physPx * 1280 / S); }
+        var S = window.innerWidth;
+        function css(physPx){ return Math.round(physPx * 390 / S); }
 
         var hero = document.querySelector('.hero');
-        if(hero){ var heroH = Math.round(0.44 * window.screen.height * 1280 / S); hero.style.height = heroH+'px'; hero.style.minHeight = heroH+'px'; }
+        if(hero){ var heroH = Math.round(0.44 * window.innerHeight); hero.style.height = heroH+'px'; hero.style.minHeight = heroH+'px'; }
 
         var ho = document.querySelector('.hero-overlay');
-        if(ho){ ho.style.padding = css(110)+'px '+css(12)+'px '+css(16)+'px'; }
+        if(ho){ ho.style.padding = '110px 12px 16px'; }
 
         var ht = document.querySelector('.hero-title');
-        if(ht){ ht.style.fontSize = css(34)+'px'; ht.style.whiteSpace = 'normal'; ht.style.textAlign = 'center'; ht.style.lineHeight = '1.1'; }
+        if(ht){ ht.style.fontSize = '28px'; ht.style.whiteSpace = 'normal'; ht.style.textAlign = 'center'; ht.style.lineHeight = '1.1'; }
 
         var lw = document.querySelector('.logo-wrap');
-        if(lw){ lw.style.height = css(58)+'px'; lw.style.width = css(68)+'px'; }
+        if(lw){ lw.style.height = '58px'; lw.style.width = '68px'; }
 
         var nt = document.getElementById('nav-tag');
-        if(nt){ nt.style.fontSize = css(16)+'px'; nt.style.maxWidth = 'none'; }
+        if(nt){ nt.style.fontSize = '16px'; nt.style.maxWidth = 'none'; }
 
         var wb = document.getElementById('wpp-btn');
         if(wb){
-            wb.style.padding = css(9)+'px '+css(14)+'px';
-            var wbs = wb.querySelector('span'); if(wbs) wbs.style.fontSize = css(12)+'px';
-            var wbsvg = wb.querySelector('svg'); if(wbsvg){ wbsvg.style.width = css(22)+'px'; wbsvg.style.height = css(22)+'px'; }
+            wb.style.padding = '9px 14px';
+            var wbs = wb.querySelector('span'); if(wbs) wbs.style.fontSize = '12px';
+            var wbsvg = wb.querySelector('svg'); if(wbsvg){ wbsvg.style.width = '22px'; wbsvg.style.height = '22px'; }
         }
 
         var tb = document.querySelector('.type-bar');
-        if(tb){ tb.style.padding = css(11)+'px '+css(14)+'px'; }
-        document.querySelectorAll('.type-pill').forEach(function(el){ el.style.fontSize = css(12)+'px'; el.style.padding = css(9)+'px '+css(14)+'px'; el.style.borderRadius = css(999)+'px'; });
+        if(tb){ tb.style.padding = '11px 14px'; }
+        document.querySelectorAll('.type-pill').forEach(function(el){ el.style.fontSize = '12px'; el.style.padding = '9px 14px'; el.style.borderRadius = '999px'; });
 
         var sbody = document.querySelector('.search-body');
-        if(sbody){ sbody.style.padding = css(16)+'px '+css(14)+'px '+css(18)+'px'; }
+        if(sbody){ sbody.style.padding = '16px 14px 18px'; }
 
         var sg = document.querySelector('.search-grid');
-        if(sg){ sg.style.gap = css(10)+'px'; }
+        if(sg){ sg.style.gap = '10px'; }
 
-        document.querySelectorAll('.sf-label').forEach(function(el){ el.style.fontSize = css(11)+'px'; });
-        document.querySelectorAll('.sf-input').forEach(function(el){ el.style.fontSize = css(14)+'px'; el.style.padding = css(13)+'px '+css(11)+'px'; el.style.borderRadius = css(12)+'px'; });
-        document.querySelectorAll('.drop-btn').forEach(function(el){ el.style.fontSize = css(13)+'px'; el.style.padding = css(12)+'px '+css(10)+'px'; el.style.borderRadius = css(12)+'px'; });
+        document.querySelectorAll('.sf-label').forEach(function(el){ el.style.fontSize = '11px'; });
+        document.querySelectorAll('.sf-input').forEach(function(el){ el.style.fontSize = '14px'; el.style.padding = '13px 11px'; el.style.borderRadius = '12px'; });
+        document.querySelectorAll('.drop-btn').forEach(function(el){ el.style.fontSize = '13px'; el.style.padding = '12px 10px'; el.style.borderRadius = '12px'; });
 
         var sb = document.querySelector('.search-submit');
-        if(sb){ sb.style.height = css(52)+'px'; sb.style.fontSize = css(15)+'px'; sb.style.borderRadius = css(14)+'px'; }
+        if(sb){ sb.style.height = '52px'; sb.style.fontSize = '15px'; sb.style.borderRadius = '14px'; }
     }
     scaleMobileUI();
     document.addEventListener('DOMContentLoaded', scaleMobileUI);
@@ -883,13 +889,21 @@ document.getElementById('chat-inp').addEventListener('keypress', function(e){ if
 })();
 
 (function(){
+    function isMobileDevice(){
+        return window.innerWidth <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
     function scaleAgent(){
-        var isMobile = window.screen.width <= 767;
+        var isMobile = isMobileDevice();
         var agentBtn = document.getElementById('agent-btn'), agentSvg = document.getElementById('agent-svg');
-        var S = window.screen.width;
-        function css(p){ return Math.round(p * 1280 / S); }
-        if(isMobile){ agentBtn.style.width = css(60)+'px'; agentBtn.style.height = css(60)+'px'; agentBtn.style.borderRadius = css(20)+'px'; agentBtn.style.borderBottom = css(4)+'px solid #007a2e'; agentSvg.style.width = css(32)+'px'; agentSvg.style.height = css(32)+'px'; }
-        else { agentBtn.style.width = ''; agentBtn.style.height = ''; agentBtn.style.borderRadius = ''; agentBtn.style.borderBottom = ''; agentSvg.style.width = ''; agentSvg.style.height = ''; }
+        if(isMobile){
+            agentBtn.style.width = '60px'; agentBtn.style.height = '60px';
+            agentBtn.style.borderRadius = '20px'; agentBtn.style.borderBottom = '4px solid #007a2e';
+            agentSvg.style.width = '32px'; agentSvg.style.height = '32px';
+        } else {
+            agentBtn.style.width = ''; agentBtn.style.height = '';
+            agentBtn.style.borderRadius = ''; agentBtn.style.borderBottom = '';
+            agentSvg.style.width = ''; agentSvg.style.height = '';
+        }
     }
     scaleAgent();
     window.addEventListener('resize', scaleAgent);
