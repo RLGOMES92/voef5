@@ -23,7 +23,7 @@
     }
 </script>
 <script>
-if(window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent)){
+if(window.screen.width <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent)){
     document.documentElement.className += ' is-mobile';
 }
 </script>
@@ -668,7 +668,7 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <script>
 (function(){
     function applyMobile(){
-        var isMobile = window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        var isMobile = window.screen.width <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
         document.documentElement.classList.toggle('is-mobile', isMobile);
         document.body.classList.toggle('is-mobile', isMobile);
     }
@@ -826,9 +826,9 @@ document.getElementById('chat-inp').addEventListener('keypress', function(e){ if
 /* ESCALA MOBILE */
 (function(){
     function scaleMobileUI(){
-        var isMobile = window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        var isMobile = window.screen.width <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
         if(!isMobile) return;
-        var S = window.screen.width;
+        var S = Math.min(window.screen.width, window.screen.height);
         function css(physPx){ return Math.round(physPx * 1280 / S); }
 
         var hero = document.querySelector('.hero');
@@ -877,7 +877,7 @@ document.getElementById('chat-inp').addEventListener('keypress', function(e){ if
 
 (function(){
     function scaleAgent(){
-        var isMobile = window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        var isMobile = window.screen.width <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
         var agentBtn = document.getElementById('agent-btn'), agentSvg = document.getElementById('agent-svg');
         var S = window.screen.width;
         function css(p){ return Math.round(p * 1280 / S); }
