@@ -23,7 +23,7 @@
     }
 </script>
 <script>
-if(window.screen.width <= 767){
+if(window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent)){
     document.documentElement.className += ' is-mobile';
 }
 </script>
@@ -374,7 +374,7 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
         <em class="tc"><span class="nd">Atualize a sua forma de </span><span class="ng">viajar</span></em>
       </span>
     </div>
-    <a href="https://wa.me/5511 994169706" target="_blank" id="wpp-btn">
+    <a href="https://wa.me/5511994169706" target="_blank" id="wpp-btn">
       <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#25D366"/><path d="M34.6 13.4A14.8 14.8 0 0 0 24 9C16.3 9 10 15.3 10 23c0 2.5.7 4.9 1.9 7L10 38l8.2-1.9c2 1.1 4.2 1.7 6.4 1.7h.1C32.5 37.8 38 31.5 38 24c0-3.9-1.5-7.6-4.2-10.4l.8-.2zM24 35.3h-.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4.1 1 1-4-.3-.4c-1.1-1.8-1.7-3.8-1.7-5.9 0-6.2 5-11.2 11.2-11.2 3 0 5.8 1.2 7.9 3.3 2.1 2.1 3.3 4.9 3.3 7.9-.1 6.2-5.1 11-11.2 11zm6.1-8.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.6-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3 0-.1-.3-.2-.6-.3z" fill="white"/></svg>
       <span>Fale conosco</span>
     </a>
@@ -508,7 +508,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <section class="py-16 bg-white">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <!-- ✅ TÍTULO MAIOR — mesmo tamanho do "Como Funciona" -->
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">Casos de Sucesso da Voe F5</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -550,7 +549,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">Como Funciona</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
       <div class="step-c">
         <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Passo 1</div>
         <h3 class="font-extrabold text-lg italic uppercase mb-3 text-brand-blue">Você envia sua viagem</h3>
@@ -560,7 +558,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
           <p class="text-slate-500 text-sm font-medium leading-relaxed">Origem, destino, datas e quantidade de passageiros.</p>
         </div>
       </div>
-
       <div class="step-c">
         <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Passo 2</div>
         <h3 class="font-extrabold text-lg italic uppercase mb-3 text-brand-blue">Análise estratégica</h3>
@@ -570,7 +567,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
           <p class="text-slate-500 text-sm font-medium leading-relaxed">Buscamos as melhores opções com inteligência de milhas.</p>
         </div>
       </div>
-
       <div class="step-c">
         <div class="bg-green-100 text-brand-green text-xs font-black px-4 py-1 rounded-full w-fit mb-5 uppercase">Passo 3</div>
         <h3 class="font-extrabold text-lg italic uppercase mb-3 text-brand-blue">Receba a melhor opção</h3>
@@ -580,7 +576,6 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
           <p class="text-slate-500 text-sm font-medium leading-relaxed">Com economia real e suporte completo na emissão.</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -589,12 +584,10 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <section id="depoimentos" class="testi-section">
   <div style="max-width:1280px;margin:0 auto;">
     <div class="testi-head">
-      <!-- ✅ TÍTULO MAIOR — mesmo tamanho do "Como Funciona" -->
       <h2 class="text-3xl md:text-4xl font-black italic uppercase text-brand-blue">O que dizem sobre nós</h2>
     </div>
     <div class="swiper swiper-testi">
       <div class="swiper-wrapper">
-        <!-- ✅ Mariana C. REMOVIDA — apenas os 3 restantes -->
         <div class="swiper-slide" style="height:auto;">
           <div class="testi-card">
             <div class="testi-avatar" style="background:linear-gradient(135deg,#001A4F,#009C3B);">D</div>
@@ -675,7 +668,7 @@ input[type="date"].sf-input::-webkit-calendar-picker-indicator { filter:invert(1
 <script>
 (function(){
     function applyMobile(){
-        var isMobile = window.screen.width <= 767;
+        var isMobile = window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
         document.documentElement.classList.toggle('is-mobile', isMobile);
         document.body.classList.toggle('is-mobile', isMobile);
     }
@@ -774,7 +767,7 @@ function submitSearch(e){
     if(tipo === 'iv'){ var v = document.getElementById('f-volta').value; if(v) msg += 'Volta: ' + v + '\n'; }
     msg += 'Passageiros: ' + document.getElementById('lbl-pass').textContent + '\n';
     msg += 'Bagagem: ' + document.getElementById('lbl-bag').textContent;
-    window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+    window.open('https://wa.me/5511994169706?text=' + encodeURIComponent(msg), '_blank');
 }
 
 var chatOpen = false, chatStep = -1, chatD = {};
@@ -801,7 +794,7 @@ function escolherOpcao(tipo, valor){
                 btn.style.cssText = 'background:#25D366;color:white;padding:14px;border-radius:12px;border:none;cursor:pointer;font-weight:900;font-size:12px;width:100%;margin-top:8px;font-family:inherit;';
                 btn.onclick = function(){
                     var msg = 'Olá! Quero uma cotação:\nDestino: ' + chatD.destino + '\nTipo: ' + chatD.tipo + '\nDatas: ' + chatD.datas + '\nPassageiros: ' + chatD.passageiros + '\nClasse: ' + chatD.classe;
-                    window.open('https://wa.me/5511988908306?text=' + encodeURIComponent(msg), '_blank');
+                    window.open('https://wa.me/5511994169706?text=' + encodeURIComponent(msg), '_blank');
                 };
                 m.appendChild(btn); m.scrollTop = m.scrollHeight;
             }, 600);
@@ -833,7 +826,7 @@ document.getElementById('chat-inp').addEventListener('keypress', function(e){ if
 /* ESCALA MOBILE */
 (function(){
     function scaleMobileUI(){
-        var isMobile = window.screen.width <= 767;
+        var isMobile = window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
         if(!isMobile) return;
         var S = window.screen.width;
         function css(physPx){ return Math.round(physPx * 1280 / S); }
@@ -884,7 +877,7 @@ document.getElementById('chat-inp').addEventListener('keypress', function(e){ if
 
 (function(){
     function scaleAgent(){
-        var isMobile = window.screen.width <= 767;
+        var isMobile = window.screen.width <= 767 || window.screen.height <= 767 || /iPhone|iPad|iPod/i.test(navigator.userAgent);
         var agentBtn = document.getElementById('agent-btn'), agentSvg = document.getElementById('agent-svg');
         var S = window.screen.width;
         function css(p){ return Math.round(p * 1280 / S); }
