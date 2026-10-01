@@ -5,43 +5,37 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Swiper](https://img.shields.io/badge/Swiper-6332F6?style=for-the-badge&logo=swiper&logoColor=white)](https://swiperjs.com/)
 
-## 🎯 Visão geral
+## Visão geral
 
-Landing page comercial desenvolvida para uma marca de turismo, com foco em apresentação visual, experiência mobile e comunicação de uma proposta de valor.
+Projeto comercial desenvolvido para uma empresa de turismo, com foco em **apresentação de ofertas, experiência mobile e geração de contatos**.
 
-## 💼 Problema de negócio
+## Problema de negócio
 
-Negócios de turismo precisam apresentar destinos e ofertas de maneira visualmente atraente sem perder velocidade, clareza e capacidade de gerar contato.
+Uma empresa de turismo precisa transformar atenção em contato: apresentar destinos de forma visual, comunicar a proposta rapidamente e conduzir o visitante para uma ação.
 
-### Solução
+## Solução desenvolvida
 
-Uma landing page responsiva com seções comerciais, carrosséis e identidade visual personalizada, estruturada para orientar o visitante pela experiência da marca.
+Uma landing page responsiva com identidade visual personalizada, hero comercial, seções de ofertas e carrosséis. A estrutura foi pensada para servir como base para campanhas, aquisição de leads e páginas comerciais.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-- Hero comercial
-- Seções de destinos/ofertas
+- Hero comercial com CTA
+- Seções de destinos e ofertas
 - Carrosséis com Swiper
-- Layout responsivo
+- Layout responsivo e mobile-first
 - Identidade visual personalizada
-- Componentes adaptados para mobile
-- Estrutura pronta para CTAs e geração de leads
+- Estrutura preparada para geração de leads
+- Domínio personalizado via CNAME
 
-## 🏗️ Arquitetura
+## Stack
 
-Frontend estático:
+- HTML5
+- Tailwind CSS
+- JavaScript
+- Swiper
+- Git/GitHub
 
-```
-index.html
-├── Estrutura da landing page
-├── Tailwind CSS
-├── JavaScript
-├── Swiper
-└── Assets
-    └── img/
-```
-
-## 📁 Estrutura
+## Estrutura
 
 ```
 voef5/
@@ -53,30 +47,23 @@ voef5/
 └── README.md
 ```
 
-## 🚀 Execução
-
-Requer apenas um navegador e, opcionalmente, um servidor HTTP local.
+## Execução local
 
 ```bash
 git clone https://github.com/RLGOMES92/voef5.git
 cd voef5
-```
-
-Abra `index.html` ou execute um servidor local, por exemplo:
-
-```bash
 python -m http.server 8000
 ```
 
-Acesse `http://localhost:8000`.
+Depois, acesse `http://localhost:8000`.
 
-## 🌐 Domínio
+## Aplicação comercial
 
-O arquivo `CNAME` mantém a configuração de domínio personalizado do projeto.
+A arquitetura pode ser adaptada para **turismo, imobiliárias, eventos, restaurantes, prestadores de serviços e campanhas de aquisição**.
 
-## 📌 Aplicação comercial
+## Projeto publicado
 
-A estrutura pode ser reutilizada como base para landing pages de turismo, imobiliárias, eventos, serviços locais e campanhas de aquisição.
+**Voe F5 Tour:** https://voef5.com.br/
 
 ---
 
